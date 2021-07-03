@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="icones">
+    <file>Emoji-Seta-PNG-1024x1024.png</file>
+    <file>home.png</file>
+    <file>logo.png</file>
+    <file>P.png</file>
+  </qresource>
+</RCC>
