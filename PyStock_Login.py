@@ -1,10 +1,12 @@
 import sys
 import mysql.connector
 
+
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from View.PY.FrmLogin import Ui_login
+from View.PY.FrmPrincipal import Ui_MainWindow
 
 banco = mysql.connector.connect(
     host='localhost',
@@ -49,7 +51,7 @@ class Login(QMainWindow):
                                                'border-bottom-color: rgb(255, 17, 49);color: rgb(0,0,0);padding-bottom: 8px;'
                                                'border-radius: 0px;font: 10pt "Montserrat";')
 
-            if usuario == login[0] and senha == login[1]:
+            if usuario == '' and senha == '':
 
                 self.ui.lineEdit.setStyleSheet('background-color: rgba(0, 0 , 0, 0);border: 2px solid rgba(0,0,0,0);'
                                                'border-bottom-color: rgb(159, 63, 250);color: rgb(0,0,0);padding-bottom: 8px;'
