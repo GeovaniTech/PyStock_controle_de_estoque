@@ -1,8 +1,22 @@
 <RCC>
   <qresource prefix="icones">
+    <file>onibus.png</file>
+    <file>bloquear senha hover.png</file>
+    <file>bloquear senha.png</file>
+    <file>ver senha hover.png</file>
+    <file>ver senha.png</file>
+    <file>undraw_secure_login_pdn4.png</file>
+    <file>colaboradores.png</file>
+    <file>pedidos2.png</file>
+    <file>sair.png</file>
+    <file>Produtos.png</file>
+    <file>pedidos.png</file>
+    <file>pedidos.png</file>
+    <file>add_users.png</file>
+    <file>engrenagem_ico.png</file>
     <file>Emoji-Seta-PNG-1024x1024.png</file>
     <file>home.png</file>
-    <file>logo.png</file>
     <file>P.png</file>
+    <file>logo.png</file>
   </qresource>
 </RCC>

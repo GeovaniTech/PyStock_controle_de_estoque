@@ -47,6 +47,9 @@
       <height>611</height>
      </size>
     </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
     <widget class="QWidget" name="Admin">
      <widget class="QFrame" name="frame">
       <property name="geometry">
@@ -66,7 +69,7 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="btn_home">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -99,6 +102,138 @@ border: solid;
         </size>
        </property>
       </widget>
+      <widget class="QPushButton" name="btn_configs">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>560</y>
+         <width>61</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+border: solid;
+}
+
+QPushButton:hover{
+border: solid;
+	background-color: rgb(159, 103, 250);
+}</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../QRC/file_principal_rc.qrc">
+         <normaloff>:/icones/engrenagem_ico.png</normaloff>:/icones/engrenagem_ico.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>30</width>
+         <height>30</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_colaboradores">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>50</y>
+         <width>61</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+border: solid;
+}
+
+QPushButton:hover{
+border: solid;
+	background-color: rgb(159, 103, 250);
+}</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../QRC/file_principal_rc.qrc">
+         <normaloff>:/icones/add_users.png</normaloff>:/icones/add_users.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>50</width>
+         <height>35</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_fornecedores">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>100</y>
+         <width>61</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+border: solid;
+}
+
+QPushButton:hover{
+border: solid;
+	background-color: rgb(159, 103, 250);
+}</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../QRC/file_principal_rc.qrc">
+         <normaloff>:/icones/pedidos.png</normaloff>:/icones/pedidos.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>50</width>
+         <height>40</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_pedidos">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>150</y>
+         <width>61</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+border: solid;
+}
+
+QPushButton:hover{
+border: solid;
+	background-color: rgb(159, 103, 250);
+}</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../QRC/file_principal_rc.qrc">
+         <normaloff>:/icones/pedidos2.png</normaloff>:/icones/pedidos2.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>65</width>
+         <height>40</height>
+        </size>
+       </property>
+      </widget>
      </widget>
      <widget class="QFrame" name="frame_2">
       <property name="geometry">
@@ -118,10 +253,10 @@ border: solid;
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="btn_voltar">
        <property name="geometry">
         <rect>
-         <x>910</x>
+         <x>970</x>
          <y>0</y>
          <width>61</width>
          <height>51</height>
@@ -142,56 +277,400 @@ border: solid;
        </property>
        <property name="icon">
         <iconset resource="../QRC/file_principal_rc.qrc">
-         <normaloff>:/icones/Emoji-Seta-PNG-1024x1024.png</normaloff>:/icones/Emoji-Seta-PNG-1024x1024.png</iconset>
+         <normaloff>:/icones/sair.png</normaloff>:/icones/sair.png</iconset>
        </property>
        <property name="iconSize">
         <size>
-         <width>30</width>
-         <height>30</height>
+         <width>70</width>
+         <height>200</height>
         </size>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QLabel" name="label_2">
        <property name="geometry">
         <rect>
-         <x>970</x>
-         <y>0</y>
-         <width>61</width>
-         <height>51</height>
+         <x>10</x>
+         <y>10</y>
+         <width>151</width>
+         <height>31</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">QPushButton {
-border: solid;
-font: 18pt &quot;Montserrat&quot;;
-color: white;
-}
-
-QPushButton:hover{
-background-color: rgb(255, 17, 49);
-
-}</string>
+        <string notr="true">color: white;
+font: 12pt &quot;Montserrat&quot;;</string>
        </property>
        <property name="text">
-        <string>X</string>
+        <string>Seja bem-vindo(a)</string>
        </property>
       </widget>
      </widget>
-     <widget class="QLabel" name="label">
+     <widget class="QStackedWidget" name="stackedWidget">
       <property name="geometry">
        <rect>
-        <x>330</x>
-        <y>90</y>
-        <width>471</width>
-        <height>461</height>
+        <x>60</x>
+        <y>50</y>
+        <width>1031</width>
+        <height>561</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-image: url(:/icones/logo.png);</string>
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
       </property>
-      <property name="text">
-       <string/>
+      <property name="currentIndex">
+       <number>0</number>
       </property>
+      <widget class="QWidget" name="page">
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>260</x>
+          <y>30</y>
+          <width>481</width>
+          <height>461</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-image: url(:/icones/logo.png);</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QStackedWidget" name="funcoes">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>1031</width>
+          <height>561</height>
+         </rect>
+        </property>
+        <widget class="QWidget" name="home">
+         <widget class="QLabel" name="label_3">
+          <property name="geometry">
+           <rect>
+            <x>50</x>
+            <y>40</y>
+            <width>481</width>
+            <height>461</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-image: url(:/icones/logo.png);</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+         <widget class="QFrame" name="frame_3">
+          <property name="geometry">
+           <rect>
+            <x>560</x>
+            <y>40</y>
+            <width>441</width>
+            <height>481</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: #9f3ffa;
+border-radius: 5px;</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <widget class="QScrollArea" name="scrollArea">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>441</width>
+             <height>481</height>
+            </rect>
+           </property>
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
+           <widget class="QWidget" name="scrollAreaWidgetContents">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>441</width>
+              <height>481</height>
+             </rect>
+            </property>
+            <widget class="QLabel" name="label_6">
+             <property name="geometry">
+              <rect>
+               <x>107</x>
+               <y>20</y>
+               <width>221</width>
+               <height>41</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: white;
+font: 20pt &quot;Montserrat&quot;;</string>
+             </property>
+             <property name="text">
+              <string>Últimas Notícias</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_7">
+             <property name="geometry">
+              <rect>
+               <x>5</x>
+               <y>90</y>
+               <width>71</width>
+               <height>71</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap resource="../QRC/file_principal_rc.qrc">:/icones/onibus.png</pixmap>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_8">
+             <property name="geometry">
+              <rect>
+               <x>80</x>
+               <y>100</y>
+               <width>341</width>
+               <height>51</height>
+              </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: white;
+font: 10pt &quot;Montserrat&quot;;</string>
+             </property>
+             <property name="text">
+              <string>Não recebeu seu passe? Entre em contato com o rh
+via e-mail ou faça um chamado.</string>
+             </property>
+            </widget>
+           </widget>
+          </widget>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="page_4"/>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="page_2">
+       <widget class="QLabel" name="label_4">
+        <property name="geometry">
+         <rect>
+          <x>250</x>
+          <y>30</y>
+          <width>551</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 30pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>Cadastro de Colaboradores</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="radioButton">
+        <property name="geometry">
+         <rect>
+          <x>750</x>
+          <y>368</y>
+          <width>82</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">outline: 0;</string>
+        </property>
+        <property name="text">
+         <string>Admin</string>
+        </property>
+       </widget>
+       <widget class="QRadioButton" name="radioButton_2">
+        <property name="geometry">
+         <rect>
+          <x>640</x>
+          <y>368</y>
+          <width>82</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(0,0,0);
+border: solid rgb(159, 63, 250);</string>
+        </property>
+        <property name="text">
+         <string>Colaborador</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_4">
+        <property name="geometry">
+         <rect>
+          <x>640</x>
+          <y>160</y>
+          <width>271</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="placeholderText">
+         <string>Nome Completo</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_5">
+        <property name="geometry">
+         <rect>
+          <x>640</x>
+          <y>230</y>
+          <width>271</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Login</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lineEdit_6">
+        <property name="geometry">
+         <rect>
+          <x>640</x>
+          <y>300</y>
+          <width>271</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
+        <property name="placeholderText">
+         <string>Senha</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="geometry">
+         <rect>
+          <x>640</x>
+          <y>400</y>
+          <width>271</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Efetuar Cadastro</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_5">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>110</y>
+          <width>531</width>
+          <height>401</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="../QRC/file_principal_rc.qrc">:/icones/undraw_secure_login_pdn4.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton">
+        <property name="geometry">
+         <rect>
+          <x>920</x>
+          <y>336</y>
+          <width>30</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+	background-image: url(:/icones/ver senha.png);
+	border: 0px;
+	outline: 0;
+}
+
+QPushButton:hover {
+	background-image: url(:/icones/ver senha hover.png);
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <zorder>label_5</zorder>
+       <zorder>label_4</zorder>
+       <zorder>radioButton</zorder>
+       <zorder>radioButton_2</zorder>
+       <zorder>lineEdit_4</zorder>
+       <zorder>lineEdit_5</zorder>
+       <zorder>lineEdit_6</zorder>
+       <zorder>pushButton_2</zorder>
+       <zorder>pushButton</zorder>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="Colaborador"/>
@@ -200,6 +679,7 @@ background-color: rgb(255, 17, 49);
  </widget>
  <resources>
   <include location="../QRC/file_principal_rc.qrc"/>
+  <include location="../../../../.designer/QRC/file_principal_rc.qrc"/>
  </resources>
  <connections/>
 </ui>
