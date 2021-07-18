@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="icones">
+    <file>logo_branco.png</file>
+    <file>sugestões.png</file>
+    <file>ambiente.png</file>
     <file>onibus.png</file>
     <file>bloquear senha hover.png</file>
     <file>bloquear senha.png</file>
