@@ -1,3 +1,4 @@
+print('teste commit')
 import os
 import sys
 import mysql.connector
