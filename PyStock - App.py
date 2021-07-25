@@ -1,7 +1,7 @@
 import os
 import sys
 import mysql.connector
-import runpy
+
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
