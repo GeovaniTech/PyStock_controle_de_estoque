@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CadastroForncedores</class>
- <widget class="QMainWindow" name="CadastroForncedores">
+ <class>AlterarForncedores</class>
+ <widget class="QMainWindow" name="AlterarForncedores">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Cadastrar Fornecedores</string>
+   <string>Alterar Fornecedores</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -61,7 +61,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
      <string>Nome</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btn_cadastrar">
+   <widget class="QPushButton" name="btn_alterar">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -98,7 +98,7 @@ QPushButton:hover {
 </string>
     </property>
     <property name="text">
-     <string>Finalizar Cadastro</string>
+     <string>Finalizar Alterações</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="line_endereco">
@@ -118,9 +118,6 @@ color: rgb(0,0,0);
 padding-bottom: 8px;
 border-radius: 0px;
 font: 10pt &quot;Montserrat&quot;;</string>
-    </property>
-    <property name="cursorPosition">
-     <number>0</number>
     </property>
     <property name="placeholderText">
      <string>Endereço</string>
@@ -143,18 +140,6 @@ color: rgb(0,0,0);
 padding-bottom: 8px;
 border-radius: 0px;
 font: 10pt &quot;Montserrat&quot;;</string>
-    </property>
-    <property name="inputMethodHints">
-     <set>Qt::ImhNone</set>
-    </property>
-    <property name="inputMask">
-     <string/>
-    </property>
-    <property name="dragEnabled">
-     <bool>false</bool>
-    </property>
-    <property name="readOnly">
-     <bool>false</bool>
     </property>
     <property name="placeholderText">
      <string>(00) 0 0000-0000</string>
