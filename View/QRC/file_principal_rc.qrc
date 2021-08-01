@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icones">
+    <file>btn_produtos.png</file>
+    <file>P em png.png</file>
     <file>logo_branco.png</file>
     <file>sugestões.png</file>
     <file>ambiente.png</file>

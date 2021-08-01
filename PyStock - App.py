@@ -8,7 +8,8 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from View.PY.FrmLogin import Ui_login
-from View.PY.FrmPrincipal import Ui_MainWindow
+from View.PY.FrmAdmin import Ui_FrmAdmin
+from View.PY.FrmColaborador import Ui_FrmColaborador
 
 banco = mysql.connector.connect(
     host='localhost',
@@ -69,20 +70,30 @@ class Login(QMainWindow):
                     print('Seu nivel de Login é: Admin')
 
                     window.close()
-                    window = Frmprincipal()
+                    window = FrmAdmin()
                     window.show()
 
                 if login[2] == 'colaborador':
-                    print('Seu nivel de Login é: Colaborador')
+                    window.close()
+                    window = FrmColaborador()
+                    window.show()
                 break
 
 
-class Frmprincipal(QMainWindow):
+class FrmAdmin(QMainWindow):
 
     def __init__(self):
         QMainWindow.__init__(self)
 
-        self.ui = Ui_MainWindow()
+        self.ui = Ui_FrmAdmin()
+        self.ui.setupUi(self)
+
+
+class FrmColaborador(QMainWindow):
+    def __init__(self):
+        QMainWindow.__init__(self)
+
+        self.ui = Ui_FrmColaborador()
         self.ui.setupUi(self)
 
 

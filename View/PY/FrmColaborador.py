@@ -11,7 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_FrmAdmin(object):
+class Ui_FrmColaborador(object):
     def setupUi(self, FrmAdmin):
         FrmAdmin.setObjectName("FrmAdmin")
         FrmAdmin.resize(1091, 611)
@@ -1258,14 +1258,14 @@ class Ui_FrmAdmin(object):
         self.line_qtde_alterar.setPlaceholderText(_translate("FrmAdmin", "Quantidade Estoque"))
         self.line_codigo_alterar.setPlaceholderText(_translate("FrmAdmin", "Cód produto"))
         self.line_decricao_alterar.setPlaceholderText(_translate("FrmAdmin", "Descrição"))
-import file_principal_rc_rc
+from View.PY import file_principal_rc
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     FrmAdmin = QtWidgets.QMainWindow()
-    ui = Ui_FrmAdmin()
+    ui = Ui_FrmColaborador()
     ui.setupUi(FrmAdmin)
     FrmAdmin.show()
     sys.exit(app.exec_())

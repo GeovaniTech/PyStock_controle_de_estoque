@@ -18,7 +18,7 @@ class Ui_FrmAdmin(object):
         FrmAdmin.setMinimumSize(QtCore.QSize(1091, 611))
         FrmAdmin.setMaximumSize(QtCore.QSize(1091, 611))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../Imagens/P em png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/icones/P em png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         FrmAdmin.setWindowIcon(icon)
         FrmAdmin.setIconSize(QtCore.QSize(50, 50))
         self.centralwidget = QtWidgets.QWidget(FrmAdmin)
@@ -112,7 +112,7 @@ class Ui_FrmAdmin(object):
 "}")
         self.btn_produtos.setText("")
         icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap("../Imagens/btn_produtos.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon5.addPixmap(QtGui.QPixmap(":/icones/btn_produtos.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_produtos.setIcon(icon5)
         self.btn_produtos.setIconSize(QtCore.QSize(60, 45))
         self.btn_produtos.setObjectName("btn_produtos")
@@ -1274,7 +1274,7 @@ class Ui_FrmAdmin(object):
         self.line_qtde_alterar.setPlaceholderText(_translate("FrmAdmin", "Quantidade Estoque"))
         self.line_codigo_alterar.setPlaceholderText(_translate("FrmAdmin", "Cód produto"))
         self.line_decricao_alterar.setPlaceholderText(_translate("FrmAdmin", "Descrição"))
-import file_principal_rc_rc
+from View.PY import file_principal_rc
 
 
 if __name__ == "__main__":

@@ -26,8 +26,8 @@
    <string>PyStock</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>../Imagens/P em png.png</normaloff>../Imagens/P em png.png</iconset>
+   <iconset resource="../QRC/file_principal_rc.qrc">
+    <normaloff>:/icones/P em png.png</normaloff>:/icones/P em png.png</iconset>
   </property>
   <property name="iconSize">
    <size>
@@ -234,8 +234,8 @@ border: solid;
         <string/>
        </property>
        <property name="icon">
-        <iconset>
-         <normaloff>../Imagens/btn_produtos.png</normaloff>../Imagens/btn_produtos.png</iconset>
+        <iconset resource="../QRC/file_principal_rc.qrc">
+         <normaloff>:/icones/btn_produtos.png</normaloff>:/icones/btn_produtos.png</iconset>
        </property>
        <property name="iconSize">
         <size>
