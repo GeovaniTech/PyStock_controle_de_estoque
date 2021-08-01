@@ -18,7 +18,7 @@ class Ui_FrmColaborador(object):
         FrmAdmin.setMinimumSize(QtCore.QSize(1091, 611))
         FrmAdmin.setMaximumSize(QtCore.QSize(1091, 611))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../Imagens/P em png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/icones/P em png.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         FrmAdmin.setWindowIcon(icon)
         FrmAdmin.setIconSize(QtCore.QSize(50, 50))
         self.centralwidget = QtWidgets.QWidget(FrmAdmin)
@@ -112,7 +112,7 @@ class Ui_FrmColaborador(object):
 "}")
         self.btn_produtos.setText("")
         icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap("../Imagens/btn_produtos.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon5.addPixmap(QtGui.QPixmap(":/icones/btn_produtos.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_produtos.setIcon(icon5)
         self.btn_produtos.setIconSize(QtCore.QSize(60, 45))
         self.btn_produtos.setObjectName("btn_produtos")
@@ -549,7 +549,7 @@ class Ui_FrmColaborador(object):
 "")
         self.btn_pesquisar.setText("")
         icon7 = QtGui.QIcon()
-        icon7.addPixmap(QtGui.QPixmap("../Imagens/lupa.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon7.addPixmap(QtGui.QPixmap(":/icones/lupa.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_pesquisar.setIcon(icon7)
         self.btn_pesquisar.setIconSize(QtCore.QSize(25, 25))
         self.btn_pesquisar.setObjectName("btn_pesquisar")
@@ -1137,7 +1137,7 @@ class Ui_FrmColaborador(object):
 
         self.retranslateUi(FrmAdmin)
         self.TelasPrincipais.setCurrentIndex(0)
-        self.Telas_do_menu.setCurrentIndex(6)
+        self.Telas_do_menu.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(FrmAdmin)
 
     def retranslateUi(self, FrmAdmin):

@@ -1,4 +1,3 @@
-
 import os
 import sys
 import mysql.connector
@@ -22,7 +21,7 @@ banco = mysql.connector.connect(
 cursor = banco.cursor()
 
 
-class Login(QMainWindow):
+class FrmLogin(QMainWindow):
 
     def __init__(self):
         QMainWindow.__init__(self)
@@ -88,6 +87,33 @@ class FrmAdmin(QMainWindow):
         self.ui = Ui_FrmAdmin()
         self.ui.setupUi(self)
 
+        ## Clique dos botões
+
+        # Home
+        self.ui.btn_home.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_home))
+
+        # Cadastro de Colaboradores
+        self.ui.btn_colaboradores.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_colaboradores))
+
+        # Fornecedores
+        self.ui.btn_fornecedores.clicked.connect(
+            lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_fornecedores))
+
+        # Vendas
+        self.ui.btn_vendas.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_vendas))
+
+        # Produtos
+        self.ui.btn_produtos.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_produtos))
+
+        # Voltar
+        self.ui.btn_voltar.clicked.connect(self.Voltar)
+
+    def Voltar(self):
+        global window
+
+        window.close()
+        window = FrmLogin()
+        window.show()
 
 class FrmColaborador(QMainWindow):
     def __init__(self):
@@ -96,9 +122,33 @@ class FrmColaborador(QMainWindow):
         self.ui = Ui_FrmColaborador()
         self.ui.setupUi(self)
 
+        ## Clique dos botões
+
+        # Home
+        self.ui.btn_home.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_home))
+
+        # Fornecedores
+        self.ui.btn_fornecedores.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_fornecedores))
+
+        # Vendas
+        self.ui.btn_vendas.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_vendas))
+
+        # Produtos
+        self.ui.btn_produtos.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_produtos))
+
+        # Voltar
+        self.ui.btn_voltar.clicked.connect(self.Voltar)
+
+    def Voltar(self):
+        global window
+
+        window.close()
+        window = FrmLogin()
+        window.show()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = Login()
+    window = FrmLogin()
     window.show()
     sys.exit(app.exec_())

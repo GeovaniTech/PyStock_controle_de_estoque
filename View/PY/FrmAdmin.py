@@ -565,7 +565,7 @@ class Ui_FrmAdmin(object):
 "")
         self.btn_pesquisar.setText("")
         icon8 = QtGui.QIcon()
-        icon8.addPixmap(QtGui.QPixmap("../Imagens/lupa.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon8.addPixmap(QtGui.QPixmap(":/icones/lupa.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_pesquisar.setIcon(icon8)
         self.btn_pesquisar.setIconSize(QtCore.QSize(25, 25))
         self.btn_pesquisar.setObjectName("btn_pesquisar")
@@ -1153,7 +1153,7 @@ class Ui_FrmAdmin(object):
 
         self.retranslateUi(FrmAdmin)
         self.TelasPrincipais.setCurrentIndex(0)
-        self.Telas_do_menu.setCurrentIndex(6)
+        self.Telas_do_menu.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(FrmAdmin)
 
     def retranslateUi(self, FrmAdmin):

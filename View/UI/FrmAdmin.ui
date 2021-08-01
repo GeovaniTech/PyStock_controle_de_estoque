@@ -366,7 +366,7 @@ font: 12pt &quot;Montserrat&quot;;</string>
        <enum>QFrame::Sunken</enum>
       </property>
       <property name="currentIndex">
-       <number>6</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="pg_home">
        <widget class="QLabel" name="label">
@@ -1243,8 +1243,8 @@ QPushButton:hover {
          <string/>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>../Imagens/lupa.png</normaloff>../Imagens/lupa.png</iconset>
+         <iconset resource="../QRC/file_principal_rc.qrc">
+          <normaloff>:/icones/lupa.png</normaloff>:/icones/lupa.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -1790,8 +1790,8 @@ QPushButton:hover {
          <string/>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>../Imagens/lupa.png</normaloff>../Imagens/lupa.png</iconset>
+         <iconset resource="../QRC/file_principal_rc.qrc">
+          <normaloff>:/icones/lupa.png</normaloff>:/icones/lupa.png</iconset>
         </property>
         <property name="iconSize">
          <size>
