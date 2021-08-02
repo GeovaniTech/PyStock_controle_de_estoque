@@ -87,6 +87,9 @@ class FrmAdmin(QMainWindow):
         self.ui = Ui_FrmAdmin()
         self.ui.setupUi(self)
 
+        # Iniciando na página inicial
+        self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_home)
+
         ## Clique dos botões
 
         # Home
@@ -115,12 +118,17 @@ class FrmAdmin(QMainWindow):
         window = FrmLogin()
         window.show()
 
+
 class FrmColaborador(QMainWindow):
+
     def __init__(self):
         QMainWindow.__init__(self)
 
         self.ui = Ui_FrmColaborador()
         self.ui.setupUi(self)
+
+        # Iniciando na página inicial
+        self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_home)
 
         ## Clique dos botões
 
