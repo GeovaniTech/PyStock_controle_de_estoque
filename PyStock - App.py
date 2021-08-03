@@ -1,11 +1,13 @@
 import os
 import sys
+from PyQt5 import QtWidgets
 import mysql.connector
 
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QMessageBox
 from View.PY.FrmLogin import Ui_login
 from View.PY.FrmAdmin import Ui_FrmAdmin
 from View.PY.FrmColaborador import Ui_FrmColaborador
@@ -19,8 +21,8 @@ banco = mysql.connector.connect(
 )
 
 cursor = banco.cursor()
-
-
+cursor.execute('DELETE FROM login WHERE usuario != "Py001"')
+banco.commit()
 class FrmLogin(QMainWindow):
 
     def __init__(self):
@@ -97,7 +99,8 @@ class FrmAdmin(QMainWindow):
 
         # Cadastro de Colaboradores
         self.ui.btn_colaboradores.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_colaboradores))
-
+        self.ui.btn_cadastro.clicked.connect(self.CadastroColaborador)
+        
         # Fornecedores
         self.ui.btn_fornecedores.clicked.connect(
             lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_fornecedores))
@@ -118,6 +121,57 @@ class FrmAdmin(QMainWindow):
         window = FrmLogin()
         window.show()
 
+    def CadastroColaborador(self):
+        
+        nome = self.ui.line_nome
+        login = self.ui.line_login
+        senha = self.ui.line_senha
+
+        if nome.text() == "":
+            nome.setStyleSheet('background-color: rgba(0, 0 , 0, 0);border: 2px solid rgba(0,0,0,0);'
+                                            'border-bottom-color: rgb(255, 17, 49);color: rgb(0,0,0);padding-bottom: 8px;'
+                                            'border-radius: 0px;font: 10pt "Montserrat";')
+        if login.text() == "":
+            login.setStyleSheet('background-color: rgba(0, 0 , 0, 0);border: 2px solid rgba(0,0,0,0);'
+                                            'border-bottom-color: rgb(255, 17, 49);color: rgb(0,0,0);padding-bottom: 8px;'
+                                            'border-radius: 0px;font: 10pt "Montserrat";')
+        
+        if senha.text() == "":
+            senha.setStyleSheet('background-color: rgba(0, 0 , 0, 0);border: 2px solid rgba(0,0,0,0);'
+                                                'border-bottom-color: rgb(255, 17, 49);color: rgb(0,0,0);padding-bottom: 8px;'
+                                                'border-radius: 0px;font: 10pt "Montserrat";')
+        
+        elif self.ui.radio_colaborador.isChecked() == False and self.ui.radio_admin.isChecked() == False:
+            self.popup()
+        
+        elif nome.text() != "" and login.text() != "" and senha.text() != "":
+            cursor.execute('SELECT * FROM login')
+            banco_login = cursor.fetchall()
+
+            for user in banco_login:
+
+                if user[0] != login.text():
+
+                    if self.ui.radio_admin.isChecked() == True:
+                        comando_SQL = 'INSERT INTO login (usuario, senha, nivel, nome) VALUES (%s,%s,%s,%s)'
+                        dados = (f"{login.text()}", f"{senha.text()}", "admin", f"{nome.text()}")
+                        cursor.execute(comando_SQL, dados)
+                        banco.commit()
+
+                    if self.ui.radio_colaborador.isChecked() == True:
+                        comando_SQL = 'INSERT INTO login (usuario, senha, nivel, nome) VALUES (%s,%s,%s,%s)'
+                        dados = (f"{login.text()}", f"{senha.text()}", "colaborador", f"{nome.text()}")
+                        cursor.execute(comando_SQL, dados)
+                        banco.commit()
+
+
+    def popup(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Erro - Cadastro de Colaboradores")
+        msg.setText('Selecione um Nível de Usuário!')
+
+        x = msg.exec_()
+            
 
 class FrmColaborador(QMainWindow):
 
