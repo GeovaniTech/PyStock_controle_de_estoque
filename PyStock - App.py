@@ -21,8 +21,8 @@ banco = mysql.connector.connect(
 )
 
 cursor = banco.cursor()
-cursor.execute('DELETE FROM login WHERE usuario != "Py001"')
-banco.commit()
+
+
 class FrmLogin(QMainWindow):
 
     def __init__(self):
@@ -110,10 +110,54 @@ class FrmAdmin(QMainWindow):
 
         # Produtos
         self.ui.btn_produtos.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_produtos))
+        self.ui.btn_alterar_produto.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_alterar_produtos))
+        self.ui.btn_cadastrar_produto.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_cadastar_produtos))
 
         # Voltar
         self.ui.btn_voltar.clicked.connect(self.Voltar)
 
+        ## Ajustando Tabelas
+
+        # Ajustando Largura das Colunas da Tabela Vendas
+        self.ui.tabela_vendas.setColumnWidth(0, 45)
+        self.ui.tabela_vendas.setColumnWidth(1, 125)
+        self.ui.tabela_vendas.setColumnWidth(2, 250)
+        self.ui.tabela_vendas.setColumnWidth(3, 150)
+        self.ui.tabela_vendas.setColumnWidth(4, 45)
+        self.ui.tabela_vendas.setColumnWidth(5, 175)
+
+        # Ajustando Largura das Colunas da Tabela Produtos
+
+        self.ui.tabela_produto.setColumnWidth(0, 45)
+        self.ui.tabela_produto.setColumnWidth(1, 125)
+        self.ui.tabela_produto.setColumnWidth(2, 250)
+        self.ui.tabela_produto.setColumnWidth(3, 150)
+        self.ui.tabela_produto.setColumnWidth(4, 45)
+        self.ui.tabela_produto.setColumnWidth(5, 175)
+
+        # Ajustando Largura das Colunas da Tabela Cadastrar Produtos
+
+        self.ui.tabela_cadastro.setColumnWidth(0, 45)
+        self.ui.tabela_cadastro.setColumnWidth(1, 125)
+        self.ui.tabela_cadastro.setColumnWidth(2, 350)
+        self.ui.tabela_cadastro.setColumnWidth(3, 150)
+        self.ui.tabela_cadastro.setColumnWidth(4, 45)
+        self.ui.tabela_cadastro.setColumnWidth(5, 300)
+
+        # Ajustando Largura das Colunas da Tabela Altearar Produtos
+
+        self.ui.tabela_alterar.setColumnWidth(0, 45)
+        self.ui.tabela_alterar.setColumnWidth(1, 125)
+        self.ui.tabela_alterar.setColumnWidth(2, 350)
+        self.ui.tabela_alterar.setColumnWidth(3, 150)
+        self.ui.tabela_alterar.setColumnWidth(4, 45)
+        self.ui.tabela_alterar.setColumnWidth(5, 300)
+
+        # Ajustando Largura das Colunas da Tabela Produtos
+
+        self.ui.tabela_fornecedores.setColumnWidth(0, 330)
+        self.ui.tabela_fornecedores.setColumnWidth(1, 330)
+        self.ui.tabela_fornecedores.setColumnWidth(2, 331)
     def Voltar(self):
         global window
 
@@ -200,6 +244,32 @@ class FrmColaborador(QMainWindow):
 
         # Voltar
         self.ui.btn_voltar.clicked.connect(self.Voltar)
+
+        ## Ajustando Tabelas
+
+        # Ajustando Largura das Colunas da Tabela Vendas
+
+        self.ui.tabela_vendas.setColumnWidth(0, 45)
+        self.ui.tabela_vendas.setColumnWidth(1, 125)
+        self.ui.tabela_vendas.setColumnWidth(2, 250)
+        self.ui.tabela_vendas.setColumnWidth(3, 150)
+        self.ui.tabela_vendas.setColumnWidth(4, 45)
+        self.ui.tabela_vendas.setColumnWidth(5, 175)
+
+        # Ajustando Largura das Colunas da Tabela Produtos
+
+        self.ui.tabela_produto.setColumnWidth(0, 45)
+        self.ui.tabela_produto.setColumnWidth(1, 125)
+        self.ui.tabela_produto.setColumnWidth(2, 250)
+        self.ui.tabela_produto.setColumnWidth(3, 150)
+        self.ui.tabela_produto.setColumnWidth(4, 45)
+        self.ui.tabela_produto.setColumnWidth(5, 175)
+
+        # Ajustando Largura das Colunas da Tabela Produtos
+
+        self.ui.tabela_fornecedores.setColumnWidth(0, 330)
+        self.ui.tabela_fornecedores.setColumnWidth(1, 330)
+        self.ui.tabela_fornecedores.setColumnWidth(2, 331)
 
     def Voltar(self):
         global window
