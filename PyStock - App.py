@@ -1,6 +1,5 @@
 import os
 import sys
-from PyQt5 import QtWidgets
 import mysql.connector
 
 
@@ -158,6 +157,7 @@ class FrmAdmin(QMainWindow):
         self.ui.tabela_fornecedores.setColumnWidth(0, 330)
         self.ui.tabela_fornecedores.setColumnWidth(1, 330)
         self.ui.tabela_fornecedores.setColumnWidth(2, 331)
+
     def Voltar(self):
         global window
 
