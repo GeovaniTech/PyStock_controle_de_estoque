@@ -1,6 +1,6 @@
 import cx_Freeze
 
-executables = [cx_Freeze.Executable('PyStock - App.py', icon='View/Imagens/Logo Ico.ico')]
+executables = [cx_Freeze.Executable('PyStock - App.py', icon='View/Imagens/Logo Ico.ico', base='Win32GUI')]
 
 cx_Freeze.setup(
     name="PyStock",
