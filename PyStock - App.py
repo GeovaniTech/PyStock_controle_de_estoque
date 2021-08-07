@@ -208,7 +208,6 @@ class FrmAdmin(QMainWindow):
                         cursor.execute(comando_SQL, dados)
                         banco.commit()
 
-
     def popup(self):
         msg = QMessageBox()
         msg.setWindowTitle("Erro - Cadastro de Colaboradores")
