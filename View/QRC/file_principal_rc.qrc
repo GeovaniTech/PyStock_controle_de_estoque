@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icones">
+    <file>monitoramento.png</file>
     <file>nv_clientes.png</file>
     <file>nv_produtos.jpg-1.png</file>
     <file>nv_colaboradores.png</file>
