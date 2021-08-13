@@ -106,6 +106,7 @@
        <property name="styleSheet">
         <string notr="true">QPushButton {
 border: solid;
+outline: 0;
 }
 
 QPushButton:hover{
@@ -139,6 +140,7 @@ border: solid;
        <property name="styleSheet">
         <string notr="true">QPushButton {
 border: solid;
+outline: 0;
 }
 
 QPushButton:hover{
@@ -175,6 +177,7 @@ border: solid;
        <property name="styleSheet">
         <string notr="true">QPushButton {
 border: solid;
+outline: 0;
 }
 
 QPushButton:hover{
@@ -211,6 +214,7 @@ border: solid;
        <property name="styleSheet">
         <string notr="true">QPushButton {
 border: solid;
+outline: 0;
 }
 
 QPushButton:hover{
@@ -247,6 +251,7 @@ border: solid;
        <property name="styleSheet">
         <string notr="true">QPushButton {
 border: solid;
+outline: 0;
 }
 
 QPushButton:hover{
@@ -283,6 +288,7 @@ border: solid;
        <property name="styleSheet">
         <string notr="true">QPushButton {
 border: solid;
+outline: 0;
 }
 
 QPushButton:hover{
@@ -318,6 +324,7 @@ border: solid;
        </property>
        <property name="styleSheet">
         <string notr="true">QPushButton {
+outline: 0;
 border: solid;
 }
 
@@ -355,6 +362,7 @@ border: solid;
        <property name="styleSheet">
         <string notr="true">QPushButton {
 border: solid;
+outline: 0;
 }
 
 QPushButton:hover{
@@ -468,7 +476,7 @@ font: 12pt &quot;Montserrat&quot;;</string>
        <enum>QFrame::Sunken</enum>
       </property>
       <property name="currentIndex">
-       <number>10</number>
+       <number>13</number>
       </property>
       <widget class="QWidget" name="pg_home">
        <widget class="QLabel" name="label">
@@ -726,8 +734,84 @@ de gerenciar estoque!</string>
           </property>
          </widget>
         </widget>
+        <widget class="QWidget" name="page_11"/>
         <widget class="QWidget" name="page"/>
         <widget class="QWidget" name="page_4"/>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="page_12">
+       <widget class="QCheckBox" name="checkBox">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>80</y>
+          <width>311</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 10pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>Finalizar aplicação após 20 minutos</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_titulo_alterar_2">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>241</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 16pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>Configurações</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::TextBrowserInteraction</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_finalizar_alterar_2">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>130</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Salvar Alterações</string>
+        </property>
        </widget>
       </widget>
       <widget class="QWidget" name="pg_fornecedores">
@@ -983,6 +1067,33 @@ font: 10pt &quot;Montserrat&quot;;</string>
         </property>
         <property name="clearButtonEnabled">
          <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_hora_data_4">
+        <property name="geometry">
+         <rect>
+          <x>820</x>
+          <y>510</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
         </property>
        </widget>
       </widget>
@@ -1269,6 +1380,33 @@ QPushButton:hover {
          <string>Alterar</string>
         </property>
        </widget>
+       <widget class="QLabel" name="lbl_hora_data_5">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>150</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="page_7">
        <widget class="QPushButton" name="btn_adicionar_forncedores_9">
@@ -1553,6 +1691,33 @@ QHeaderView::section:horizontal
          </property>
         </column>
        </widget>
+       <widget class="QLabel" name="lbl_hora_data_6">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>150</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="page_2">
        <widget class="QTableWidget" name="tabela_alterar_2">
@@ -1812,6 +1977,33 @@ font: 20pt &quot;Montserrat&quot;;</string>
         </property>
         <property name="textInteractionFlags">
          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_hora_data_7">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>520</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
         </property>
        </widget>
       </widget>
@@ -2134,6 +2326,33 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
+       <widget class="QLabel" name="lbl_hora_data_8">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>150</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="page_8">
        <widget class="QTableWidget" name="tabela_fornecedores_4">
@@ -2452,6 +2671,33 @@ font: 10pt &quot;Montserrat&quot;;</string>
         </property>
         <property name="clearButtonEnabled">
          <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_hora_data_9">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>150</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
         </property>
        </widget>
       </widget>
@@ -2973,6 +3219,33 @@ QPushButton:hover {
          <string>Efetuar Alteração</string>
         </property>
        </widget>
+       <widget class="QLabel" name="lbl_hora_data_10">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>150</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="page_5">
        <widget class="QTableWidget" name="tabela_cadastro_3">
@@ -3236,6 +3509,33 @@ QPushButton:hover {
          <string>Cadastrar</string>
         </property>
        </widget>
+       <widget class="QLabel" name="lbl_hora_data_11">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>520</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="page_10">
        <widget class="QLabel" name="lbl_titulo_usuario_vendas_4">
@@ -3411,7 +3711,7 @@ QHeaderView::section:horizontal
         </column>
         <column>
          <property name="text">
-          <string>Total de Produtos</string>
+          <string>Qtde Vendido</string>
          </property>
         </column>
         <column>
@@ -3424,6 +3724,33 @@ QHeaderView::section:horizontal
           <string>Horário da Venda</string>
          </property>
         </column>
+       </widget>
+       <widget class="QLabel" name="lbl_hora_data_12">
+        <property name="geometry">
+         <rect>
+          <x>840</x>
+          <y>90</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+        </property>
        </widget>
       </widget>
       <widget class="QWidget" name="pg_vendas">
@@ -3805,7 +4132,7 @@ QPushButton:hover {
         <property name="geometry">
          <rect>
           <x>830</x>
-          <y>400</y>
+          <y>360</y>
           <width>181</width>
           <height>41</height>
          </rect>
@@ -3833,7 +4160,7 @@ QPushButton:hover {
         <property name="geometry">
          <rect>
           <x>830</x>
-          <y>280</y>
+          <y>300</y>
           <width>181</width>
           <height>41</height>
          </rect>
@@ -3883,34 +4210,6 @@ QPushButton:hover {
         </property>
         <property name="text">
          <string>Confirmar</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btn_pagamento">
-        <property name="geometry">
-         <rect>
-          <x>830</x>
-          <y>340</y>
-          <width>181</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton {
-border: 2px;
-background-color: rgb(159, 63, 250);
-color: white;
-border-radius: 5px;
-font: 10pt &quot;Montserrat&quot;;
-outline: 0;
-}
-
-QPushButton:hover {
-	background-color: rgb(197, 62, 255);
-}
-</string>
-        </property>
-        <property name="text">
-         <string>Pagamento</string>
         </property>
        </widget>
        <widget class="QLabel" name="lbl_hora_data">
@@ -4752,6 +5051,33 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
+       <widget class="QLabel" name="lbl_hora_data_2">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>160</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="pg_alterar_produtos">
        <widget class="QPushButton" name="btn_finalizar_alterar">
@@ -5097,6 +5423,33 @@ font: 10pt &quot;Montserrat&quot;;</string>
         </property>
         <property name="clearButtonEnabled">
          <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_hora_data_3">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>150</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
         </property>
        </widget>
       </widget>
