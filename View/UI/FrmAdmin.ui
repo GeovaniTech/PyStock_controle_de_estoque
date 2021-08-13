@@ -58,7 +58,7 @@
      </size>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="Admin">
      <widget class="QFrame" name="bara_menu_esquerda">
@@ -476,7 +476,7 @@ font: 12pt &quot;Montserrat&quot;;</string>
        <enum>QFrame::Sunken</enum>
       </property>
       <property name="currentIndex">
-       <number>13</number>
+       <number>15</number>
       </property>
       <widget class="QWidget" name="pg_home">
        <widget class="QLabel" name="label">
@@ -739,8 +739,8 @@ de gerenciar estoque!</string>
         <widget class="QWidget" name="page_4"/>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_12">
-       <widget class="QCheckBox" name="checkBox">
+      <widget class="QWidget" name="pg_configuracoes">
+       <widget class="QCheckBox" name="checkBox_finalizar_app">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -758,7 +758,7 @@ color: #9f3ffa;
          <string>Finalizar aplicação após 20 minutos</string>
         </property>
        </widget>
-       <widget class="QLabel" name="lbl_titulo_alterar_2">
+       <widget class="QLabel" name="lbl_titulo_configuracoes">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -785,7 +785,7 @@ color: #9f3ffa;
          <set>Qt::TextBrowserInteraction</set>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_finalizar_alterar_2">
+       <widget class="QPushButton" name="btn_salvar">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -815,7 +815,7 @@ QPushButton:hover {
        </widget>
       </widget>
       <widget class="QWidget" name="pg_fornecedores">
-       <widget class="QLabel" name="lbl_titulo_fornecedores">
+       <widget class="QLabel" name="lbl_titulo_forncedores">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -829,7 +829,7 @@ QPushButton:hover {
 font: 20pt &quot;Montserrat&quot;;</string>
         </property>
         <property name="text">
-         <string>Fornecedores Cadastrados</string>
+         <string>Fornecedores</string>
         </property>
         <property name="textInteractionFlags">
          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -1008,7 +1008,7 @@ QPushButton:hover {
          <string>Adicionar</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_pesquisar_produto_3">
+       <widget class="QPushButton" name="btn_filtrar_fornecedores">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1046,7 +1046,7 @@ QPushButton:hover {
          </size>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_search_Bar_3">
+       <widget class="QLineEdit" name="line_search_Bar_fornecedores">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -1069,7 +1069,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="lbl_hora_data_4">
+       <widget class="QLabel" name="lbl_hora_data_fornecedores">
         <property name="geometry">
          <rect>
           <x>820</x>
@@ -1097,8 +1097,8 @@ color: #9f3ffa;
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_6">
-       <widget class="QLabel" name="lbl_titulo_fornecedores_2">
+      <widget class="QWidget" name="pg_alterar_fornecedores">
+       <widget class="QLabel" name="lbl_titulo_alterar_fornecedores">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1118,7 +1118,7 @@ font: 20pt &quot;Montserrat&quot;;</string>
          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_pesquisar_produto_5">
+       <widget class="QPushButton" name="btn_flitrar_fornecedores">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1156,7 +1156,7 @@ QPushButton:hover {
          </size>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_search_Bar_5">
+       <widget class="QLineEdit" name="line_search_Bar_altarar_fornecedor">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -1179,7 +1179,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QTableWidget" name="tabela_fornecedores_2">
+       <widget class="QTableWidget" name="tabela_alterar_fornecedores">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1268,7 +1268,7 @@ QHeaderView::section:horizontal
          </property>
         </column>
        </widget>
-       <widget class="QLineEdit" name="line_cliente_5">
+       <widget class="QLineEdit" name="line_alterar_nome_fornecedor">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1296,7 +1296,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_cliente_6">
+       <widget class="QLineEdit" name="line_alterar_endereco_fornecedor">
         <property name="geometry">
          <rect>
           <x>200</x>
@@ -1324,7 +1324,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_cliente_7">
+       <widget class="QLineEdit" name="line_alterar_contato_fornecedor">
         <property name="geometry">
          <rect>
           <x>380</x>
@@ -1352,7 +1352,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_adicionar_forncedores_8">
+       <widget class="QPushButton" name="btn_alterar_fornecedores">
         <property name="geometry">
          <rect>
           <x>380</x>
@@ -1380,7 +1380,7 @@ QPushButton:hover {
          <string>Alterar</string>
         </property>
        </widget>
-       <widget class="QLabel" name="lbl_hora_data_5">
+       <widget class="QLabel" name="lbl_hora_data_alterar_fornecedores">
         <property name="geometry">
          <rect>
           <x>830</x>
@@ -1408,8 +1408,8 @@ color: #9f3ffa;
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_7">
-       <widget class="QPushButton" name="btn_adicionar_forncedores_9">
+      <widget class="QWidget" name="pg_cadastrar_fornecedores">
+       <widget class="QPushButton" name="btn_cadastrar_forncedores">
         <property name="geometry">
          <rect>
           <x>380</x>
@@ -1437,7 +1437,7 @@ QPushButton:hover {
          <string>Cadastrar</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_cliente_8">
+       <widget class="QLineEdit" name="line_cadastrar_nome_fornecedores">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1465,7 +1465,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_search_Bar_6">
+       <widget class="QLineEdit" name="line_search_Bar_cadastrar_fornecedores">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -1488,7 +1488,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_pesquisar_produto_6">
+       <widget class="QPushButton" name="btn_pesquisar_fornecedores">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1526,7 +1526,7 @@ QPushButton:hover {
          </size>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_cliente_9">
+       <widget class="QLineEdit" name="line_cadastrar_endereco_fornecedores">
         <property name="geometry">
          <rect>
           <x>200</x>
@@ -1554,7 +1554,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="lbl_titulo_fornecedores_3">
+       <widget class="QLabel" name="lbl_titulo_cadastrar_fornecedores">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1574,7 +1574,7 @@ font: 20pt &quot;Montserrat&quot;;</string>
          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_cliente_10">
+       <widget class="QLineEdit" name="line_cadastrar_contato_fornecedores">
         <property name="geometry">
          <rect>
           <x>380</x>
@@ -1602,7 +1602,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QTableWidget" name="tabela_fornecedores_3">
+       <widget class="QTableWidget" name="tabela_cadastrar_fornecedores">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1691,7 +1691,7 @@ QHeaderView::section:horizontal
          </property>
         </column>
        </widget>
-       <widget class="QLabel" name="lbl_hora_data_6">
+       <widget class="QLabel" name="lbl_hora_data_cadastrar_fornecedores">
         <property name="geometry">
          <rect>
           <x>830</x>
@@ -1719,8 +1719,8 @@ color: #9f3ffa;
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_2">
-       <widget class="QTableWidget" name="tabela_alterar_2">
+      <widget class="QWidget" name="pg_clientes">
+       <widget class="QTableWidget" name="tabela_clientes">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1814,7 +1814,7 @@ QHeaderView::section:horizontal
          </property>
         </column>
        </widget>
-       <widget class="QLineEdit" name="line_search_Bar_4">
+       <widget class="QLineEdit" name="line_search_Bar_clientes">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -1837,7 +1837,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_pesquisar_produto_4">
+       <widget class="QPushButton" name="btn_pesquisar_clientes">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1875,7 +1875,7 @@ QPushButton:hover {
          </size>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_adicionar_forncedores_2">
+       <widget class="QPushButton" name="btn_cadastrar_clientes">
         <property name="geometry">
          <rect>
           <x>810</x>
@@ -1903,7 +1903,7 @@ QPushButton:hover {
          <string>Cadastrar</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_adicionar_forncedores_3">
+       <widget class="QPushButton" name="btn_alterar_clientes">
         <property name="geometry">
          <rect>
           <x>810</x>
@@ -1931,7 +1931,7 @@ QPushButton:hover {
          <string>Alterar</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_adicionar_forncedores_4">
+       <widget class="QPushButton" name="btn_exclui_fornecedores">
         <property name="geometry">
          <rect>
           <x>810</x>
@@ -1959,7 +1959,7 @@ QPushButton:hover {
          <string>Excluir</string>
         </property>
        </widget>
-       <widget class="QLabel" name="lbl_titulo_fornecedores_5">
+       <widget class="QLabel" name="lbl_titulo_clientes">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1973,13 +1973,13 @@ QPushButton:hover {
 font: 20pt &quot;Montserrat&quot;;</string>
         </property>
         <property name="text">
-         <string>Clientes Cadastrados</string>
+         <string>Clientes </string>
         </property>
         <property name="textInteractionFlags">
          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
         </property>
        </widget>
-       <widget class="QLabel" name="lbl_hora_data_7">
+       <widget class="QLabel" name="lbl_hora_data_clientes">
         <property name="geometry">
          <rect>
           <x>830</x>
@@ -2007,8 +2007,8 @@ color: #9f3ffa;
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_9">
-       <widget class="QLineEdit" name="line_cliente_15">
+      <widget class="QWidget" name="pg_alterar_clientes">
+       <widget class="QLineEdit" name="line_alterar_nome_cliente">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2036,7 +2036,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_cliente_16">
+       <widget class="QLineEdit" name="line_alterar_cpf_cliente">
         <property name="geometry">
          <rect>
           <x>380</x>
@@ -2064,7 +2064,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_search_Bar_9">
+       <widget class="QLineEdit" name="line_search_Bar_alterar_clientes">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -2084,13 +2084,13 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <number>0</number>
         </property>
         <property name="placeholderText">
-         <string>Filtrar Fornecedores</string>
+         <string>Filtrar Clientes</string>
         </property>
         <property name="clearButtonEnabled">
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_pesquisar_produto_9">
+       <widget class="QPushButton" name="btn_filtrar_clientes">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2128,7 +2128,7 @@ QPushButton:hover {
          </size>
         </property>
        </widget>
-       <widget class="QTableWidget" name="tabela_fornecedores_5">
+       <widget class="QTableWidget" name="tabela_alterar_clientes">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2222,7 +2222,7 @@ QHeaderView::section:horizontal
          </property>
         </column>
        </widget>
-       <widget class="QPushButton" name="btn_adicionar_forncedores_11">
+       <widget class="QPushButton" name="btn_finalizar_alteracao_fornecedores">
         <property name="geometry">
          <rect>
           <x>560</x>
@@ -2250,7 +2250,7 @@ QPushButton:hover {
          <string>Alterar</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_cliente_17">
+       <widget class="QLineEdit" name="line_alterar_contato_cliente">
         <property name="geometry">
          <rect>
           <x>380</x>
@@ -2278,7 +2278,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="lbl_titulo_fornecedores_6">
+       <widget class="QLabel" name="lbl_titulo_alterar_clientes">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2298,7 +2298,7 @@ font: 20pt &quot;Montserrat&quot;;</string>
          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_cliente_18">
+       <widget class="QLineEdit" name="line_alterar_endereco_cliente">
         <property name="geometry">
          <rect>
           <x>200</x>
@@ -2326,7 +2326,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="lbl_hora_data_8">
+       <widget class="QLabel" name="lbl_hora_data_alterar_clientes">
         <property name="geometry">
          <rect>
           <x>830</x>
@@ -2354,8 +2354,8 @@ color: #9f3ffa;
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_8">
-       <widget class="QTableWidget" name="tabela_fornecedores_4">
+      <widget class="QWidget" name="pg_cadastrar_clientes">
+       <widget class="QTableWidget" name="tabela_cadastrar_clientes">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2449,7 +2449,7 @@ QHeaderView::section:horizontal
          </property>
         </column>
        </widget>
-       <widget class="QPushButton" name="btn_adicionar_forncedores_10">
+       <widget class="QPushButton" name="btn_finalizar_cadastro_clientes">
         <property name="geometry">
          <rect>
           <x>560</x>
@@ -2515,7 +2515,7 @@ QPushButton:hover {
          </size>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_cliente_11">
+       <widget class="QLineEdit" name="line_nome_cadastrar_clientes">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2543,7 +2543,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_cliente_12">
+       <widget class="QLineEdit" name="line_cpf_cadastrar_clientes">
         <property name="geometry">
          <rect>
           <x>380</x>
@@ -2571,7 +2571,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_cliente_13">
+       <widget class="QLineEdit" name="line_endereco_cadastrar_clientes">
         <property name="geometry">
          <rect>
           <x>200</x>
@@ -2599,7 +2599,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_search_Bar_8">
+       <widget class="QLineEdit" name="line_search_Bar_cadastrar_clientes">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -2625,7 +2625,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="lbl_titulo_fornecedores_4">
+       <widget class="QLabel" name="lbl_titulo_cadastrar_clientes">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2645,7 +2645,7 @@ font: 20pt &quot;Montserrat&quot;;</string>
          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_cliente_14">
+       <widget class="QLineEdit" name="line_contato_cadastrar_clientes">
         <property name="geometry">
          <rect>
           <x>380</x>
@@ -2673,7 +2673,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="lbl_hora_data_9">
+       <widget class="QLabel" name="lbl_hora_data_cadastrar_clientes">
         <property name="geometry">
          <rect>
           <x>830</x>
@@ -2701,8 +2701,8 @@ color: #9f3ffa;
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="pg_colaboradores">
-       <widget class="QLabel" name="lbl_titulo_colaboradores">
+      <widget class="QWidget" name="pg_cadastro_colaboradores">
+       <widget class="QLabel" name="lbl_titulo_cadastrar_colaboradores">
         <property name="geometry">
          <rect>
           <x>250</x>
@@ -2861,7 +2861,7 @@ QPushButton:hover {
          <string>Efetuar Cadastro</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_5">
+       <widget class="QLabel" name="lbl_imagem">
         <property name="geometry">
          <rect>
           <x>50</x>
@@ -2904,8 +2904,8 @@ QPushButton:hover {
          <string/>
         </property>
        </widget>
-       <zorder>label_5</zorder>
-       <zorder>lbl_titulo_colaboradores</zorder>
+       <zorder>lbl_imagem</zorder>
+       <zorder>lbl_titulo_cadastrar_colaboradores</zorder>
        <zorder>radio_admin</zorder>
        <zorder>radio_colaborador</zorder>
        <zorder>line_nome</zorder>
@@ -2914,8 +2914,8 @@ QPushButton:hover {
        <zorder>btn_cadastro</zorder>
        <zorder>btn_ver_senha</zorder>
       </widget>
-      <widget class="QWidget" name="page_3">
-       <widget class="QTableWidget" name="tabela_cadastro_2">
+      <widget class="QWidget" name="alterar_colaboradores">
+       <widget class="QTableWidget" name="tabela_alterar_colaboradores">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -3004,7 +3004,7 @@ QHeaderView::section:horizontal
          </property>
         </column>
        </widget>
-       <widget class="QLineEdit" name="line_search_bar_2">
+       <widget class="QLineEdit" name="line_search_bar_buscar_colaboradores">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -3027,7 +3027,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_pesquisar_2">
+       <widget class="QPushButton" name="btn_pesquisar_alterar_colaboradores">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -3065,7 +3065,7 @@ QPushButton:hover {
          </size>
         </property>
        </widget>
-       <widget class="QLabel" name="lbl_titulo_usuario_vendas_2">
+       <widget class="QLabel" name="lbl_titulo_alterar_colaboradores">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -3092,7 +3092,7 @@ color: #9f3ffa;
          <set>Qt::TextBrowserInteraction</set>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_cliente_2">
+       <widget class="QLineEdit" name="line_nome_alterar_colaboradores">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -3117,7 +3117,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_cliente_3">
+       <widget class="QLineEdit" name="line_login_alterar_colaboradores">
         <property name="geometry">
          <rect>
           <x>200</x>
@@ -3142,7 +3142,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_cliente_4">
+       <widget class="QLineEdit" name="line_senha_alterar_colaboradores">
         <property name="geometry">
          <rect>
           <x>380</x>
@@ -3167,7 +3167,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_ver_senha_2">
+       <widget class="QPushButton" name="btn_ver_senha_alterar">
         <property name="geometry">
          <rect>
           <x>550</x>
@@ -3191,7 +3191,7 @@ QPushButton:hover {
          <string/>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_cadastro_2">
+       <widget class="QPushButton" name="btn_finalizar_alterar_colaboradores">
         <property name="geometry">
          <rect>
           <x>380</x>
@@ -3219,7 +3219,7 @@ QPushButton:hover {
          <string>Efetuar Alteração</string>
         </property>
        </widget>
-       <widget class="QLabel" name="lbl_hora_data_10">
+       <widget class="QLabel" name="lbl_hora_data_alterar_colaboradores">
         <property name="geometry">
          <rect>
           <x>830</x>
@@ -3247,8 +3247,8 @@ color: #9f3ffa;
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_5">
-       <widget class="QTableWidget" name="tabela_cadastro_3">
+      <widget class="QWidget" name="pg_colaboradores">
+       <widget class="QTableWidget" name="tabela_colaboradores">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -3337,7 +3337,7 @@ QHeaderView::section:horizontal
          </property>
         </column>
        </widget>
-       <widget class="QLabel" name="lbl_titulo_usuario_vendas_3">
+       <widget class="QLabel" name="lbl_titulo_colaboradores">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -3364,7 +3364,7 @@ color: #9f3ffa;
          <set>Qt::TextBrowserInteraction</set>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_pesquisar_3">
+       <widget class="QPushButton" name="btn_pesquisar_colaboradores">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -3402,7 +3402,7 @@ QPushButton:hover {
          </size>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_search_bar_3">
+       <widget class="QLineEdit" name="line_search_bar_colaboradores">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -3425,7 +3425,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_adicionar_forncedores_5">
+       <widget class="QPushButton" name="btn_exluir_colaboradores">
         <property name="geometry">
          <rect>
           <x>820</x>
@@ -3453,7 +3453,7 @@ QPushButton:hover {
          <string>Excluir</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_adicionar_forncedores_6">
+       <widget class="QPushButton" name="btn_alterar_colaboradores">
         <property name="geometry">
          <rect>
           <x>820</x>
@@ -3481,7 +3481,7 @@ QPushButton:hover {
          <string>Alterar</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_adicionar_forncedores_7">
+       <widget class="QPushButton" name="btn_cadastrar_colaboradores">
         <property name="geometry">
          <rect>
           <x>820</x>
@@ -3509,7 +3509,7 @@ QPushButton:hover {
          <string>Cadastrar</string>
         </property>
        </widget>
-       <widget class="QLabel" name="lbl_hora_data_11">
+       <widget class="QLabel" name="lbl_hora_data_colaboradores">
         <property name="geometry">
          <rect>
           <x>830</x>
@@ -3537,8 +3537,8 @@ color: #9f3ffa;
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page_10">
-       <widget class="QLabel" name="lbl_titulo_usuario_vendas_4">
+      <widget class="QWidget" name="monitoramento">
+       <widget class="QLabel" name="lbl_titulo_monitoramento">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -3565,7 +3565,7 @@ color: #9f3ffa;
          <set>Qt::TextBrowserInteraction</set>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_pesquisar_4">
+       <widget class="QPushButton" name="btn_filtrar_monitoramento">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -3603,7 +3603,7 @@ QPushButton:hover {
          </size>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_search_bar_4">
+       <widget class="QLineEdit" name="line_search_bar_monitoramentoto">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -3626,12 +3626,12 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QTableWidget" name="tabela_cadastro_4">
+       <widget class="QTableWidget" name="tabela_monitoramento">
         <property name="geometry">
          <rect>
           <x>20</x>
           <y>130</y>
-          <width>991</width>
+          <width>781</width>
           <height>411</height>
          </rect>
         </property>
@@ -3725,11 +3725,11 @@ QHeaderView::section:horizontal
          </property>
         </column>
        </widget>
-       <widget class="QLabel" name="lbl_hora_data_12">
+       <widget class="QLabel" name="lbl_hora_data_monitoramento">
         <property name="geometry">
          <rect>
-          <x>840</x>
-          <y>90</y>
+          <x>830</x>
+          <y>520</y>
           <width>181</width>
           <height>21</height>
          </rect>
@@ -3752,9 +3752,65 @@ color: #9f3ffa;
          <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
         </property>
        </widget>
+       <widget class="QPushButton" name="btn_limpar_tabela">
+        <property name="geometry">
+         <rect>
+          <x>820</x>
+          <y>270</y>
+          <width>191</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Limpar Tabela</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_gerar_pdf">
+        <property name="geometry">
+         <rect>
+          <x>820</x>
+          <y>330</y>
+          <width>191</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Gerar PDF</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="pg_vendas">
-       <widget class="QLabel" name="lbl_titulo_usuario_vendas">
+       <widget class="QLabel" name="lbl_titulo_vendas">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -3998,7 +4054,7 @@ QPushButton:hover {
          </size>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_search_bar">
+       <widget class="QLineEdit" name="line_search_bar_vendas">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -4239,7 +4295,7 @@ color: #9f3ffa;
          <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
         </property>
        </widget>
-       <widget class="QLabel" name="lbl_titulo_usuario_vendas_9">
+       <widget class="QLabel" name="lbl_troco">
         <property name="geometry">
          <rect>
           <x>830</x>
@@ -4266,7 +4322,7 @@ color: #9f3ffa;
          <set>Qt::TextBrowserInteraction</set>
         </property>
        </widget>
-       <widget class="QLabel" name="lbl_titulo_usuario_vendas_10">
+       <widget class="QLabel" name="lbl_devolver_troco">
         <property name="geometry">
          <rect>
           <x>690</x>
@@ -4293,7 +4349,7 @@ color: #9f3ffa;
          <set>Qt::TextBrowserInteraction</set>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_cliente_20">
+       <widget class="QLineEdit" name="line_troco">
         <property name="geometry">
          <rect>
           <x>690</x>
@@ -4318,7 +4374,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_adicionar_forncedores_13">
+       <widget class="QPushButton" name="btn_confirmar_troco">
         <property name="geometry">
          <rect>
           <x>870</x>
@@ -4363,7 +4419,7 @@ color: #9f3ffa;
 </string>
         </property>
         <property name="text">
-         <string>Produtos Cadastrados</string>
+         <string>Produtos</string>
         </property>
         <property name="textFormat">
          <enum>Qt::AutoText</enum>
@@ -4563,7 +4619,7 @@ QPushButton:hover {
          <string>Excluir</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_search_Bar">
+       <widget class="QLineEdit" name="line_search_Bar_produtos">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -4990,7 +5046,7 @@ QPushButton:hover {
          <string>Finalizar Cadastro</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_pesquisar_produto_7">
+       <widget class="QPushButton" name="btn_pesquisar_cadastrar_produto">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -5028,7 +5084,7 @@ QPushButton:hover {
          </size>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_search_Bar_7">
+       <widget class="QLineEdit" name="line_search_Bar_cadastrar_produto">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -5051,7 +5107,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="lbl_hora_data_2">
+       <widget class="QLabel" name="lbl_hora_data_cadastrar_produto">
         <property name="geometry">
          <rect>
           <x>830</x>
@@ -5108,7 +5164,7 @@ QPushButton:hover {
          <string>Finalizar Alteração</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_fornecedor_alterar">
+       <widget class="QLineEdit" name="line_fornecedor_alterar_produto">
         <property name="geometry">
          <rect>
           <x>380</x>
@@ -5133,7 +5189,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QTableWidget" name="tabela_alterar">
+       <widget class="QTableWidget" name="tabela_alterar_produto">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -5237,7 +5293,7 @@ QHeaderView::section:horizontal
          </property>
         </column>
        </widget>
-       <widget class="QLabel" name="lbl_titulo_alterar">
+       <widget class="QLabel" name="lbl_titulo_alterar_produto">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -5264,7 +5320,7 @@ color: #9f3ffa;
          <set>Qt::TextBrowserInteraction</set>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_valor_alterar">
+       <widget class="QLineEdit" name="line_valor_alterar_produto">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -5289,7 +5345,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_qtde_alterar">
+       <widget class="QLineEdit" name="line_qtde_alterar_produto">
         <property name="geometry">
          <rect>
           <x>200</x>
@@ -5314,7 +5370,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_codigo_alterar">
+       <widget class="QLineEdit" name="line_codigo_alterar_produto">
         <property name="geometry">
          <rect>
           <x>380</x>
@@ -5339,7 +5395,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_decricao_alterar">
+       <widget class="QLineEdit" name="line_decricao_alterar_produto">
         <property name="geometry">
          <rect>
           <x>560</x>
@@ -5364,7 +5420,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_pesquisar_produto_2">
+       <widget class="QPushButton" name="btn_pesquisar_alterar_produto">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -5402,7 +5458,7 @@ QPushButton:hover {
          </size>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_search_Bar_2">
+       <widget class="QLineEdit" name="line_search_Bar_alterar_produto">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -5425,7 +5481,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLabel" name="lbl_hora_data_3">
+       <widget class="QLabel" name="lbl_hora_data_alterar_produto">
         <property name="geometry">
          <rect>
           <x>830</x>
