@@ -210,6 +210,28 @@ class FrmAdmin(QMainWindow):
         # Voltar
         self.ui.btn_voltar.clicked.connect(self.Voltar)
 
+        self.ui.tabela_colaboradores.clear()
+        cursor.execute('SELECT * FROM login')
+        banco_login = cursor.fetchall()
+
+        row = 0
+        self.ui.tabela_colaboradores.setRowCount(len(banco_login))
+        self.ui.tabela_alterar_colaboradores.setRowCount(len(banco_login))
+
+        colunas = ['Nome', 'Login', 'Senha']
+        self.ui.tabela_colaboradores.setHorizontalHeaderLabels(colunas)
+        self.ui.tabela_alterar_colaboradores.setHorizontalHeaderLabels(colunas)
+
+        for logins in banco_login:
+            self.ui.tabela_colaboradores.setItem(row, 0, QTableWidgetItem(logins[3]))
+            self.ui.tabela_colaboradores.setItem(row, 1, QTableWidgetItem(logins[0]))
+            self.ui.tabela_colaboradores.setItem(row, 2, QTableWidgetItem(logins[1]))
+
+            self.ui.tabela_alterar_colaboradores.setItem(row, 0, QTableWidgetItem(logins[3]))
+            self.ui.tabela_alterar_colaboradores.setItem(row, 1, QTableWidgetItem(logins[0]))
+            self.ui.tabela_alterar_colaboradores.setItem(row, 2, QTableWidgetItem(logins[1]))
+
+            row += 1
     def Voltar(self):
         global window
 
@@ -261,10 +283,34 @@ class FrmAdmin(QMainWindow):
                     cursor.execute(comando_SQL, dados)
                     banco.commit()
 
+
                 login.clear()
                 senha.clear()
                 nome.clear()
 
+                self.ui.tabela_colaboradores.clear()
+                cursor.execute('SELECT * FROM login')
+                banco_login = cursor.fetchall()
+
+                row = 0
+                self.ui.tabela_colaboradores.setRowCount(len(banco_login))
+                self.ui.tabela_alterar_colaboradores.setRowCount(len(banco_login))
+
+                colunas = ['Nome', 'Login', 'Senha']
+                self.ui.tabela_colaboradores.setHorizontalHeaderLabels(colunas)
+                self.ui.tabela_alterar_colaboradores.setHorizontalHeaderLabels(colunas)
+
+                for logins in banco_login:
+                    self.ui.tabela_colaboradores.setItem(row, 0, QTableWidgetItem(logins[3]))
+                    self.ui.tabela_colaboradores.setItem(row, 1, QTableWidgetItem(logins[0]))
+                    self.ui.tabela_colaboradores.setItem(row, 2, QTableWidgetItem(logins[1]))
+
+                    self.ui.tabela_alterar_colaboradores.setItem(row, 0, QTableWidgetItem(logins[3]))
+                    self.ui.tabela_alterar_colaboradores.setItem(row, 1, QTableWidgetItem(logins[0]))
+                    self.ui.tabela_alterar_colaboradores.setItem(row, 2, QTableWidgetItem(logins[1]))
+
+
+                    row += 1
 
 class FrmColaborador(QMainWindow):
 
