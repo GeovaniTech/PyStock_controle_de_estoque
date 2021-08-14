@@ -203,7 +203,15 @@ class FrmAdmin(QMainWindow):
         # Configurações
         self.ui.btn_configs.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_configuracoes))
 
+        # Voltar
+        self.ui.btn_voltar.clicked.connect(self.Voltar)
 
+    def Voltar(self):
+        global window
+
+        window.close()
+        window = FrmLogin()
+        window.show()
 
 class FrmColaborador(QMainWindow):
 
@@ -213,6 +221,53 @@ class FrmColaborador(QMainWindow):
         self.ui = Ui_FrmColaborador()
         self.ui.setupUi(self)
 
+        # Setando página home
+        self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_home)
+
+        # Configurando páginas e os botões do menu
+
+        # Home
+        self.ui.btn_home.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_home))
+
+        # Vendas
+        self.ui.btn_Vendas.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_vendas))
+
+        # Produtos
+        self.ui.btn_produtos.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_produtos))
+        self.ui.btn_cadastrar_produto.clicked.connect(
+            lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_cadastar_produtos))
+        self.ui.btn_alterar_produto.clicked.connect(
+            lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_alterar_produtos))
+
+        # Tabela Produtos
+        self.ui.tabela_produto.setColumnWidth(0, 50)
+        self.ui.tabela_produto.setColumnWidth(1, 131)
+        self.ui.tabela_produto.setColumnWidth(2, 250)
+        self.ui.tabela_produto.setColumnWidth(3, 131)
+        self.ui.tabela_produto.setColumnWidth(4, 75)
+        self.ui.tabela_produto.setColumnWidth(5, 155)
+
+        # Tabela Cadastrar Produtos
+        self.ui.tabela_cadastro.setColumnWidth(0, 50)
+        self.ui.tabela_cadastro.setColumnWidth(1, 165)
+        self.ui.tabela_cadastro.setColumnWidth(2, 300)
+        self.ui.tabela_cadastro.setColumnWidth(3, 165)
+        self.ui.tabela_cadastro.setColumnWidth(4, 75)
+        self.ui.tabela_cadastro.setColumnWidth(5, 250)
+
+        # Tabela Alterar Produtos
+        self.ui.tabela_alterar_produto.setColumnWidth(0, 50)
+        self.ui.tabela_alterar_produto.setColumnWidth(1, 165)
+        self.ui.tabela_alterar_produto.setColumnWidth(2, 300)
+        self.ui.tabela_alterar_produto.setColumnWidth(3, 165)
+        self.ui.tabela_alterar_produto.setColumnWidth(4, 75)
+        self.ui.tabela_alterar_produto.setColumnWidth(5, 250)
+
+        # Configurações
+        self.ui.btn_configs.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_configuracoes))
+
+        # Voltar
+        self.ui.btn_voltar.clicked.connect(self.Voltar)
 
     def Voltar(self):
         global window
