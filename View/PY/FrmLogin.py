@@ -99,7 +99,7 @@ class Ui_login(object):
 "}\n"
 "\n"
 "QPushButton:hover {\n"
-"    background-color: rgb(197, 62, 255);\n"
+"    background-color: rgb(197, 62, 255); outline: 0;\n"
 "}\n"
 "")
         self.pushButton.setObjectName("pushButton")

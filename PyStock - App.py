@@ -2,7 +2,6 @@ import os
 import sys
 import mysql.connector
 
-
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -20,11 +19,6 @@ banco = mysql.connector.connect(
 )
 
 cursor = banco.cursor()
-
-comando_SQL = 'INSERT INTO login VALUES (%s,%s,%s,%s)'
-dados = 'Py001', '1', 'admin', 'Geovani Debastiani'
-cursor.execute(comando_SQL, dados)
-banco.commit()
 
 
 class FrmLogin(QMainWindow):
@@ -59,8 +53,8 @@ class FrmLogin(QMainWindow):
 
             if senha != login[1]:
                 self.ui.lineEdit_2.setStyleSheet('background-color: rgba(0, 0 , 0, 0);border: 2px solid rgba(0,0,0,0);'
-                                               'border-bottom-color: rgb(255, 17, 49);color: rgb(0,0,0);padding-bottom: 8px;'
-                                               'border-radius: 0px;font: 10pt "Montserrat";')
+                                                 'border-bottom-color: rgb(255, 17, 49);color: rgb(0,0,0);padding-bottom: 8px;'
+                                                 'border-radius: 0px;font: 10pt "Montserrat";')
 
             if usuario == login[0] and senha == login[1]:
 
@@ -100,9 +94,13 @@ class FrmAdmin(QMainWindow):
 
         # Colaboradores
 
-        self.ui.btn_colaboradores.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_colaboradores))
-        self.ui.btn_cadastrar_colaboradores.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_cadastro_colaboradores))
-        self.ui.btn_alterar_colaboradores.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.alterar_colaboradores))
+        self.ui.btn_colaboradores.clicked.connect(
+            lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_colaboradores))
+        self.ui.btn_cadastrar_colaboradores.clicked.connect(
+            lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_cadastro_colaboradores))
+        self.ui.btn_alterar_colaboradores.clicked.connect(
+            lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.alterar_colaboradores))
+        self.ui.btn_cadastro.clicked.connect(self.CadastroColaboradores)
 
         # Tabela pg_colaboradores
         self.ui.tabela_colaboradores.setColumnWidth(0, 260)
@@ -126,8 +124,10 @@ class FrmAdmin(QMainWindow):
 
         # Clientes
         self.ui.btn_clientes.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_clientes))
-        self.ui.btn_cadastrar_clientes.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_cadastrar_clientes))
-        self.ui.btn_alterar_clientes.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_alterar_clientes))
+        self.ui.btn_cadastrar_clientes.clicked.connect(
+            lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_cadastrar_clientes))
+        self.ui.btn_alterar_clientes.clicked.connect(
+            lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_alterar_clientes))
 
         # Tabela Clientes
         self.ui.tabela_clientes.setColumnWidth(0, 192)
@@ -151,10 +151,12 @@ class FrmAdmin(QMainWindow):
         self.ui.btn_Vendas.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_vendas))
 
         # Fornecedores
-        self.ui.btn_fornecedores.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_fornecedores))
-        self.ui.btn_adicionar_forncedores.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_cadastrar_fornecedores))
-        self.ui.btn_editar_fornecedores.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_alterar_fornecedores))
-
+        self.ui.btn_fornecedores.clicked.connect(
+            lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_fornecedores))
+        self.ui.btn_adicionar_forncedores.clicked.connect(
+            lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_cadastrar_fornecedores))
+        self.ui.btn_editar_fornecedores.clicked.connect(
+            lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_alterar_fornecedores))
 
         # Tabela Fornecedores
         self.ui.tabela_fornecedores.setColumnWidth(0, 257)
@@ -173,8 +175,10 @@ class FrmAdmin(QMainWindow):
 
         # Produtos
         self.ui.btn_produtos.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_produtos))
-        self.ui.btn_cadastrar_produto.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_cadastar_produtos))
-        self.ui.btn_alterar_produto.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_alterar_produtos))
+        self.ui.btn_cadastrar_produto.clicked.connect(
+            lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_cadastar_produtos))
+        self.ui.btn_alterar_produto.clicked.connect(
+            lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_alterar_produtos))
 
         # Tabela Produtos
         self.ui.tabela_produto.setColumnWidth(0, 50)
@@ -212,6 +216,55 @@ class FrmAdmin(QMainWindow):
         window.close()
         window = FrmLogin()
         window.show()
+
+    def Popup(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Erro - Cadastro de Colaboradores")
+        msg.setText('Selecione um Nível de Usuário!')
+
+        x = msg.exec_()
+
+    def CadastroColaboradores(self):
+
+        login = self.ui.line_login
+        senha = self.ui.line_senha
+        nome = self.ui.line_nome
+        nivel = ''
+
+        radio_admin = self.ui.radio_admin
+        radio_colaborador = self.ui.radio_colaborador
+
+        if radio_colaborador.isChecked() == False and radio_admin.isChecked() == False:
+            self.Popup()
+        else:
+            if login.text() != '' and senha.text() != '' and nome.text() != '':
+                if radio_admin.isChecked() == True:
+                    nivel = 'admin'
+
+                if radio_colaborador.isChecked() == True:
+                    nivel = 'colaborador'
+
+                cursor.execute('SELECT * FROM login')
+                banco_login = cursor.fetchall()
+
+                LoginNoBanco = False
+
+                for loginBanco in banco_login:
+
+                    if loginBanco[0] == login.text():
+                        LoginNoBanco = True
+                        break
+
+                if LoginNoBanco == False:
+                    comando_SQL = 'INSERT INTO login VALUES (%s,%s,%s,%s)'
+                    dados = f'{login.text()}', f'{senha.text()}', f'{nivel}', f'{nome.text()}'
+                    cursor.execute(comando_SQL, dados)
+                    banco.commit()
+
+                login.clear()
+                senha.clear()
+                nome.clear()
+
 
 class FrmColaborador(QMainWindow):
 
