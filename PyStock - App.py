@@ -21,6 +21,11 @@ banco = mysql.connector.connect(
 
 cursor = banco.cursor()
 
+comando_SQL = 'INSERT INTO login VALUES (%s,%s,%s,%s)'
+dados = 'Py001', '1', 'admin', 'Geovani Debastiani'
+cursor.execute(comando_SQL, dados)
+banco.commit()
+
 
 class FrmLogin(QMainWindow):
 
@@ -199,6 +204,7 @@ class FrmAdmin(QMainWindow):
         self.ui.btn_configs.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_configuracoes))
 
 
+
 class FrmColaborador(QMainWindow):
 
     def __init__(self):
@@ -207,51 +213,6 @@ class FrmColaborador(QMainWindow):
         self.ui = Ui_FrmColaborador()
         self.ui.setupUi(self)
 
-        # Iniciando na página inicial
-        self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_home)
-
-        ## Clique dos botões
-
-        # Home
-        self.ui.btn_home.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_home))
-
-        # Fornecedores
-        self.ui.btn_fornecedores.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_fornecedores))
-
-        # Vendas
-        self.ui.btn_vendas.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_vendas))
-
-        # Produtos
-        self.ui.btn_produtos.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_produtos))
-
-        # Voltar
-        self.ui.btn_voltar.clicked.connect(self.Voltar)
-
-        ## Ajustando Tabelas
-
-        # Ajustando Largura das Colunas da Tabela Vendas
-
-        self.ui.tabela_vendas.setColumnWidth(0, 45)
-        self.ui.tabela_vendas.setColumnWidth(1, 125)
-        self.ui.tabela_vendas.setColumnWidth(2, 250)
-        self.ui.tabela_vendas.setColumnWidth(3, 150)
-        self.ui.tabela_vendas.setColumnWidth(4, 45)
-        self.ui.tabela_vendas.setColumnWidth(5, 175)
-
-        # Ajustando Largura das Colunas da Tabela Produtos
-
-        self.ui.tabela_produto.setColumnWidth(0, 45)
-        self.ui.tabela_produto.setColumnWidth(1, 125)
-        self.ui.tabela_produto.setColumnWidth(2, 250)
-        self.ui.tabela_produto.setColumnWidth(3, 150)
-        self.ui.tabela_produto.setColumnWidth(4, 45)
-        self.ui.tabela_produto.setColumnWidth(5, 175)
-
-        # Ajustando Largura das Colunas da Tabela Produtos
-
-        self.ui.tabela_fornecedores.setColumnWidth(0, 330)
-        self.ui.tabela_fornecedores.setColumnWidth(1, 330)
-        self.ui.tabela_fornecedores.setColumnWidth(2, 331)
 
     def Voltar(self):
         global window

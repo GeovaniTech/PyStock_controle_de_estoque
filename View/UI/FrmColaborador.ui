@@ -88,9 +88,25 @@
          <height>51</height>
         </rect>
        </property>
+       <property name="toolTip">
+        <string>Home</string>
+       </property>
+       <property name="statusTip">
+        <string/>
+       </property>
+       <property name="whatsThis">
+        <string/>
+       </property>
+       <property name="accessibleName">
+        <string/>
+       </property>
+       <property name="accessibleDescription">
+        <string/>
+       </property>
        <property name="styleSheet">
         <string notr="true">QPushButton {
 border: solid;
+outline: 0;
 }
 
 QPushButton:hover{
@@ -107,8 +123,8 @@ border: solid;
        </property>
        <property name="iconSize">
         <size>
-         <width>30</width>
-         <height>30</height>
+         <width>70</width>
+         <height>50</height>
         </size>
        </property>
       </widget>
@@ -124,6 +140,7 @@ border: solid;
        <property name="styleSheet">
         <string notr="true">QPushButton {
 border: solid;
+outline: 0;
 }
 
 QPushButton:hover{
@@ -145,7 +162,7 @@ border: solid;
         </size>
        </property>
       </widget>
-      <widget class="QPushButton" name="btn_fornecedores">
+      <widget class="QPushButton" name="btn_Vendas">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -154,9 +171,13 @@ border: solid;
          <height>51</height>
         </rect>
        </property>
+       <property name="toolTip">
+        <string>Vendas</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">QPushButton {
 border: solid;
+outline: 0;
 }
 
 QPushButton:hover{
@@ -178,7 +199,7 @@ border: solid;
         </size>
        </property>
       </widget>
-      <widget class="QPushButton" name="btn_vendas">
+      <widget class="QPushButton" name="btn_produtos">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -187,9 +208,13 @@ border: solid;
          <height>51</height>
         </rect>
        </property>
+       <property name="toolTip">
+        <string>Produtos</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">QPushButton {
 border: solid;
+outline: 0;
 }
 
 QPushButton:hover{
@@ -202,45 +227,12 @@ border: solid;
        </property>
        <property name="icon">
         <iconset resource="../QRC/file_principal_rc.qrc">
-         <normaloff>:/icones/pedidos2.png</normaloff>:/icones/pedidos2.png</iconset>
+         <normaloff>:/icones/nv_produtos.jpg-1.png</normaloff>:/icones/nv_produtos.jpg-1.png</iconset>
        </property>
        <property name="iconSize">
         <size>
-         <width>65</width>
+         <width>35</width>
          <height>40</height>
-        </size>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btn_produtos">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>150</y>
-         <width>61</width>
-         <height>51</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton {
-border: solid;
-}
-
-QPushButton:hover{
-border: solid;
-	background-color: rgb(159, 103, 250);
-}</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../QRC/file_principal_rc.qrc">
-         <normaloff>:/icones/btn_produtos.png</normaloff>:/icones/btn_produtos.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>60</width>
-         <height>45</height>
         </size>
        </property>
       </widget>
@@ -312,6 +304,9 @@ font: 12pt &quot;Montserrat&quot;;</string>
        <property name="text">
         <string>Seja bem-vindo(a)</string>
        </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+       </property>
       </widget>
      </widget>
      <widget class="QStackedWidget" name="Telas_do_menu">
@@ -333,7 +328,7 @@ font: 12pt &quot;Montserrat&quot;;</string>
        <enum>QFrame::Sunken</enum>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="pg_home">
        <widget class="QLabel" name="label">
@@ -397,6 +392,9 @@ font: 20pt &quot;Montserrat&quot;;</string>
            <property name="text">
             <string>Últimas Notícias</string>
            </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+           </property>
           </widget>
           <widget class="QLabel" name="lbl_noticia3">
            <property name="geometry">
@@ -414,6 +412,9 @@ font: 10pt &quot;Montserrat&quot;;</string>
            <property name="text">
             <string>Tem alguma sugestão do que podemos melhorar?
 Se sim, deixe sua sugestão com o rh.</string>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
            </property>
           </widget>
           <widget class="QLabel" name="lbl_imagem3">
@@ -437,6 +438,9 @@ Se sim, deixe sua sugestão com o rh.</string>
            <property name="scaledContents">
             <bool>true</bool>
            </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+           </property>
           </widget>
           <widget class="QLabel" name="lbl_imagem2">
            <property name="geometry">
@@ -459,6 +463,9 @@ Se sim, deixe sua sugestão com o rh.</string>
            <property name="scaledContents">
             <bool>true</bool>
            </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+           </property>
           </widget>
           <widget class="QLabel" name="lbl_noticia1">
            <property name="geometry">
@@ -476,6 +483,9 @@ font: 10pt &quot;Montserrat&quot;;</string>
            <property name="text">
             <string>Não recebeu seu passe? Entre em contato com o rh
 via e-mail ou faça um chamado.</string>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
            </property>
           </widget>
           <widget class="QLabel" name="lbl_imagem1">
@@ -499,6 +509,9 @@ via e-mail ou faça um chamado.</string>
            <property name="scaledContents">
             <bool>true</bool>
            </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+           </property>
           </widget>
           <widget class="QLabel" name="lbl_noticia2">
            <property name="geometry">
@@ -515,6 +528,9 @@ font: 10pt &quot;Montserrat&quot;;</string>
            </property>
            <property name="text">
             <string>Use a vontade nossos ambientes de descontração!</string>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
            </property>
           </widget>
           <widget class="QLabel" name="lbl_logo">
@@ -565,19 +581,99 @@ font: 28pt &quot;Montserrat&quot;;</string>
            <string>PyStock - A melhor forma
 de gerenciar estoque!</string>
           </property>
+          <property name="textInteractionFlags">
+           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+          </property>
          </widget>
         </widget>
+        <widget class="QWidget" name="page_11"/>
+        <widget class="QWidget" name="page"/>
         <widget class="QWidget" name="page_4"/>
        </widget>
       </widget>
-      <widget class="QWidget" name="pg_fornecedores">
-       <widget class="QLabel" name="lbl_titulo_fornecedores">
+      <widget class="QWidget" name="pg_configuracoes">
+       <widget class="QCheckBox" name="checkBox_finalizar_app">
         <property name="geometry">
          <rect>
-          <x>340</x>
+          <x>20</x>
+          <y>80</y>
+          <width>311</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 10pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>Finalizar aplicação após 20 minutos</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_titulo_configuracoes">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>241</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 16pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>Configurações</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::TextBrowserInteraction</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_salvar">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>130</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Salvar Alterações</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="pg_fornecedores">
+       <widget class="QLabel" name="lbl_titulo_forncedores">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
           <y>30</y>
           <width>371</width>
-          <height>20</height>
+          <height>41</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -585,15 +681,18 @@ de gerenciar estoque!</string>
 font: 20pt &quot;Montserrat&quot;;</string>
         </property>
         <property name="text">
-         <string>Fornecedores Cadastrados</string>
+         <string>Fornecedores</string>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
         </property>
        </widget>
        <widget class="QPushButton" name="btn_editar_fornecedores">
         <property name="geometry">
          <rect>
-          <x>430</x>
-          <y>500</y>
-          <width>161</width>
+          <x>810</x>
+          <y>330</y>
+          <width>201</width>
           <height>41</height>
          </rect>
         </property>
@@ -619,9 +718,9 @@ QPushButton:hover {
        <widget class="QPushButton" name="btn_excluir_fornecedores">
         <property name="geometry">
          <rect>
-          <x>630</x>
-          <y>500</y>
-          <width>161</width>
+          <x>810</x>
+          <y>390</y>
+          <width>201</width>
           <height>41</height>
          </rect>
         </property>
@@ -648,9 +747,9 @@ QPushButton:hover {
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>80</y>
-          <width>991</width>
-          <height>401</height>
+          <y>170</y>
+          <width>771</width>
+          <height>371</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -736,9 +835,9 @@ QHeaderView::section:horizontal
        <widget class="QPushButton" name="btn_adicionar_forncedores">
         <property name="geometry">
          <rect>
-          <x>230</x>
-          <y>500</y>
-          <width>161</width>
+          <x>810</x>
+          <y>270</y>
+          <width>201</width>
           <height>41</height>
          </rect>
         </property>
@@ -761,9 +860,1701 @@ QPushButton:hover {
          <string>Adicionar</string>
         </property>
        </widget>
+       <widget class="QPushButton" name="btn_filtrar_fornecedores">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>100</y>
+          <width>51</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../QRC/file_principal_rc.qrc">
+          <normaloff>:/icones/lupa.png</normaloff>:/icones/lupa.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_search_Bar_fornecedores">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>100</y>
+          <width>291</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 2px solid #9f3ffa;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="cursorPosition">
+         <number>0</number>
+        </property>
+        <property name="placeholderText">
+         <string>Filtrar Fornecedores</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_hora_data_fornecedores">
+        <property name="geometry">
+         <rect>
+          <x>820</x>
+          <y>510</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+        </property>
+       </widget>
       </widget>
-      <widget class="QWidget" name="pg_colaboradores">
-       <widget class="QLabel" name="lbl_titulo_colaboradores">
+      <widget class="QWidget" name="pg_alterar_fornecedores">
+       <widget class="QLabel" name="lbl_titulo_alterar_fornecedores">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>371</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: #9f3ffa;
+font: 20pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Alterar Fornecedores </string>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_flitrar_fornecedores">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>80</y>
+          <width>51</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../QRC/file_principal_rc.qrc">
+          <normaloff>:/icones/lupa.png</normaloff>:/icones/lupa.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_search_Bar_altarar_fornecedor">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>80</y>
+          <width>291</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 2px solid #9f3ffa;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="cursorPosition">
+         <number>0</number>
+        </property>
+        <property name="placeholderText">
+         <string>Filtrar Fornecedores</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QTableWidget" name="tabela_alterar_fornecedores">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>190</y>
+          <width>991</width>
+          <height>361</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QTableWidget {
+	gridline-color: #9f3ffa;;
+	background-color: transparent;
+	outline: 0;
+	border: 1px solid #9f3ffa;
+	border-top: 0px
+	
+}
+
+QTableWidget::item:selected{
+	background-color:#9f3ffa;;
+}
+
+QTableWidget::horizontalHeader {	
+	background-color: #9f3ffa;
+}
+
+QHeaderView::section:horizontal
+{
+    border: 1px solid #9f3ffa;
+	background-color: transparent;
+	border-left: 0px;
+	color: black;
+
+}
+</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::SelectedClicked</set>
+        </property>
+        <property name="tabKeyNavigation">
+         <bool>true</bool>
+        </property>
+        <property name="showDropIndicator" stdset="0">
+         <bool>false</bool>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>false</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
+        </property>
+        <property name="gridStyle">
+         <enum>Qt::SolidLine</enum>
+        </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>Fornecedor</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Endereço</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Contato</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QLineEdit" name="line_alterar_nome_fornecedor">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>140</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Nome</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_alterar_endereco_fornecedor">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>140</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Endereço</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_alterar_contato_fornecedor">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>140</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Contato</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_alterar_fornecedores">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>90</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Alterar</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_hora_data_alterar_fornecedores">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>150</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="pg_cadastrar_fornecedores">
+       <widget class="QPushButton" name="btn_cadastrar_forncedores">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>90</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Cadastrar</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_cadastrar_nome_fornecedores">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>140</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Nome</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_search_Bar_cadastrar_fornecedores">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>80</y>
+          <width>291</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 2px solid #9f3ffa;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="cursorPosition">
+         <number>0</number>
+        </property>
+        <property name="placeholderText">
+         <string>Filtrar Fornecedores</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_pesquisar_fornecedores">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>80</y>
+          <width>51</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../QRC/file_principal_rc.qrc">
+          <normaloff>:/icones/lupa.png</normaloff>:/icones/lupa.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_cadastrar_endereco_fornecedores">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>140</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Endereço</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_titulo_cadastrar_fornecedores">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>371</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: #9f3ffa;
+font: 20pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Cadastrar Fornecedores </string>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_cadastrar_contato_fornecedores">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>140</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Contato</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QTableWidget" name="tabela_cadastrar_fornecedores">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>190</y>
+          <width>991</width>
+          <height>361</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QTableWidget {
+	gridline-color: #9f3ffa;;
+	background-color: transparent;
+	outline: 0;
+	border: 1px solid #9f3ffa;
+	border-top: 0px
+	
+}
+
+QTableWidget::item:selected{
+	background-color:#9f3ffa;;
+}
+
+QTableWidget::horizontalHeader {	
+	background-color: #9f3ffa;
+}
+
+QHeaderView::section:horizontal
+{
+    border: 1px solid #9f3ffa;
+	background-color: transparent;
+	border-left: 0px;
+	color: black;
+
+}
+</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::SelectedClicked</set>
+        </property>
+        <property name="tabKeyNavigation">
+         <bool>true</bool>
+        </property>
+        <property name="showDropIndicator" stdset="0">
+         <bool>false</bool>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>false</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
+        </property>
+        <property name="gridStyle">
+         <enum>Qt::SolidLine</enum>
+        </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>Fornecedor</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Endereço</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Contato</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QLabel" name="lbl_hora_data_cadastrar_fornecedores">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>150</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="pg_clientes">
+       <widget class="QTableWidget" name="tabela_clientes">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>150</y>
+          <width>771</width>
+          <height>401</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QTableWidget {
+	gridline-color: #9f3ffa;;
+	background-color: transparent;
+	outline: 0;
+	border: 1px solid #9f3ffa;
+	border-top: 0px
+	
+}
+
+QTableWidget::item:selected{
+	background-color:#9f3ffa;;
+}
+
+QTableWidget::horizontalHeader {	
+	background-color: #9f3ffa;
+}
+
+QHeaderView::section:horizontal
+{
+    border: 1px solid #9f3ffa;
+	background-color: transparent;
+	border-left: 0px;
+	color: black;
+
+}
+</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::SelectedClicked</set>
+        </property>
+        <property name="tabKeyNavigation">
+         <bool>true</bool>
+        </property>
+        <property name="showDropIndicator" stdset="0">
+         <bool>false</bool>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>false</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
+        </property>
+        <property name="gridStyle">
+         <enum>Qt::SolidLine</enum>
+        </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>CPF</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Nome</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Endereço</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Contato</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QLineEdit" name="line_search_Bar_clientes">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>90</y>
+          <width>291</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 2px solid #9f3ffa;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="cursorPosition">
+         <number>0</number>
+        </property>
+        <property name="placeholderText">
+         <string>Filtrar Clientes</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_pesquisar_clientes">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>90</y>
+          <width>51</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../QRC/file_principal_rc.qrc">
+          <normaloff>:/icones/lupa.png</normaloff>:/icones/lupa.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_cadastrar_clientes">
+        <property name="geometry">
+         <rect>
+          <x>810</x>
+          <y>260</y>
+          <width>201</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Cadastrar</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_alterar_clientes">
+        <property name="geometry">
+         <rect>
+          <x>810</x>
+          <y>320</y>
+          <width>201</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Alterar</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_exclui_fornecedores">
+        <property name="geometry">
+         <rect>
+          <x>810</x>
+          <y>380</y>
+          <width>201</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(255, 17, 49);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Excluir</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_titulo_clientes">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>30</y>
+          <width>371</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: #9f3ffa;
+font: 20pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Clientes </string>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_hora_data_clientes">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>520</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="pg_alterar_clientes">
+       <widget class="QLineEdit" name="line_alterar_nome_cliente">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>140</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Nome</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_alterar_cpf_cliente">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>90</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>CPF</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_search_Bar_alterar_clientes">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>80</y>
+          <width>291</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 2px solid #9f3ffa;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="cursorPosition">
+         <number>0</number>
+        </property>
+        <property name="placeholderText">
+         <string>Filtrar Clientes</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_filtrar_clientes">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>80</y>
+          <width>51</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../QRC/file_principal_rc.qrc">
+          <normaloff>:/icones/lupa.png</normaloff>:/icones/lupa.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QTableWidget" name="tabela_alterar_clientes">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>190</y>
+          <width>991</width>
+          <height>361</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QTableWidget {
+	gridline-color: #9f3ffa;;
+	background-color: transparent;
+	outline: 0;
+	border: 1px solid #9f3ffa;
+	border-top: 0px
+	
+}
+
+QTableWidget::item:selected{
+	background-color:#9f3ffa;;
+}
+
+QTableWidget::horizontalHeader {	
+	background-color: #9f3ffa;
+}
+
+QHeaderView::section:horizontal
+{
+    border: 1px solid #9f3ffa;
+	background-color: transparent;
+	border-left: 0px;
+	color: black;
+
+}
+</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::SelectedClicked</set>
+        </property>
+        <property name="tabKeyNavigation">
+         <bool>true</bool>
+        </property>
+        <property name="showDropIndicator" stdset="0">
+         <bool>false</bool>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>false</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
+        </property>
+        <property name="gridStyle">
+         <enum>Qt::SolidLine</enum>
+        </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>CPF</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Nome</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Endereço</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Contato</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QPushButton" name="btn_finalizar_alteracao_fornecedores">
+        <property name="geometry">
+         <rect>
+          <x>560</x>
+          <y>140</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Alterar</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_alterar_contato_cliente">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>140</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Contato</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_titulo_alterar_clientes">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>371</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: #9f3ffa;
+font: 20pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Alterar Clientes</string>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_alterar_endereco_cliente">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>140</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Endereço</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_hora_data_alterar_clientes">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>150</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="pg_cadastrar_clientes">
+       <widget class="QTableWidget" name="tabela_cadastrar_clientes">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>190</y>
+          <width>991</width>
+          <height>361</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QTableWidget {
+	gridline-color: #9f3ffa;;
+	background-color: transparent;
+	outline: 0;
+	border: 1px solid #9f3ffa;
+	border-top: 0px
+	
+}
+
+QTableWidget::item:selected{
+	background-color:#9f3ffa;;
+}
+
+QTableWidget::horizontalHeader {	
+	background-color: #9f3ffa;
+}
+
+QHeaderView::section:horizontal
+{
+    border: 1px solid #9f3ffa;
+	background-color: transparent;
+	border-left: 0px;
+	color: black;
+
+}
+</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::SelectedClicked</set>
+        </property>
+        <property name="tabKeyNavigation">
+         <bool>true</bool>
+        </property>
+        <property name="showDropIndicator" stdset="0">
+         <bool>false</bool>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>false</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
+        </property>
+        <property name="gridStyle">
+         <enum>Qt::SolidLine</enum>
+        </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>CPF</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Nome</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Endereço</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Contato</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QPushButton" name="btn_finalizar_cadastro_clientes">
+        <property name="geometry">
+         <rect>
+          <x>560</x>
+          <y>140</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Cadastrar</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_pesquisar_produto_8">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>80</y>
+          <width>51</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../QRC/file_principal_rc.qrc">
+          <normaloff>:/icones/lupa.png</normaloff>:/icones/lupa.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_nome_cadastrar_clientes">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>140</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Nome</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_cpf_cadastrar_clientes">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>90</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>CPF</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_endereco_cadastrar_clientes">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>140</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Endereço</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_search_Bar_cadastrar_clientes">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>80</y>
+          <width>291</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 2px solid #9f3ffa;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="cursorPosition">
+         <number>0</number>
+        </property>
+        <property name="placeholderText">
+         <string>Filtrar Fornecedores</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_titulo_cadastrar_clientes">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>371</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: #9f3ffa;
+font: 20pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Cadastrar Clientes</string>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_contato_cadastrar_clientes">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>140</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Contato</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_hora_data_cadastrar_clientes">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>150</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="pg_cadastro_colaboradores">
+       <widget class="QLabel" name="lbl_titulo_cadastrar_colaboradores">
         <property name="geometry">
          <rect>
           <x>250</x>
@@ -787,7 +2578,7 @@ color: #9f3ffa;
          <bool>false</bool>
         </property>
         <property name="textInteractionFlags">
-         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+         <set>Qt::TextBrowserInteraction</set>
         </property>
        </widget>
        <widget class="QRadioButton" name="radio_admin">
@@ -922,7 +2713,7 @@ QPushButton:hover {
          <string>Efetuar Cadastro</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_5">
+       <widget class="QLabel" name="lbl_imagem">
         <property name="geometry">
          <rect>
           <x>50</x>
@@ -965,8 +2756,8 @@ QPushButton:hover {
          <string/>
         </property>
        </widget>
-       <zorder>label_5</zorder>
-       <zorder>lbl_titulo_colaboradores</zorder>
+       <zorder>lbl_imagem</zorder>
+       <zorder>lbl_titulo_cadastrar_colaboradores</zorder>
        <zorder>radio_admin</zorder>
        <zorder>radio_colaborador</zorder>
        <zorder>line_nome</zorder>
@@ -975,8 +2766,903 @@ QPushButton:hover {
        <zorder>btn_cadastro</zorder>
        <zorder>btn_ver_senha</zorder>
       </widget>
+      <widget class="QWidget" name="alterar_colaboradores">
+       <widget class="QTableWidget" name="tabela_alterar_colaboradores">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>190</y>
+          <width>991</width>
+          <height>351</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QTableWidget {
+	gridline-color: #9f3ffa;;
+	background-color: transparent;
+	outline: 0;
+	border: 1px solid #9f3ffa;
+	border-top: 0px
+	
+}
+
+QTableWidget::item:selected{
+	background-color:#9f3ffa;;
+}
+
+QTableWidget::horizontalHeader {	
+	background-color: #9f3ffa;
+}
+
+QHeaderView::section:horizontal
+{
+    border: 1px solid #9f3ffa;
+	background-color: transparent;
+	border-left: 0px;
+	color: black;
+
+}
+</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::SelectedClicked</set>
+        </property>
+        <property name="tabKeyNavigation">
+         <bool>true</bool>
+        </property>
+        <property name="showDropIndicator" stdset="0">
+         <bool>false</bool>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>false</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
+        </property>
+        <property name="gridStyle">
+         <enum>Qt::SolidLine</enum>
+        </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>Nome</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Login</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Senha</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QLineEdit" name="line_search_bar_buscar_colaboradores">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>80</y>
+          <width>291</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 2px solid #9f3ffa;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="cursorPosition">
+         <number>0</number>
+        </property>
+        <property name="placeholderText">
+         <string>Buscar Colaboradores</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_pesquisar_alterar_colaboradores">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>80</y>
+          <width>51</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../QRC/file_principal_rc.qrc">
+          <normaloff>:/icones/lupa.png</normaloff>:/icones/lupa.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_titulo_alterar_colaboradores">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>551</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 16pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>Alterar Colaboradores</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::TextBrowserInteraction</set>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_nome_alterar_colaboradores">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>140</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="placeholderText">
+         <string>Nome</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_login_alterar_colaboradores">
+        <property name="geometry">
+         <rect>
+          <x>200</x>
+          <y>140</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="placeholderText">
+         <string>Login</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_senha_alterar_colaboradores">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>140</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="placeholderText">
+         <string>Senha</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_ver_senha_alterar">
+        <property name="geometry">
+         <rect>
+          <x>550</x>
+          <y>150</y>
+          <width>30</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+	background-image: url(:/icones/ver senha.png);
+	border: 0px;
+	outline: 0;
+}
+
+QPushButton:hover {
+	background-image: url(:/icones/ver senha hover.png);
+}</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_finalizar_alterar_colaboradores">
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>90</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Efetuar Alteração</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_hora_data_alterar_colaboradores">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>150</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="pg_colaboradores">
+       <widget class="QTableWidget" name="tabela_colaboradores">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>140</y>
+          <width>781</width>
+          <height>401</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QTableWidget {
+	gridline-color: #9f3ffa;;
+	background-color: transparent;
+	outline: 0;
+	border: 1px solid #9f3ffa;
+	border-top: 0px
+	
+}
+
+QTableWidget::item:selected{
+	background-color:#9f3ffa;;
+}
+
+QTableWidget::horizontalHeader {	
+	background-color: #9f3ffa;
+}
+
+QHeaderView::section:horizontal
+{
+    border: 1px solid #9f3ffa;
+	background-color: transparent;
+	border-left: 0px;
+	color: black;
+
+}
+</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::SelectedClicked</set>
+        </property>
+        <property name="tabKeyNavigation">
+         <bool>true</bool>
+        </property>
+        <property name="showDropIndicator" stdset="0">
+         <bool>false</bool>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>false</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
+        </property>
+        <property name="gridStyle">
+         <enum>Qt::SolidLine</enum>
+        </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>Nome</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Login</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Senha</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QLabel" name="lbl_titulo_colaboradores">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>551</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 16pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>Colaboradores</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::TextBrowserInteraction</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_pesquisar_colaboradores">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>80</y>
+          <width>51</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../QRC/file_principal_rc.qrc">
+          <normaloff>:/icones/lupa.png</normaloff>:/icones/lupa.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_search_bar_colaboradores">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>80</y>
+          <width>291</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 2px solid #9f3ffa;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="cursorPosition">
+         <number>0</number>
+        </property>
+        <property name="placeholderText">
+         <string>Buscar Colaboradores</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_exluir_colaboradores">
+        <property name="geometry">
+         <rect>
+          <x>820</x>
+          <y>390</y>
+          <width>191</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(255, 17, 49);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Excluir</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_alterar_colaboradores">
+        <property name="geometry">
+         <rect>
+          <x>820</x>
+          <y>330</y>
+          <width>191</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Alterar</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_cadastrar_colaboradores">
+        <property name="geometry">
+         <rect>
+          <x>820</x>
+          <y>270</y>
+          <width>191</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Cadastrar</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_hora_data_colaboradores">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>520</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="monitoramento">
+       <widget class="QLabel" name="lbl_titulo_monitoramento">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>20</y>
+          <width>551</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 16pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>Monitoramento de Vendas</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::TextBrowserInteraction</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_filtrar_monitoramento">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>70</y>
+          <width>51</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../QRC/file_principal_rc.qrc">
+          <normaloff>:/icones/lupa.png</normaloff>:/icones/lupa.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_search_bar_monitoramentoto">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>70</y>
+          <width>291</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 2px solid #9f3ffa;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="cursorPosition">
+         <number>0</number>
+        </property>
+        <property name="placeholderText">
+         <string>Filtrar</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QTableWidget" name="tabela_monitoramento">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>130</y>
+          <width>781</width>
+          <height>411</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QTableWidget {
+	gridline-color: #9f3ffa;;
+	background-color: transparent;
+	outline: 0;
+	border: 1px solid #9f3ffa;
+	border-top: 0px
+	
+}
+
+QTableWidget::item:selected{
+	background-color:#9f3ffa;;
+}
+
+QTableWidget::horizontalHeader {	
+	background-color: #9f3ffa;
+}
+
+QHeaderView::section:horizontal
+{
+    border: 1px solid #9f3ffa;
+	background-color: transparent;
+	border-left: 0px;
+	color: black;
+
+}
+</string>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::SelectedClicked</set>
+        </property>
+        <property name="tabKeyNavigation">
+         <bool>true</bool>
+        </property>
+        <property name="showDropIndicator" stdset="0">
+         <bool>false</bool>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>false</bool>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
+        </property>
+        <property name="gridStyle">
+         <enum>Qt::SolidLine</enum>
+        </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <attribute name="verticalHeaderVisible">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>Vendedor</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Cliente</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Qtde Vendido</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Total Venda</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Horário da Venda</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QLabel" name="lbl_hora_data_monitoramento">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>520</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_limpar_tabela">
+        <property name="geometry">
+         <rect>
+          <x>820</x>
+          <y>270</y>
+          <width>191</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Limpar Tabela</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_gerar_pdf">
+        <property name="geometry">
+         <rect>
+          <x>820</x>
+          <y>330</y>
+          <width>191</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Gerar PDF</string>
+        </property>
+       </widget>
+      </widget>
       <widget class="QWidget" name="pg_vendas">
-       <widget class="QLabel" name="lbl_titulo_usuario_vendas">
+       <widget class="QLabel" name="lbl_titulo_vendas">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -1000,7 +3686,7 @@ color: #9f3ffa;
          <bool>false</bool>
         </property>
         <property name="textInteractionFlags">
-         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+         <set>Qt::TextBrowserInteraction</set>
         </property>
        </widget>
        <widget class="QLineEdit" name="line_cliente">
@@ -1220,7 +3906,7 @@ QPushButton:hover {
          </size>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_search_bar">
+       <widget class="QLineEdit" name="line_search_bar_vendas">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -1246,8 +3932,8 @@ font: 10pt &quot;Montserrat&quot;;</string>
        <widget class="QLabel" name="lbl_total_venda">
         <property name="geometry">
          <rect>
-          <x>680</x>
-          <y>80</y>
+          <x>690</x>
+          <y>20</y>
           <width>251</width>
           <height>41</height>
          </rect>
@@ -1267,14 +3953,14 @@ color: #9f3ffa;
          <bool>false</bool>
         </property>
         <property name="textInteractionFlags">
-         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+         <set>Qt::TextBrowserInteraction</set>
         </property>
        </widget>
        <widget class="QLabel" name="lbl_total_valor">
         <property name="geometry">
          <rect>
-          <x>920</x>
-          <y>80</y>
+          <x>930</x>
+          <y>20</y>
           <width>131</width>
           <height>41</height>
          </rect>
@@ -1294,7 +3980,7 @@ color: #9f3ffa;
          <bool>false</bool>
         </property>
         <property name="textInteractionFlags">
-         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+         <set>Qt::TextBrowserInteraction</set>
         </property>
        </widget>
        <widget class="QLineEdit" name="line_desconto_vendas">
@@ -1354,7 +4040,7 @@ QPushButton:hover {
         <property name="geometry">
          <rect>
           <x>830</x>
-          <y>400</y>
+          <y>360</y>
           <width>181</width>
           <height>41</height>
          </rect>
@@ -1382,7 +4068,7 @@ QPushButton:hover {
         <property name="geometry">
          <rect>
           <x>830</x>
-          <y>280</y>
+          <y>300</y>
           <width>181</width>
           <height>41</height>
          </rect>
@@ -1434,34 +4120,6 @@ QPushButton:hover {
          <string>Confirmar</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="btn_pagamento">
-        <property name="geometry">
-         <rect>
-          <x>830</x>
-          <y>340</y>
-          <width>181</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton {
-border: 2px;
-background-color: rgb(159, 63, 250);
-color: white;
-border-radius: 5px;
-font: 10pt &quot;Montserrat&quot;;
-outline: 0;
-}
-
-QPushButton:hover {
-	background-color: rgb(197, 62, 255);
-}
-</string>
-        </property>
-        <property name="text">
-         <string>Pagamento</string>
-        </property>
-       </widget>
        <widget class="QLabel" name="lbl_hora_data">
         <property name="geometry">
          <rect>
@@ -1489,6 +4147,113 @@ color: #9f3ffa;
          <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
         </property>
        </widget>
+       <widget class="QLabel" name="lbl_troco">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>130</y>
+          <width>211</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 16pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>0,00</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::TextBrowserInteraction</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_devolver_troco">
+        <property name="geometry">
+         <rect>
+          <x>690</x>
+          <y>130</y>
+          <width>141</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 16pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>Devolver: R$</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::TextBrowserInteraction</set>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_troco">
+        <property name="geometry">
+         <rect>
+          <x>690</x>
+          <y>80</y>
+          <width>161</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgba(0, 0 , 0, 0);
+border: 2px solid rgba(0,0,0,0);
+border-bottom-color: rgb(159, 63, 250);
+color: rgb(0,0,0);
+padding-bottom: 8px;
+border-radius: 0px;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="placeholderText">
+         <string>Troco</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_confirmar_troco">
+        <property name="geometry">
+         <rect>
+          <x>870</x>
+          <y>80</y>
+          <width>111</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+border-radius: 5px;
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string>Confirmar</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="pg_produtos">
        <widget class="QLabel" name="lbl_titulo_produtos">
@@ -1506,7 +4271,7 @@ color: #9f3ffa;
 </string>
         </property>
         <property name="text">
-         <string>Produtos Cadastrados</string>
+         <string>Produtos</string>
         </property>
         <property name="textFormat">
          <enum>Qt::AutoText</enum>
@@ -1515,7 +4280,7 @@ color: #9f3ffa;
          <bool>false</bool>
         </property>
         <property name="textInteractionFlags">
-         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+         <set>Qt::TextBrowserInteraction</set>
         </property>
        </widget>
        <widget class="QTableWidget" name="tabela_produto">
@@ -1698,7 +4463,7 @@ outline: 0;
 }
 
 QPushButton:hover {
-	background-color: rgb(197, 62, 255);
+	background-color: rgb(255, 17, 49);
 }
 </string>
         </property>
@@ -1706,7 +4471,7 @@ QPushButton:hover {
          <string>Excluir</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_search_Bar">
+       <widget class="QLineEdit" name="line_search_Bar_produtos">
         <property name="geometry">
          <rect>
           <x>70</x>
@@ -1873,7 +4638,7 @@ color: #9f3ffa;
          <bool>false</bool>
         </property>
         <property name="textInteractionFlags">
-         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+         <set>Qt::TextBrowserInteraction</set>
         </property>
        </widget>
        <widget class="QTableWidget" name="tabela_cadastro">
@@ -1983,8 +4748,8 @@ QHeaderView::section:horizontal
        <widget class="QLineEdit" name="line_codigo_produto_cadastrar">
         <property name="geometry">
          <rect>
-          <x>20</x>
-          <y>90</y>
+          <x>380</x>
+          <y>100</y>
           <width>161</width>
           <height>31</height>
          </rect>
@@ -2008,8 +4773,8 @@ font: 10pt &quot;Montserrat&quot;;</string>
        <widget class="QLineEdit" name="line_descricao_cadastrar">
         <property name="geometry">
          <rect>
-          <x>200</x>
-          <y>90</y>
+          <x>560</x>
+          <y>100</y>
           <width>161</width>
           <height>31</height>
          </rect>
@@ -2033,8 +4798,8 @@ font: 10pt &quot;Montserrat&quot;;</string>
        <widget class="QLineEdit" name="line_valor_cadastrar">
         <property name="geometry">
          <rect>
-          <x>380</x>
-          <y>90</y>
+          <x>20</x>
+          <y>150</y>
           <width>161</width>
           <height>31</height>
          </rect>
@@ -2058,7 +4823,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
        <widget class="QLineEdit" name="line_qtde_cadastrar">
         <property name="geometry">
          <rect>
-          <x>20</x>
+          <x>200</x>
           <y>150</y>
           <width>161</width>
           <height>31</height>
@@ -2083,7 +4848,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
        <widget class="QLineEdit" name="line_fornecedor_cadastrar">
         <property name="geometry">
          <rect>
-          <x>200</x>
+          <x>380</x>
           <y>150</y>
           <width>161</width>
           <height>31</height>
@@ -2108,7 +4873,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
        <widget class="QPushButton" name="btn_finalizar_cadastro">
         <property name="geometry">
          <rect>
-          <x>380</x>
+          <x>560</x>
           <y>150</y>
           <width>161</width>
           <height>31</height>
@@ -2133,12 +4898,100 @@ QPushButton:hover {
          <string>Finalizar Cadastro</string>
         </property>
        </widget>
+       <widget class="QPushButton" name="btn_pesquisar_cadastrar_produto">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>90</y>
+          <width>51</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../QRC/file_principal_rc.qrc">
+          <normaloff>:/icones/lupa.png</normaloff>:/icones/lupa.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_search_Bar_cadastrar_produto">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>90</y>
+          <width>291</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 2px solid #9f3ffa;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="cursorPosition">
+         <number>0</number>
+        </property>
+        <property name="placeholderText">
+         <string>Filtrar Produtos</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_hora_data_cadastrar_produto">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>160</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="pg_alterar_produtos">
        <widget class="QPushButton" name="btn_finalizar_alterar">
         <property name="geometry">
          <rect>
-          <x>380</x>
+          <x>560</x>
           <y>140</y>
           <width>161</width>
           <height>31</height>
@@ -2163,10 +5016,10 @@ QPushButton:hover {
          <string>Finalizar Alteração</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_fornecedor_alterar">
+       <widget class="QLineEdit" name="line_fornecedor_alterar_produto">
         <property name="geometry">
          <rect>
-          <x>200</x>
+          <x>380</x>
           <y>140</y>
           <width>161</width>
           <height>31</height>
@@ -2188,7 +5041,7 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QTableWidget" name="tabela_alterar">
+       <widget class="QTableWidget" name="tabela_alterar_produto">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2292,7 +5145,7 @@ QHeaderView::section:horizontal
          </property>
         </column>
        </widget>
-       <widget class="QLabel" name="lbl_titulo_alterar">
+       <widget class="QLabel" name="lbl_titulo_alterar_produto">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -2316,14 +5169,14 @@ color: #9f3ffa;
          <bool>false</bool>
         </property>
         <property name="textInteractionFlags">
-         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
+         <set>Qt::TextBrowserInteraction</set>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_valor_alterar">
+       <widget class="QLineEdit" name="line_valor_alterar_produto">
         <property name="geometry">
          <rect>
-          <x>380</x>
-          <y>80</y>
+          <x>20</x>
+          <y>140</y>
           <width>161</width>
           <height>31</height>
          </rect>
@@ -2344,10 +5197,10 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_qtde_alterar">
+       <widget class="QLineEdit" name="line_qtde_alterar_produto">
         <property name="geometry">
          <rect>
-          <x>20</x>
+          <x>200</x>
           <y>140</y>
           <width>161</width>
           <height>31</height>
@@ -2369,11 +5222,11 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_codigo_alterar">
+       <widget class="QLineEdit" name="line_codigo_alterar_produto">
         <property name="geometry">
          <rect>
-          <x>20</x>
-          <y>80</y>
+          <x>380</x>
+          <y>90</y>
           <width>161</width>
           <height>31</height>
          </rect>
@@ -2394,11 +5247,11 @@ font: 10pt &quot;Montserrat&quot;;</string>
          <bool>true</bool>
         </property>
        </widget>
-       <widget class="QLineEdit" name="line_decricao_alterar">
+       <widget class="QLineEdit" name="line_decricao_alterar_produto">
         <property name="geometry">
          <rect>
-          <x>200</x>
-          <y>80</y>
+          <x>560</x>
+          <y>90</y>
           <width>161</width>
           <height>31</height>
          </rect>
@@ -2417,6 +5270,94 @@ font: 10pt &quot;Montserrat&quot;;</string>
         </property>
         <property name="clearButtonEnabled">
          <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btn_pesquisar_alterar_produto">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>80</y>
+          <width>51</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+border: 2px;
+background-color: rgb(159, 63, 250);
+color: white;
+
+font: 10pt &quot;Montserrat&quot;;
+outline: 0;
+}
+
+QPushButton:hover {
+	background-color: rgb(197, 62, 255);
+}
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../QRC/file_principal_rc.qrc">
+          <normaloff>:/icones/lupa.png</normaloff>:/icones/lupa.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="line_search_Bar_alterar_produto">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>80</y>
+          <width>291</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border: 2px solid #9f3ffa;
+font: 10pt &quot;Montserrat&quot;;</string>
+        </property>
+        <property name="cursorPosition">
+         <number>0</number>
+        </property>
+        <property name="placeholderText">
+         <string>Filtrar Produtos</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lbl_hora_data_alterar_produto">
+        <property name="geometry">
+         <rect>
+          <x>830</x>
+          <y>150</y>
+          <width>181</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font: 13pt &quot;Montserrat&quot;;
+color: #9f3ffa;
+</string>
+        </property>
+        <property name="text">
+         <string>00:00 00/00/0000</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>false</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
         </property>
        </widget>
       </widget>
