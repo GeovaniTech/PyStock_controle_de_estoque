@@ -16,22 +16,33 @@
 ![Login](https://user-images.githubusercontent.com/84943777/126876852-d6871f1c-2b15-4d1d-a2eb-9ec75dd9967a.png)
 
 ### Home
-![Home](https://user-images.githubusercontent.com/84943777/128106036-5bafc6c4-4c47-4fcc-a840-633117413ba4.png)
+![Home](https://user-images.githubusercontent.com/84943777/129497159-81d981f9-968e-421f-b34a-f45166a530c5.png)
+
+### Colaboradores
+![Colaboradores](https://user-images.githubusercontent.com/84943777/129497171-554bba6e-6b3c-4654-9863-432c42c83b27.png)
 
 ### Cadastro de Colaboradores
-![Cadastro de Colaboradores](https://user-images.githubusercontent.com/84943777/128106047-a8b81c2c-f6e6-49ec-8d6d-c0152281c6d4.png)
+![Cadastro de Colaboradores](https://user-images.githubusercontent.com/84943777/129497173-bda20b9a-79bd-4906-bacf-49c5336e800d.png)
+
+### Monitoramento de Vendas
+![Monitoramento de Vendas](https://user-images.githubusercontent.com/84943777/129497209-55104224-8464-4b5c-b8e5-f7fdba2319e5.png)
+
+### Clientes
+![Clientes](https://user-images.githubusercontent.com/84943777/129497244-f3ea6c9d-05e2-4735-a109-7d404445bb69.png)
+
+### Cadastrar Clientes
+![Cadastrar Clientes](https://user-images.githubusercontent.com/84943777/129497256-b91846a0-c192-475c-8a13-ee645b78f5a4.png)
 
 ### Fornecedores
-![Fornecedores](https://user-images.githubusercontent.com/84943777/128106053-a98e06af-9fbe-4681-9650-dbf312c60a5f.png)
+![Fornecedores](https://user-images.githubusercontent.com/84943777/129497179-e06b529e-eaa8-444b-886b-19a4f366a67c.png)
 
 ### Produtos
-![Produtos](https://user-images.githubusercontent.com/84943777/128106123-00bef329-55d0-4eaa-a8f7-b54046b59aa3.PNG)
+![Produtos](https://user-images.githubusercontent.com/84943777/129497216-e4c8d72f-0844-4b2a-8524-1b68a0d2cd23.PNG)
 
 ### Cadastrar Produtos
-![Cadastrar Produtos](https://user-images.githubusercontent.com/84943777/128106132-9d27a72b-d7f2-4c1b-b568-55e7b6cecaa0.PNG)
-
-### Alterar Produtos
-![Alterar Produtos](https://user-images.githubusercontent.com/84943777/128106139-55c70a46-aa9f-41a1-a937-fa1a5d858298.PNG)
+![Cadastrar Produtos](https://user-images.githubusercontent.com/84943777/129497221-6701eda9-a35d-4671-82ff-0e0fcf394fd6.PNG)
 
 ### Vendas
-![Vendas](https://user-images.githubusercontent.com/84943777/128106157-5030ef15-728b-4b6c-9691-fcdf964e31b0.PNG)
+![Vendas](https://user-images.githubusercontent.com/84943777/129497508-36a43d00-6fe2-4932-9044-2e126362b948.PNG)
+
+
