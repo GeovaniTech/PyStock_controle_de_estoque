@@ -101,7 +101,10 @@ class FrmAdmin(QMainWindow):
         self.ui.btn_alterar_colaboradores.clicked.connect(
             lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.alterar_colaboradores))
         self.ui.btn_cadastro.clicked.connect(self.CadastroColaboradores)
+
         self.ui.line_senha_alterar_colaboradores.setEchoMode(QLineEdit.EchoMode.Password)
+        self.ui.btn_exluir_colaboradores.clicked.connect(self.ExcluirColaboradores)
+
 
         # Botões para ver/esconder senha inserida
         self.ui.btn_ver_senha.clicked.connect(self.VerSenhaCadastroColaboradores)
@@ -398,6 +401,54 @@ class FrmAdmin(QMainWindow):
                                                 ''
                                                 'QPushButton:hover {'
                                                 'background-image: url(:/icones/bloquear senha hover.png);''}')
+
+    def ExcluirColaboradores(self):
+        print('Tentando Exluir')
+
+        id = self.ui.tabela_colaboradores.currentRow()
+
+        cursor.execute('SELECT * FROM login')
+        banco_login = cursor.fetchall()
+
+        deletar_user = ''
+
+        for pos, user in enumerate(banco_login):
+            if id == pos:
+                deletar_user = user[0]
+
+        print(deletar_user)
+
+        cursor.execute(f'DELETE FROM login WHERE usuario = "{deletar_user}"')
+        banco.commit()
+
+        self.AtualizaTabelasLogin()
+
+    def AtualizaTabelasLogin(self):
+
+        cursor.execute('SELECT * FROM login')
+        banco_login = cursor.fetchall()
+
+        self.ui.tabela_colaboradores.clear()
+        self.ui.tabela_alterar_colaboradores.clear()
+
+        row = 0
+        self.ui.tabela_colaboradores.setRowCount(len(banco_login))
+        self.ui.tabela_alterar_colaboradores.setRowCount(len(banco_login))
+
+        colunas = ['Nome', 'Login', 'Senha']
+        self.ui.tabela_colaboradores.setHorizontalHeaderLabels(colunas)
+        self.ui.tabela_alterar_colaboradores.setHorizontalHeaderLabels(colunas)
+
+        for logins in banco_login:
+            self.ui.tabela_colaboradores.setItem(row, 0, QTableWidgetItem(logins[3]))
+            self.ui.tabela_colaboradores.setItem(row, 1, QTableWidgetItem(logins[0]))
+            self.ui.tabela_colaboradores.setItem(row, 2, QTableWidgetItem(logins[1]))
+
+            self.ui.tabela_alterar_colaboradores.setItem(row, 0, QTableWidgetItem(logins[3]))
+            self.ui.tabela_alterar_colaboradores.setItem(row, 1, QTableWidgetItem(logins[0]))
+            self.ui.tabela_alterar_colaboradores.setItem(row, 2, QTableWidgetItem(logins[1]))
+
+            row += 1
 
 
 class FrmColaborador(QMainWindow):
