@@ -101,8 +101,11 @@ class FrmAdmin(QMainWindow):
         self.ui.btn_alterar_colaboradores.clicked.connect(
             lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.alterar_colaboradores))
         self.ui.btn_cadastro.clicked.connect(self.CadastroColaboradores)
-        self.ui.btn_ver_senha.clicked.connect(self.VerSenha)
+        self.ui.line_senha_alterar_colaboradores.setEchoMode(QLineEdit.EchoMode.Password)
 
+        # Botões para ver/esconder senha inserida
+        self.ui.btn_ver_senha.clicked.connect(self.VerSenhaCadastroColaboradores)
+        self.ui.btn_ver_senha_alterar.clicked.connect(self.VerSenhaAlterarColaboradores)
 
         # Tabela pg_colaboradores
         self.ui.tabela_colaboradores.setColumnWidth(0, 260)
@@ -294,10 +297,29 @@ class FrmAdmin(QMainWindow):
                     cursor.execute(comando_SQL, dados)
                     banco.commit()
 
+                    login.clear()
+                    senha.clear()
+                    nome.clear()
 
-                login.clear()
-                senha.clear()
-                nome.clear()
+                    self.ui.line_login.setStyleSheet('''
+                    background-color: rgba(0, 0 , 0, 0);
+                    border: 2px solid rgba(0,0,0,0);
+                    border-bottom-color: rgb(159, 63, 250);
+                    color: rgb(0,0,0);
+                    padding-bottom: 8px;
+                    border-radius: 0px;
+                    font: 10pt "Montserrat";''')
+
+
+                elif LoginNoBanco == True:
+                    self.ui.line_login.setStyleSheet('''
+                    background-color: rgba(0, 0 , 0, 0);
+                    border: 2px solid rgba(0,0,0,0);
+                    border-bottom-color: rgb(255, 17, 49);;
+                    color: rgb(0,0,0);
+                    padding-bottom: 8px;
+                    border-radius: 0px;
+                    font: 10pt "Montserrat";''')
 
                 self.ui.tabela_colaboradores.clear()
                 cursor.execute('SELECT * FROM login')
@@ -320,15 +342,14 @@ class FrmAdmin(QMainWindow):
                     self.ui.tabela_alterar_colaboradores.setItem(row, 1, QTableWidgetItem(logins[0]))
                     self.ui.tabela_alterar_colaboradores.setItem(row, 2, QTableWidgetItem(logins[1]))
 
-
                     row += 1
 
-    def VerSenha(self):
-        global btn_click
+    def VerSenhaCadastroColaboradores(self):
+        global click_cadastro_colaboradores
 
-        btn_click += 1
+        click_cadastro_colaboradores += 1
 
-        if btn_click % 2 == 0:
+        if click_cadastro_colaboradores % 2 == 0:
             self.ui.line_senha.setEchoMode(QLineEdit.EchoMode.Password)
             self.ui.btn_ver_senha.setStyleSheet('QPushButton {'
                                                 'background-image: url(:/icones/ver senha.png);'
@@ -339,7 +360,8 @@ class FrmAdmin(QMainWindow):
                                                 'QPushButton:hover {'
                                                 'background-image: url(:/icones/ver senha hover.png);'
                                                 '}')
-        if btn_click % 2 == 1:
+
+        if click_cadastro_colaboradores % 2 == 1:
             self.ui.line_senha.setEchoMode(QLineEdit.EchoMode.Normal)
             self.ui.btn_ver_senha.setStyleSheet('QPushButton {'
                                                 'background-image: url(:/icones/bloquear senha.png);'
@@ -348,8 +370,36 @@ class FrmAdmin(QMainWindow):
                                                 '}'
                                                 ''
                                                 'QPushButton:hover {'
-                                                'background-image: url(:/icones/bloquear senha hover.png);'
+                                                'background-image: url(:/icones/bloquear senha hover.png);''}')
+
+    def VerSenhaAlterarColaboradores(self):
+        global click_alterar_colaboradores
+
+        click_alterar_colaboradores += 1
+
+        if click_alterar_colaboradores % 2 == 0:
+            self.ui.line_senha_alterar_colaboradores.setEchoMode(QLineEdit.EchoMode.Password)
+            self.ui.btn_ver_senha_alterar.setStyleSheet('QPushButton {'
+                                                'background-image: url(:/icones/ver senha.png);'
+                                                'border: 0px;'
+                                                'outline: 0;'
+                                                '}'
+                                                ''
+                                                'QPushButton:hover {'
+                                                'background-image: url(:/icones/ver senha hover.png);'
                                                 '}')
+        if click_alterar_colaboradores % 2 == 1:
+            self.ui.line_senha_alterar_colaboradores.setEchoMode(QLineEdit.EchoMode.Normal)
+            self.ui.btn_ver_senha_alterar.setStyleSheet('QPushButton {'
+                                                'background-image: url(:/icones/bloquear senha.png);'
+                                                'border: 0px;'
+                                                'outline: 0;'
+                                                '}'
+                                                ''
+                                                'QPushButton:hover {'
+                                                'background-image: url(:/icones/bloquear senha hover.png);''}')
+
+
 class FrmColaborador(QMainWindow):
 
     def __init__(self):
@@ -415,8 +465,8 @@ class FrmColaborador(QMainWindow):
 
 
 if __name__ == '__main__':
-    btn_click = 0
-
+    click_cadastro_colaboradores = 0
+    click_alterar_colaboradores = 0
     app = QApplication(sys.argv)
     window = FrmLogin()
     window.show()
