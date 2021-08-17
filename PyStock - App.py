@@ -101,6 +101,8 @@ class FrmAdmin(QMainWindow):
         self.ui.btn_alterar_colaboradores.clicked.connect(
             lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.alterar_colaboradores))
         self.ui.btn_cadastro.clicked.connect(self.CadastroColaboradores)
+        self.ui.btn_ver_senha.clicked.connect(self.VerSenha)
+
 
         # Tabela pg_colaboradores
         self.ui.tabela_colaboradores.setColumnWidth(0, 260)
@@ -149,6 +151,14 @@ class FrmAdmin(QMainWindow):
 
         # Vendas
         self.ui.btn_Vendas.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_vendas))
+
+        # Tabela Vendas
+        self.ui.tabela_vendas.setColumnWidth(0, 50)
+        self.ui.tabela_vendas.setColumnWidth(1, 131)
+        self.ui.tabela_vendas.setColumnWidth(2, 250)
+        self.ui.tabela_vendas.setColumnWidth(3, 131)
+        self.ui.tabela_vendas.setColumnWidth(4, 75)
+        self.ui.tabela_vendas.setColumnWidth(5, 155)
 
         # Fornecedores
         self.ui.btn_fornecedores.clicked.connect(
@@ -232,6 +242,7 @@ class FrmAdmin(QMainWindow):
             self.ui.tabela_alterar_colaboradores.setItem(row, 2, QTableWidgetItem(logins[1]))
 
             row += 1
+
     def Voltar(self):
         global window
 
@@ -312,6 +323,33 @@ class FrmAdmin(QMainWindow):
 
                     row += 1
 
+    def VerSenha(self):
+        global btn_click
+
+        btn_click += 1
+
+        if btn_click % 2 == 0:
+            self.ui.line_senha.setEchoMode(QLineEdit.EchoMode.Password)
+            self.ui.btn_ver_senha.setStyleSheet('QPushButton {'
+                                                'background-image: url(:/icones/ver senha.png);'
+                                                'border: 0px;'
+                                                'outline: 0;'
+                                                '}'
+                                                ''
+                                                'QPushButton:hover {'
+                                                'background-image: url(:/icones/ver senha hover.png);'
+                                                '}')
+        if btn_click % 2 == 1:
+            self.ui.line_senha.setEchoMode(QLineEdit.EchoMode.Normal)
+            self.ui.btn_ver_senha.setStyleSheet('QPushButton {'
+                                                'background-image: url(:/icones/bloquear senha.png);'
+                                                'border: 0px;'
+                                                'outline: 0;'
+                                                '}'
+                                                ''
+                                                'QPushButton:hover {'
+                                                'background-image: url(:/icones/bloquear senha hover.png);'
+                                                '}')
 class FrmColaborador(QMainWindow):
 
     def __init__(self):
@@ -377,6 +415,8 @@ class FrmColaborador(QMainWindow):
 
 
 if __name__ == '__main__':
+    btn_click = 0
+
     app = QApplication(sys.argv)
     window = FrmLogin()
     window.show()
