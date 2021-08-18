@@ -10,6 +10,7 @@ from View.PY.FrmLogin import Ui_login
 from View.PY.FrmAdmin import Ui_FrmAdmin
 from View.PY.FrmColaborador import Ui_FrmColaborador
 
+# Configurando Banco
 banco = mysql.connector.connect(
     host='localhost',
     port='3307',
@@ -24,17 +25,20 @@ cursor = banco.cursor()
 class FrmLogin(QMainWindow):
 
     def __init__(self):
+
         QMainWindow.__init__(self)
 
         self.ui = Ui_login()
         self.ui.setupUi(self)
 
+        # Botão de logar no sistema
         self.ui.pushButton.clicked.connect(lambda: self.logar())
 
     def logar(self):
 
         global window
 
+        # Pegando os colaboradores cadastrados no banco
         cursor.execute("SELECT * FROM login")
         logins = cursor.fetchall()
 
@@ -44,6 +48,7 @@ class FrmLogin(QMainWindow):
         print(f"Usuario inserido: {usuario}\n"
               f"Senha inserida: {senha}")
 
+        # Verificando cada Usuário
         for login in logins:
 
             if usuario != login[0]:
@@ -56,6 +61,7 @@ class FrmLogin(QMainWindow):
                                                  'border-bottom-color: rgb(255, 17, 49);color: rgb(0,0,0);padding-bottom: 8px;'
                                                  'border-radius: 0px;font: 10pt "Montserrat";')
 
+            # Caso os dados estejam no banco, é iniciado o Frm de acordo com o nivel
             if usuario == login[0] and senha == login[1]:
 
                 self.ui.lineEdit.setStyleSheet('background-color: rgba(0, 0 , 0, 0);border: 2px solid rgba(0,0,0,0);'
@@ -100,11 +106,13 @@ class FrmAdmin(QMainWindow):
             lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_cadastro_colaboradores))
         self.ui.btn_alterar_colaboradores.clicked.connect(
             lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.alterar_colaboradores))
+
         self.ui.btn_cadastro.clicked.connect(self.CadastroColaboradores)
+        self.ui.btn_finalizar_alterar_colaboradores.clicked.connect(self.AlterarColaboradores)
 
         self.ui.line_senha_alterar_colaboradores.setEchoMode(QLineEdit.EchoMode.Password)
         self.ui.btn_exluir_colaboradores.clicked.connect(self.ExcluirColaboradores)
-
+        self.ui.tabela_alterar_colaboradores.doubleClicked.connect(self.setTextAlterarColaboradores)
 
         # Botões para ver/esconder senha inserida
         self.ui.btn_ver_senha.clicked.connect(self.VerSenhaCadastroColaboradores)
@@ -226,28 +234,7 @@ class FrmAdmin(QMainWindow):
         # Voltar
         self.ui.btn_voltar.clicked.connect(self.Voltar)
 
-        self.ui.tabela_colaboradores.clear()
-        cursor.execute('SELECT * FROM login')
-        banco_login = cursor.fetchall()
-
-        row = 0
-        self.ui.tabela_colaboradores.setRowCount(len(banco_login))
-        self.ui.tabela_alterar_colaboradores.setRowCount(len(banco_login))
-
-        colunas = ['Nome', 'Login', 'Senha']
-        self.ui.tabela_colaboradores.setHorizontalHeaderLabels(colunas)
-        self.ui.tabela_alterar_colaboradores.setHorizontalHeaderLabels(colunas)
-
-        for logins in banco_login:
-            self.ui.tabela_colaboradores.setItem(row, 0, QTableWidgetItem(logins[3]))
-            self.ui.tabela_colaboradores.setItem(row, 1, QTableWidgetItem(logins[0]))
-            self.ui.tabela_colaboradores.setItem(row, 2, QTableWidgetItem(logins[1]))
-
-            self.ui.tabela_alterar_colaboradores.setItem(row, 0, QTableWidgetItem(logins[3]))
-            self.ui.tabela_alterar_colaboradores.setItem(row, 1, QTableWidgetItem(logins[0]))
-            self.ui.tabela_alterar_colaboradores.setItem(row, 2, QTableWidgetItem(logins[1]))
-
-            row += 1
+        self.AtualizaTabelasLogin()
 
     def Voltar(self):
         global window
@@ -305,47 +292,50 @@ class FrmAdmin(QMainWindow):
                     nome.clear()
 
                     self.ui.line_login.setStyleSheet('''
-                    background-color: rgba(0, 0 , 0, 0);
-                    border: 2px solid rgba(0,0,0,0);
-                    border-bottom-color: rgb(159, 63, 250);
-                    color: rgb(0,0,0);
-                    padding-bottom: 8px;
-                    border-radius: 0px;
-                    font: 10pt "Montserrat";''')
+                            background-color: rgba(0, 0 , 0, 0);
+                            border: 2px solid rgba(0,0,0,0);
+                            border-bottom-color: rgb(159, 63, 250);
+                            color: rgb(0,0,0);
+                            padding-bottom: 8px;
+                            border-radius: 0px;
+                            font: 10pt "Montserrat";''')
 
 
                 elif LoginNoBanco == True:
                     self.ui.line_login.setStyleSheet('''
-                    background-color: rgba(0, 0 , 0, 0);
-                    border: 2px solid rgba(0,0,0,0);
-                    border-bottom-color: rgb(255, 17, 49);;
-                    color: rgb(0,0,0);
-                    padding-bottom: 8px;
-                    border-radius: 0px;
-                    font: 10pt "Montserrat";''')
+                            background-color: rgba(0, 0 , 0, 0);
+                            border: 2px solid rgba(0,0,0,0);
+                            border-bottom-color: rgb(255, 17, 49);;
+                            color: rgb(0,0,0);
+                            padding-bottom: 8px;
+                            border-radius: 0px;
+                            font: 10pt "Montserrat";''')
 
-                self.ui.tabela_colaboradores.clear()
-                cursor.execute('SELECT * FROM login')
-                banco_login = cursor.fetchall()
+            self.AtualizaTabelasLogin()
 
-                row = 0
-                self.ui.tabela_colaboradores.setRowCount(len(banco_login))
-                self.ui.tabela_alterar_colaboradores.setRowCount(len(banco_login))
+    def setTextAlterarColaboradores(self):
+        global id_tabela_alterar
 
-                colunas = ['Nome', 'Login', 'Senha']
-                self.ui.tabela_colaboradores.setHorizontalHeaderLabels(colunas)
-                self.ui.tabela_alterar_colaboradores.setHorizontalHeaderLabels(colunas)
+        nome = self.ui.line_nome_alterar_colaboradores
+        login = self.ui.line_login_alterar_colaboradores
+        senha = self.ui.line_senha_alterar_colaboradores
 
-                for logins in banco_login:
-                    self.ui.tabela_colaboradores.setItem(row, 0, QTableWidgetItem(logins[3]))
-                    self.ui.tabela_colaboradores.setItem(row, 1, QTableWidgetItem(logins[0]))
-                    self.ui.tabela_colaboradores.setItem(row, 2, QTableWidgetItem(logins[1]))
+        id_tabela_alterar = self.ui.tabela_alterar_colaboradores.currentRow()
 
-                    self.ui.tabela_alterar_colaboradores.setItem(row, 0, QTableWidgetItem(logins[3]))
-                    self.ui.tabela_alterar_colaboradores.setItem(row, 1, QTableWidgetItem(logins[0]))
-                    self.ui.tabela_alterar_colaboradores.setItem(row, 2, QTableWidgetItem(logins[1]))
+        cursor.execute('SELECT * FROM login')
+        banco_login = cursor.fetchall()
 
-                    row += 1
+        for pos, user in enumerate(banco_login):
+            if pos == id_tabela_alterar:
+                nome.setText(user[3])
+                login.setText(user[0])
+                senha.setText(user[1])
+
+    def AlterarColaboradores(self):
+        login = self.ui.line_login
+        senha = self.ui.line_senha
+        nome = self.ui.line_nome
+        nivel = None
 
     def VerSenhaCadastroColaboradores(self):
         global click_cadastro_colaboradores
@@ -516,8 +506,13 @@ class FrmColaborador(QMainWindow):
 
 
 if __name__ == '__main__':
+
+    # Variáveis Globais
     click_cadastro_colaboradores = 0
     click_alterar_colaboradores = 0
+    id_tabela_alterar = None
+
+    # Configurando Aplicação
     app = QApplication(sys.argv)
     window = FrmLogin()
     window.show()
