@@ -332,10 +332,27 @@ class FrmAdmin(QMainWindow):
                 senha.setText(user[1])
 
     def AlterarColaboradores(self):
-        login = self.ui.line_login
-        senha = self.ui.line_senha
-        nome = self.ui.line_nome
-        nivel = None
+        login = self.ui.line_login_alterar_colaboradores
+        senha = self.ui.line_senha_alterar_colaboradores
+        nome = self.ui.line_nome_alterar_colaboradores
+
+        cursor.execute('SELECT * FROM login')
+        banco_login = cursor.fetchall()
+
+        if login.text() != '' and senha.text() != '' and nome.text() != '':
+            for pos, user in enumerate(banco_login):
+                if pos == id_tabela_alterar:
+                    cursor.execute(f'UPDATE login set usuario = "{login.text()}", senha = "{senha.text()}", nivel = "{user[2]}", nome = "{nome.text()}"'
+                                   f'WHERE usuario = "{user[0]}"')
+                    banco.commit()
+
+                    login.clear()
+                    senha.clear()
+                    nome.clear()
+
+                    self.AtualizaTabelasLogin()
+
+                    break
 
     def VerSenhaCadastroColaboradores(self):
         global click_cadastro_colaboradores
@@ -439,6 +456,8 @@ class FrmAdmin(QMainWindow):
             self.ui.tabela_alterar_colaboradores.setItem(row, 2, QTableWidgetItem(logins[1]))
 
             row += 1
+
+    def TratamentoDasLinhasLogin(self):
 
 
 class FrmColaborador(QMainWindow):
