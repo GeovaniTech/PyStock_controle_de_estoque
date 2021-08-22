@@ -147,6 +147,7 @@ class FrmAdmin(QMainWindow):
         self.ui.btn_alterar_clientes.clicked.connect(
             lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_alterar_clientes))
         self.ui.btn_finalizar_cadastro_clientes.clicked.connect(self.CadastrarClientes)
+        self.ui.btn_exclui_fornecedores.clicked.connect(self.ExcluirClientes)
 
         # Tabela Clientes
         self.ui.tabela_clientes.setColumnWidth(0, 192)
@@ -238,6 +239,7 @@ class FrmAdmin(QMainWindow):
         self.ui.btn_voltar.clicked.connect(self.Voltar)
 
         self.AtualizaTabelasLogin()
+        self.AtualizaTabelasClientes()
 
     def Voltar(self):
         global window
@@ -413,7 +415,6 @@ class FrmAdmin(QMainWindow):
                                                 'background-image: url(:/icones/bloquear senha hover.png);''}')
 
     def ExcluirColaboradores(self):
-        print('Tentando Exluir')
 
         id = self.ui.tabela_colaboradores.currentRow()
 
@@ -473,8 +474,65 @@ class FrmAdmin(QMainWindow):
             comando_SQL = 'INSERT INTO clientes (CPF, Nome, Endereço, Contato) VALUES (%s,%s,%s,%s)'
             dados = f'{cpf.text()}', f'{nome.text()}', f'{endereco.text()}', f'{contato.text()}'
             cursor.execute(comando_SQL, dados)
-    
 
+            self.AtualizaTabelasClientes()
+
+            cpf.clear()
+            nome.clear()
+            endereco.clear()
+            contato.clear()
+
+    def ExcluirClientes(self):
+        id = self.ui.tabela_clientes.currentRow()
+
+        cursor.execute('SELECT * FROM clientes')
+        banco_clientes = cursor.fetchall()
+
+        deletar_cliente = ''
+
+        for pos, cliente in enumerate(banco_clientes):
+            if id == pos:
+                deletar_cliente = cliente[0]
+
+        cursor.execute(f'DELETE FROM clientes WHERE CPF = "{deletar_cliente}"')
+        banco.commit()
+
+        self.AtualizaTabelasClientes()
+
+    def AtualizaTabelasClientes(self):
+        cursor.execute('SELECT * FROM clientes')
+        banco_clientes = cursor.fetchall()
+
+        self.ui.tabela_clientes.clear()
+        self.ui.tabela_alterar_clientes.clear()
+        self.ui.tabela_cadastrar_clientes.clear()
+
+        row = 0
+        self.ui.tabela_clientes.setRowCount(len(banco_clientes))
+        self.ui.tabela_alterar_clientes.setRowCount(len(banco_clientes))
+        self.ui.tabela_cadastrar_clientes.setRowCount(len(banco_clientes))
+
+        colunas = ['CPF', 'Nome', 'Endereço', 'Contato']
+        self.ui.tabela_clientes.setHorizontalHeaderLabels(colunas)
+        self.ui.tabela_alterar_clientes.setHorizontalHeaderLabels(colunas)
+        self.ui.tabela_cadastrar_clientes.setHorizontalHeaderLabels(colunas)
+
+        for pos, clientes in enumerate(banco_clientes):
+            self.ui.tabela_clientes.setItem(row, 0, QTableWidgetItem(clientes[0]))
+            self.ui.tabela_clientes.setItem(row, 1, QTableWidgetItem(clientes[1]))
+            self.ui.tabela_clientes.setItem(row, 2, QTableWidgetItem(clientes[2]))
+            self.ui.tabela_clientes.setItem(row, 3, QTableWidgetItem(clientes[3]))
+
+            self.ui.tabela_alterar_clientes.setItem(row, 0, QTableWidgetItem(clientes[0]))
+            self.ui.tabela_alterar_clientes.setItem(row, 1, QTableWidgetItem(clientes[1]))
+            self.ui.tabela_alterar_clientes.setItem(row, 2, QTableWidgetItem(clientes[2]))
+            self.ui.tabela_alterar_clientes.setItem(row, 3, QTableWidgetItem(clientes[3]))
+
+            self.ui.tabela_cadastrar_clientes.setItem(row, 0, QTableWidgetItem(clientes[0]))
+            self.ui.tabela_cadastrar_clientes.setItem(row, 1, QTableWidgetItem(clientes[1]))
+            self.ui.tabela_cadastrar_clientes.setItem(row, 2, QTableWidgetItem(clientes[2]))
+            self.ui.tabela_cadastrar_clientes.setItem(row, 3, QTableWidgetItem(clientes[3]))
+            row += 1
 
 class FrmColaborador(QMainWindow):
 
