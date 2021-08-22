@@ -3,7 +3,6 @@ import sys
 import mysql.connector
 import datetime
 
-from time import sleep
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -39,6 +38,7 @@ class FrmLogin(QMainWindow):
     def logar(self):
 
         global window
+        global UserLogado
 
         # Pegando os colaboradores cadastrados no banco
         cursor.execute("SELECT * FROM login")
@@ -65,6 +65,8 @@ class FrmLogin(QMainWindow):
 
             # Caso os dados estejam no banco, é iniciado o Frm de acordo com o nivel
             if usuario == login[0] and senha == login[1]:
+
+                UserLogado = login[3]
 
                 self.ui.lineEdit.setStyleSheet('background-color: rgba(0, 0 , 0, 0);border: 2px solid rgba(0,0,0,0);'
                                                'border-bottom-color: rgb(159, 63, 250);color: rgb(0,0,0);padding-bottom: 8px;'
@@ -97,13 +99,16 @@ class FrmAdmin(QMainWindow):
         self.ui = Ui_FrmAdmin()
         self.ui.setupUi(self)
 
-        # Configurando páginas e os botões do menu
+        # Nome do User
+        self.ui.lbl_seja_bem_vindo.setText(f'Seja Bem-Vindo(a) - {UserLogado}')
+        self.ui.lbl_seja_bem_vindo.setFixedWidth(500)
+
+        ## Configurando páginas e os botões do menu
 
         # Home
         self.ui.btn_home.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_home))
 
         # Colaboradores
-
         self.ui.btn_colaboradores.clicked.connect(
             lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_colaboradores))
         self.ui.btn_cadastrar_colaboradores.clicked.connect(
@@ -152,6 +157,7 @@ class FrmAdmin(QMainWindow):
         self.ui.btn_exclui_fornecedores.clicked.connect(self.ExcluirClientes)
         self.ui.tabela_alterar_clientes.doubleClicked.connect(self.setTextAlterarClientes)
         self.ui.btn_finalizar_alteracao_fornecedores.clicked.connect(self.AlterarClientes)
+
         # Tabela Clientes
         self.ui.tabela_clientes.setColumnWidth(0, 192)
         self.ui.tabela_clientes.setColumnWidth(1, 192)
@@ -241,8 +247,11 @@ class FrmAdmin(QMainWindow):
         # Voltar
         self.ui.btn_voltar.clicked.connect(self.Voltar)
 
+        # Atualizando Tabelas
         self.AtualizaTabelasLogin()
         self.AtualizaTabelasClientes()
+
+        # iniciando Hora e Data do Sistema
         tempo = QTimer(self)
         tempo.timeout.connect(self.HoraData)
         tempo.start(1000)
@@ -291,8 +300,6 @@ class FrmAdmin(QMainWindow):
         self.ui.lbl_hora_data_clientes.setText(f'{dataTexto} {tempoTexto}')
         self.ui.lbl_hora_data_cadastrar_clientes.setText(f'{dataTexto} {tempoTexto}')
         self.ui.lbl_hora_data_alterar_clientes.setText(f'{dataTexto} {tempoTexto}')
-
-
 
     def CadastroColaboradores(self):
 
@@ -373,7 +380,6 @@ class FrmAdmin(QMainWindow):
                 nome.setText(user[3])
                 login.setText(user[0])
                 senha.setText(user[1])
-
 
     def AlterarColaboradores(self):
         global id_tabela_alterar
@@ -692,6 +698,8 @@ if __name__ == '__main__':
 
     id_tabela_alterar = None
     id_alterar_Clientes = None
+
+    UserLogado = None
 
     # Configurando Aplicação
     app = QApplication(sys.argv)
