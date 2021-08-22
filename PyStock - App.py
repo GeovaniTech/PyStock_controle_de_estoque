@@ -148,7 +148,8 @@ class FrmAdmin(QMainWindow):
             lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_alterar_clientes))
         self.ui.btn_finalizar_cadastro_clientes.clicked.connect(self.CadastrarClientes)
         self.ui.btn_exclui_fornecedores.clicked.connect(self.ExcluirClientes)
-
+        self.ui.tabela_alterar_clientes.doubleClicked.connect(self.setTextAlterarClientes)
+        self.ui.btn_finalizar_alteracao_fornecedores.clicked.connect(self.AlterarClientes)
         # Tabela Clientes
         self.ui.tabela_clientes.setColumnWidth(0, 192)
         self.ui.tabela_clientes.setColumnWidth(1, 192)
@@ -320,7 +321,6 @@ class FrmAdmin(QMainWindow):
 
     def setTextAlterarColaboradores(self):
         global id_tabela_alterar
-
         nome = self.ui.line_nome_alterar_colaboradores
         login = self.ui.line_login_alterar_colaboradores
         senha = self.ui.line_senha_alterar_colaboradores
@@ -337,6 +337,8 @@ class FrmAdmin(QMainWindow):
                 senha.setText(user[1])
 
     def AlterarColaboradores(self):
+        global id_tabela_alterar
+
         login = self.ui.line_login_alterar_colaboradores
         senha = self.ui.line_senha_alterar_colaboradores
         nome = self.ui.line_nome_alterar_colaboradores
@@ -482,6 +484,49 @@ class FrmAdmin(QMainWindow):
             endereco.clear()
             contato.clear()
 
+    def setTextAlterarClientes(self):
+        global id_alterar_Clientes
+        cpf = self.ui.line_alterar_cpf_cliente
+        nome = self.ui.line_alterar_nome_cliente
+        endereco = self.ui.line_alterar_endereco_cliente
+        contato = self.ui.line_alterar_contato_cliente
+
+        id_alterar_Clientes = self.ui.tabela_alterar_clientes.currentRow()
+
+        cursor.execute('SELECT * FROM clientes')
+        banco_clientes = cursor.fetchall()
+
+        for pos, cliente in enumerate(banco_clientes):
+            if pos == id_alterar_Clientes:
+                cpf.setText(cliente[0])
+                nome.setText(cliente[1])
+                endereco.setText(cliente[2])
+                contato.setText(cliente[3])
+
+    def AlterarClientes(self):
+        global id_alterar_Clientes
+
+        cpf = self.ui.line_alterar_cpf_cliente
+        nome = self.ui.line_alterar_nome_cliente
+        endereco = self.ui.line_alterar_endereco_cliente
+        contato = self.ui.line_alterar_contato_cliente
+
+        cursor.execute('SELECT * FROM clientes')
+        banco_clientes = cursor.fetchall()
+        if cpf.text() != '' and nome.text() != '' and endereco.text() != '' and contato.text() != '':
+            for pos, cliente in enumerate(banco_clientes):
+                if pos == id_alterar_Clientes:
+                    cursor.execute(f'UPDATE clientes set CPF = "{cpf.text()}", nome = "{nome.text()}", endereço = "{endereco.text()}", contato = "{contato.text()}"'
+                                   f'WHERE CPF = "{cliente[0]}"')
+
+                    cpf.clear()
+                    nome.clear()
+                    endereco.clear()
+                    contato.clear()
+
+                    self.AtualizaTabelasClientes()
+
+                    break
     def ExcluirClientes(self):
         id = self.ui.tabela_clientes.currentRow()
 
@@ -533,6 +578,7 @@ class FrmAdmin(QMainWindow):
             self.ui.tabela_cadastrar_clientes.setItem(row, 2, QTableWidgetItem(clientes[2]))
             self.ui.tabela_cadastrar_clientes.setItem(row, 3, QTableWidgetItem(clientes[3]))
             row += 1
+
 
 class FrmColaborador(QMainWindow):
 
@@ -603,8 +649,9 @@ if __name__ == '__main__':
     # Variáveis Globais
     click_cadastro_colaboradores = 0
     click_alterar_colaboradores = 0
+
     id_tabela_alterar = None
-    filtro = None
+    id_alterar_Clientes = None
 
     # Configurando Aplicação
     app = QApplication(sys.argv)
