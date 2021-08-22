@@ -1,7 +1,9 @@
 import os
 import sys
 import mysql.connector
+import datetime
 
+from time import sleep
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -241,6 +243,9 @@ class FrmAdmin(QMainWindow):
 
         self.AtualizaTabelasLogin()
         self.AtualizaTabelasClientes()
+        tempo = QTimer(self)
+        tempo.timeout.connect(self.HoraData)
+        tempo.start(1000)
 
     def Voltar(self):
         global window
@@ -255,6 +260,39 @@ class FrmAdmin(QMainWindow):
         msg.setText('Selecione um Nível de Usuário!')
 
         x = msg.exec_()
+
+    def HoraData(self):
+        tempoAtual = QTime.currentTime()
+        tempoTexto = tempoAtual.toString('hh:mm:ss')
+        data_atual = datetime.date.today()
+        dataTexto = data_atual.strftime('%d/%m/%Y')
+
+        # Colaradores
+        self.ui.lbl_hora_data_colaboradores.setText(f'{dataTexto} {tempoTexto}')
+        self.ui.lbl_hora_data_alterar_colaboradores.setText(f'{dataTexto} {tempoTexto}')
+
+        # Monitoramento de Vendas
+        self.ui.lbl_hora_data_monitoramento.setText(f'{dataTexto} {tempoTexto}')
+
+        # Vendas
+        self.ui.lbl_hora_data.setText(f'{dataTexto} {tempoTexto}')
+
+        # Produtos
+        self.ui.lbl_hora_data_produtos.setText(f'{dataTexto} {tempoTexto}')
+        self.ui.lbl_hora_data_alterar_produto.setText(f'{dataTexto} {tempoTexto}')
+        self.ui.lbl_hora_data_cadastrar_produto.setText(f'{dataTexto} {tempoTexto}')
+
+        # Fornecedores
+        self.ui.lbl_hora_data_fornecedores.setText(f'{dataTexto} {tempoTexto}')
+        self.ui.lbl_hora_data_alterar_fornecedores.setText(f'{dataTexto} {tempoTexto}')
+        self.ui.lbl_hora_data_cadastrar_fornecedores.setText(f'{dataTexto} {tempoTexto}')
+
+        # Clientes
+        self.ui.lbl_hora_data_clientes.setText(f'{dataTexto} {tempoTexto}')
+        self.ui.lbl_hora_data_cadastrar_clientes.setText(f'{dataTexto} {tempoTexto}')
+        self.ui.lbl_hora_data_alterar_clientes.setText(f'{dataTexto} {tempoTexto}')
+
+
 
     def CadastroColaboradores(self):
 
@@ -335,6 +373,7 @@ class FrmAdmin(QMainWindow):
                 nome.setText(user[3])
                 login.setText(user[0])
                 senha.setText(user[1])
+
 
     def AlterarColaboradores(self):
         global id_tabela_alterar
@@ -527,6 +566,7 @@ class FrmAdmin(QMainWindow):
                     self.AtualizaTabelasClientes()
 
                     break
+
     def ExcluirClientes(self):
         id = self.ui.tabela_clientes.currentRow()
 
