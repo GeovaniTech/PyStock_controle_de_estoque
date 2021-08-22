@@ -88,6 +88,8 @@ class FrmLogin(QMainWindow):
 class FrmAdmin(QMainWindow):
 
     def __init__(self):
+        global filtro
+
         QMainWindow.__init__(self)
 
         self.ui = Ui_FrmAdmin()
@@ -144,6 +146,7 @@ class FrmAdmin(QMainWindow):
             lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_cadastrar_clientes))
         self.ui.btn_alterar_clientes.clicked.connect(
             lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_alterar_clientes))
+        self.ui.btn_finalizar_cadastro_clientes.clicked.connect(self.CadastrarClientes)
 
         # Tabela Clientes
         self.ui.tabela_clientes.setColumnWidth(0, 192)
@@ -446,7 +449,7 @@ class FrmAdmin(QMainWindow):
         self.ui.tabela_colaboradores.setHorizontalHeaderLabels(colunas)
         self.ui.tabela_alterar_colaboradores.setHorizontalHeaderLabels(colunas)
 
-        for logins in banco_login:
+        for pos, logins in enumerate(banco_login):
             self.ui.tabela_colaboradores.setItem(row, 0, QTableWidgetItem(logins[3]))
             self.ui.tabela_colaboradores.setItem(row, 1, QTableWidgetItem(logins[0]))
             self.ui.tabela_colaboradores.setItem(row, 2, QTableWidgetItem(logins[1]))
@@ -457,7 +460,20 @@ class FrmAdmin(QMainWindow):
 
             row += 1
 
-    def TratamentoDasLinhasLogin(self):
+    def CadastrarClientes(self):
+
+        cpf = self.ui.line_cpf_cadastrar_clientes
+        nome = self.ui.line_nome_cadastrar_clientes
+        endereco = self.ui.line_endereco_cadastrar_clientes
+        contato = self.ui.line_contato_cadastrar_clientes
+
+
+
+        if cpf.text() != '' and nome.text() != '' and endereco.text() != '' and contato.text() != '':
+            comando_SQL = 'INSERT INTO clientes (CPF, Nome, Endereço, Contato) VALUES (%s,%s,%s,%s)'
+            dados = f'{cpf.text()}', f'{nome.text()}', f'{endereco.text()}', f'{contato.text()}'
+            cursor.execute(comando_SQL, dados)
+    
 
 
 class FrmColaborador(QMainWindow):
@@ -530,6 +546,7 @@ if __name__ == '__main__':
     click_cadastro_colaboradores = 0
     click_alterar_colaboradores = 0
     id_tabela_alterar = None
+    filtro = None
 
     # Configurando Aplicação
     app = QApplication(sys.argv)
