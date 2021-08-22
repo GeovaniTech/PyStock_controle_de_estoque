@@ -194,6 +194,7 @@ class FrmAdmin(QMainWindow):
             lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_cadastrar_fornecedores))
         self.ui.btn_editar_fornecedores.clicked.connect(
             lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_alterar_fornecedores))
+        self.ui.btn_cadastrar_forncedores.clicked.connect(self.CadastrarFornecedores)
 
         # Tabela Fornecedores
         self.ui.tabela_fornecedores.setColumnWidth(0, 257)
@@ -250,6 +251,7 @@ class FrmAdmin(QMainWindow):
         # Atualizando Tabelas
         self.AtualizaTabelasLogin()
         self.AtualizaTabelasClientes()
+        self.AtualizaTabelasFornecedores()
 
         # iniciando Hora e Data do Sistema
         tempo = QTimer(self)
@@ -392,19 +394,44 @@ class FrmAdmin(QMainWindow):
         banco_login = cursor.fetchall()
 
         if login.text() != '' and senha.text() != '' and nome.text() != '':
+
+            LoginNoBanco = False
+
+            for user in banco_login:
+                if login.text() == user[0]:
+                    LoginNoBanco = True
+
             for pos, user in enumerate(banco_login):
                 if pos == id_tabela_alterar:
-                    cursor.execute(f'UPDATE login set usuario = "{login.text()}", senha = "{senha.text()}", nivel = "{user[2]}", nome = "{nome.text()}"'
-                                   f'WHERE usuario = "{user[0]}"')
-                    banco.commit()
+                    if LoginNoBanco == False:
+                        cursor.execute(f'UPDATE login set usuario = "{login.text()}", senha = "{senha.text()}", nivel = "{user[2]}", nome = "{nome.text()}"'
+                                       f'WHERE usuario = "{user[0]}"')
+                        banco.commit()
 
-                    login.clear()
-                    senha.clear()
-                    nome.clear()
+                        login.clear()
+                        senha.clear()
+                        nome.clear()
 
-                    self.AtualizaTabelasLogin()
+                        self.AtualizaTabelasLogin()
 
-                    break
+                        self.ui.line_login_alterar_colaboradores.setStyleSheet('''
+                                background-color: rgba(0, 0 , 0, 0);
+                                border: 2px solid rgba(0,0,0,0);
+                                border-bottom-color: rgb(159, 63, 250);
+                                color: rgb(0,0,0);
+                                padding-bottom: 8px;
+                                border-radius: 0px;
+                                font: 10pt "Montserrat";''')
+                        break
+                    else:
+                        self.ui.line_login_alterar_colaboradores.setStyleSheet('''
+                                background-color: rgba(0, 0 , 0, 0);
+                                border: 2px solid rgba(0,0,0,0);
+                                border-bottom-color: rgb(255, 17, 49);;
+                                color: rgb(0,0,0);
+                                padding-bottom: 8px;
+                                border-radius: 0px;
+                                font: 10pt "Montserrat";''')
 
     def VerSenhaCadastroColaboradores(self):
         global click_cadastro_colaboradores
@@ -599,6 +626,7 @@ class FrmAdmin(QMainWindow):
         self.ui.tabela_cadastrar_clientes.clear()
 
         row = 0
+
         self.ui.tabela_clientes.setRowCount(len(banco_clientes))
         self.ui.tabela_alterar_clientes.setRowCount(len(banco_clientes))
         self.ui.tabela_cadastrar_clientes.setRowCount(len(banco_clientes))
@@ -608,7 +636,7 @@ class FrmAdmin(QMainWindow):
         self.ui.tabela_alterar_clientes.setHorizontalHeaderLabels(colunas)
         self.ui.tabela_cadastrar_clientes.setHorizontalHeaderLabels(colunas)
 
-        for pos, clientes in enumerate(banco_clientes):
+        for clientes in banco_clientes:
             self.ui.tabela_clientes.setItem(row, 0, QTableWidgetItem(clientes[0]))
             self.ui.tabela_clientes.setItem(row, 1, QTableWidgetItem(clientes[1]))
             self.ui.tabela_clientes.setItem(row, 2, QTableWidgetItem(clientes[2]))
@@ -625,6 +653,87 @@ class FrmAdmin(QMainWindow):
             self.ui.tabela_cadastrar_clientes.setItem(row, 3, QTableWidgetItem(clientes[3]))
             row += 1
 
+    def AtualizaTabelasFornecedores(self):
+
+        cursor.execute('SELECT * FROM fornecedores')
+        banco_fornecedores = cursor.fetchall()
+
+        self.ui.tabela_fornecedores.clear()
+        self.ui.tabela_cadastrar_fornecedores.clear()
+        self.ui.tabela_alterar_fornecedores.clear()
+
+        row = 0
+
+        self.ui.tabela_fornecedores.setRowCount(len(banco_fornecedores))
+        self.ui.tabela_cadastrar_fornecedores.setRowCount(len(banco_fornecedores))
+        self.ui.tabela_alterar_fornecedores.setRowCount(len(banco_fornecedores))
+
+        colunas = ['Nome', 'Endereço', 'Contato']
+        self.ui.tabela_fornecedores.setHorizontalHeaderLabels(colunas)
+        self.ui.tabela_alterar_fornecedores.setHorizontalHeaderLabels(colunas)
+        self.ui.tabela_cadastrar_fornecedores.setHorizontalHeaderLabels(colunas)
+
+        for fornecedores in banco_fornecedores:
+            self.ui.tabela_fornecedores.setItem(row, 0, QTableWidgetItem(fornecedores[0]))
+            self.ui.tabela_fornecedores.setItem(row, 1, QTableWidgetItem(fornecedores[1]))
+            self.ui.tabela_fornecedores.setItem(row, 2, QTableWidgetItem(fornecedores[2]))
+
+            self.ui.tabela_alterar_fornecedores.setItem(row, 0, QTableWidgetItem(fornecedores[0]))
+            self.ui.tabela_alterar_fornecedores.setItem(row, 1, QTableWidgetItem(fornecedores[1]))
+            self.ui.tabela_alterar_fornecedores.setItem(row, 2, QTableWidgetItem(fornecedores[2]))
+
+            self.ui.tabela_cadastrar_fornecedores.setItem(row, 0, QTableWidgetItem(fornecedores[0]))
+            self.ui.tabela_cadastrar_fornecedores.setItem(row, 1, QTableWidgetItem(fornecedores[1]))
+            self.ui.tabela_cadastrar_fornecedores.setItem(row, 2, QTableWidgetItem(fornecedores[2]))
+            row += 1
+
+    def CadastrarFornecedores(self):
+
+        nome = self.ui.line_cadastrar_nome_fornecedores
+        endereco = self.ui.line_cadastrar_endereco_fornecedores
+        contato = self.ui.line_cadastrar_contato_fornecedores
+
+        cursor.execute('SELECT * FROM fornecedores')
+        banco_fornecedores = cursor.fetchall()
+
+        FornecedorNoBanco = False
+
+        for fornecedor in banco_fornecedores:
+            if fornecedor[0] == nome.text():
+                FornecedorNoBanco = True
+
+        if nome.text() != '' and endereco != '' and contato != '':
+            if FornecedorNoBanco == False:
+                comando_SQL = 'INSERT INTO fornecedores VALUES (%s,%s,%s)'
+                dados = f'{nome.text()}', f'{endereco.text()}', f'{contato.text()}'
+                cursor.execute(comando_SQL, dados)
+
+                nome.clear()
+                endereco.clear()
+                contato.clear()
+
+                nome.setStyleSheet('''
+                                background-color: rgba(0, 0 , 0, 0);
+                                border: 2px solid rgba(0,0,0,0);
+                                border-bottom-color: rgb(159, 63, 250);
+                                color: rgb(0,0,0);
+                                padding-bottom: 8px;
+                                border-radius: 0px;
+                                font: 10pt "Montserrat";''')
+
+                self.AtualizaTabelasFornecedores()
+
+            else:
+                nome.setStyleSheet(
+                    '''
+                        background-color: rgba(0, 0 , 0, 0);
+                        border: 2px solid rgba(0,0,0,0);
+                        border-bottom-color: rgb(255, 17, 49);;
+                        color: rgb(0,0,0);
+                        padding-bottom: 8px;
+                        border-radius: 0px;
+                        font: 10pt "Montserrat";'''
+                )
 
 class FrmColaborador(QMainWindow):
 
