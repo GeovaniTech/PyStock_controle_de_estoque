@@ -195,6 +195,9 @@ class FrmAdmin(QMainWindow):
         self.ui.btn_editar_fornecedores.clicked.connect(
             lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_alterar_fornecedores))
         self.ui.btn_cadastrar_forncedores.clicked.connect(self.CadastrarFornecedores)
+        self.ui.tabela_alterar_fornecedores.doubleClicked.connect(self.setTextAlterarFornecedores)
+        self.ui.btn_alterar_fornecedores.clicked.connect(self.AlterarFornecedores)
+
 
         # Tabela Fornecedores
         self.ui.tabela_fornecedores.setColumnWidth(0, 257)
@@ -687,6 +690,24 @@ class FrmAdmin(QMainWindow):
             self.ui.tabela_cadastrar_fornecedores.setItem(row, 2, QTableWidgetItem(fornecedores[2]))
             row += 1
 
+    def setTextAlterarFornecedores(self):
+        global id_alterar_fornecedores
+
+        nome = self.ui.line_alterar_nome_fornecedor
+        endereco = self.ui.line_alterar_endereco_fornecedor
+        contato = self.ui.line_alterar_contato_fornecedor
+
+        id_alterar_fornecedores = self.ui.tabela_alterar_fornecedores.currentRow()
+
+        cursor.execute('SELECT * FROM fornecedores')
+        banco_fornecedores = cursor.fetchall()
+
+        for pos, fornecedor in enumerate(banco_fornecedores):
+            if pos == id_alterar_fornecedores:
+                nome.setText(fornecedor[0])
+                endereco.setText(fornecedor[1])
+                contato.setText(fornecedor[2])
+
     def CadastrarFornecedores(self):
 
         nome = self.ui.line_cadastrar_nome_fornecedores
@@ -734,6 +755,30 @@ class FrmAdmin(QMainWindow):
                         border-radius: 0px;
                         font: 10pt "Montserrat";'''
                 )
+
+    def AlterarFornecedores(self):
+        global id_alterar_fornecedores
+
+        cursor.execute('SELECT * FROM fornecedores')
+        banco_fornecedores = cursor.fetchall()
+
+        nome = self.ui.line_alterar_nome_fornecedor
+        endereco = self.ui.line_alterar_endereco_fornecedor
+        contato = self.ui.line_alterar_contato_fornecedor
+
+        if nome.text() != '' and endereco.text() != '' and contato.text() != '':
+            for pos, fornecedores in enumerate(banco_fornecedores):
+                if pos == id_alterar_fornecedores:
+                    cursor.execute(f'UPDATE fornecedores set nome = "{nome.text()}", endereço = "{endereco.text()}", contato = "{contato.text()}"'
+                                   f'WHERE nome = "{fornecedores[0]}"')
+
+                    nome.clear()
+                    endereco.clear()
+                    contato.clear()
+
+                    self.AtualizaTabelasFornecedores()
+                    break
+
 
 class FrmColaborador(QMainWindow):
 
@@ -807,6 +852,7 @@ if __name__ == '__main__':
 
     id_tabela_alterar = None
     id_alterar_Clientes = None
+    id_alterar_fornecedores = None
 
     UserLogado = None
 
