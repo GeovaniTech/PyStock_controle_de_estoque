@@ -197,6 +197,7 @@ class FrmAdmin(QMainWindow):
         self.ui.btn_cadastrar_forncedores.clicked.connect(self.CadastrarFornecedores)
         self.ui.tabela_alterar_fornecedores.doubleClicked.connect(self.setTextAlterarFornecedores)
         self.ui.btn_alterar_fornecedores.clicked.connect(self.AlterarFornecedores)
+        self.ui.btn_excluir_fornecedores.clicked.connect(self.ExluirFornecedores)
 
 
         # Tabela Fornecedores
@@ -779,7 +780,22 @@ class FrmAdmin(QMainWindow):
                     self.AtualizaTabelasFornecedores()
                     break
 
+    def ExluirFornecedores(self):
+        id = self.ui.tabela_fornecedores.currentRow()
 
+        cursor.execute('SELECT * FROM fornecedores')
+        banco_fornecedor = cursor.fetchall()
+
+        deletar_fornecedor = ''
+
+        for pos, fornecedor in enumerate(banco_fornecedor):
+            if id == pos:
+                deletar_fornecedor = fornecedor[0]
+
+        cursor.execute(f'DELETE FROM fornecedores WHERE Nome = "{deletar_fornecedor}"')
+        banco.commit()
+
+        self.AtualizaTabelasFornecedores()
 class FrmColaborador(QMainWindow):
 
     def __init__(self):
