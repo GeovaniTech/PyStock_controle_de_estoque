@@ -199,7 +199,6 @@ class FrmAdmin(QMainWindow):
         self.ui.btn_alterar_fornecedores.clicked.connect(self.AlterarFornecedores)
         self.ui.btn_excluir_fornecedores.clicked.connect(self.ExluirFornecedores)
 
-
         # Tabela Fornecedores
         self.ui.tabela_fornecedores.setColumnWidth(0, 257)
         self.ui.tabela_fornecedores.setColumnWidth(1, 257)
@@ -221,6 +220,7 @@ class FrmAdmin(QMainWindow):
             lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_cadastar_produtos))
         self.ui.btn_alterar_produto.clicked.connect(
             lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_alterar_produtos))
+        self.ui.btn_finalizar_cadastro.clicked.connect(self.CadastrarProdutos)
 
         # Tabela Produtos
         self.ui.tabela_produto.setColumnWidth(0, 50)
@@ -796,6 +796,56 @@ class FrmAdmin(QMainWindow):
         banco.commit()
 
         self.AtualizaTabelasFornecedores()
+
+    def CadastrarProdutos(self):
+        print('dasdasfdsfasd')
+
+        cod_produto = self.ui.line_codigo_produto_cadastrar
+        descricao = self.ui.line_descricao_cadastrar
+        valor_unitario = self.ui.line_valor_cadastrar
+        qtde_estoque = self.ui.line_qtde_cadastrar
+        fornecedor = self.ui.line_fornecedor_cadastrar
+
+        cursor.execute("SELECT * FROM produtos")
+        banco_produtos = cursor.fetchall()
+
+        ProdutoJaCadastrado = False
+
+        if cod_produto.text() != '' and descricao.text() != '' and valor_unitario.text() != '' and qtde_estoque.text() != '' and fornecedor.text() != '':
+            for produto in banco_produtos:
+                if produto[0] == cod_produto.text():
+                    cod_produto.setStyleSheet('''
+                            background-color: rgba(0, 0 , 0, 0);
+                            border: 2px solid rgba(0,0,0,0);
+                            border-bottom-color: rgb(255, 17, 49);;
+                            color: rgb(0,0,0);
+                            padding-bottom: 8px;
+                            border-radius: 0px;
+                            font: 10pt "Montserrat";''')
+
+                    ProdutoJaCadastrado = True
+
+            if ProdutoJaCadastrado == False:
+                comando_SQL = 'INSERT INTO produtos VALUES (%s,%s,%s,%s,%s)'
+                dados = f'{cod_produto.text()}', f'{descricao.text()}', f'{valor_unitario.text()}', f'{qtde_estoque.text()}', f'{fornecedor.text()}'
+                cursor.execute(comando_SQL, dados)
+
+                cod_produto.clear()
+                descricao.clear()
+                valor_unitario.clear()
+                qtde_estoque.clear()
+                fornecedor.clear()
+
+                cod_produto.setStyleSheet('''
+                                        background-color: rgba(0, 0 , 0, 0);
+                                        border: 2px solid rgba(0,0,0,0);
+                                        border-bottom-color: rgb(159, 63, 250);
+                                        color: rgb(0,0,0);
+                                        padding-bottom: 8px;
+                                        border-radius: 0px;
+                                        font: 10pt "Montserrat";''')
+
+
 class FrmColaborador(QMainWindow):
 
     def __init__(self):
