@@ -221,6 +221,7 @@ class FrmAdmin(QMainWindow):
         self.ui.btn_alterar_produto.clicked.connect(
             lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_alterar_produtos))
         self.ui.btn_finalizar_cadastro.clicked.connect(self.CadastrarProdutos)
+        self.ui.btn_excluir_produto.clicked.connect(self.ExcluirProdutos)
 
         # Tabela Produtos
         self.ui.tabela_produto.setColumnWidth(0, 50)
@@ -886,6 +887,20 @@ class FrmAdmin(QMainWindow):
                                         padding-bottom: 8px;
                                         border-radius: 0px;
                                         font: 10pt "Montserrat";''')
+
+                self.AtualizaTabelasProdutos()
+
+    def ExcluirProdutos(self):
+
+        id = self.ui.tabela_produto.currentRow()
+
+        cursor.execute('SELECT * FROM produtos')
+        banco_produtos = cursor.fetchall()
+
+        for pos, produto in enumerate(banco_produtos):
+            if pos == id:
+                cursor.execute(f'DELETE FROM produtos WHERE cód_produto = "{produto[0]}"')
+                banco.commit()
 
                 self.AtualizaTabelasProdutos()
 
