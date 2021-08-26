@@ -93,6 +93,7 @@ class FrmAdmin(QMainWindow):
 
     def __init__(self):
         global filtro
+        global search_fornecedores
 
         QMainWindow.__init__(self)
 
@@ -264,6 +265,10 @@ class FrmAdmin(QMainWindow):
         tempo.timeout.connect(self.HoraData)
         tempo.start(1000)
 
+        self.AtualizaCompleterSearch()
+
+    # Pequenas Funções
+
     def Voltar(self):
         global window
 
@@ -308,6 +313,27 @@ class FrmAdmin(QMainWindow):
         self.ui.lbl_hora_data_clientes.setText(f'{dataTexto} {tempoTexto}')
         self.ui.lbl_hora_data_cadastrar_clientes.setText(f'{dataTexto} {tempoTexto}')
         self.ui.lbl_hora_data_alterar_clientes.setText(f'{dataTexto} {tempoTexto}')
+
+    def AtualizaCompleterSearch(self):
+        global search_fornecedores
+
+        cursor.execute('SELECT * FROM fornecedores')
+        banco_fornecedores = cursor.fetchall()
+
+        search_fornecedores.clear()
+
+        search_fornecedores = []
+
+        for fornecedor in banco_fornecedores:
+            search_fornecedores.append(fornecedor[0])
+
+        self.completer = QCompleter(search_fornecedores)
+        self.completer.setCaseSensitivity(Qt.CaseInsensitive)
+        self.ui.line_search_Bar_fornecedores.setCompleter(self.completer)
+        self.ui.line_search_Bar_altarar_fornecedor.setCompleter(self.completer)
+        self.ui.line_search_Bar_cadastrar_fornecedores.setCompleter(self.completer)
+        
+    # Funções de Cadastro
 
     def CadastroColaboradores(self):
 
@@ -372,22 +398,126 @@ class FrmAdmin(QMainWindow):
 
             self.AtualizaTabelasLogin()
 
-    def setTextAlterarColaboradores(self):
-        global id_tabela_alterar
-        nome = self.ui.line_nome_alterar_colaboradores
-        login = self.ui.line_login_alterar_colaboradores
-        senha = self.ui.line_senha_alterar_colaboradores
+    def CadastrarClientes(self):
 
-        id_tabela_alterar = self.ui.tabela_alterar_colaboradores.currentRow()
+        cpf = self.ui.line_cpf_cadastrar_clientes
+        nome = self.ui.line_nome_cadastrar_clientes
+        endereco = self.ui.line_endereco_cadastrar_clientes
+        contato = self.ui.line_contato_cadastrar_clientes
 
-        cursor.execute('SELECT * FROM login')
-        banco_login = cursor.fetchall()
 
-        for pos, user in enumerate(banco_login):
-            if pos == id_tabela_alterar:
-                nome.setText(user[3])
-                login.setText(user[0])
-                senha.setText(user[1])
+
+        if cpf.text() != '' and nome.text() != '' and endereco.text() != '' and contato.text() != '':
+            comando_SQL = 'INSERT INTO clientes (CPF, Nome, Endereço, Contato) VALUES (%s,%s,%s,%s)'
+            dados = f'{cpf.text()}', f'{nome.text()}', f'{endereco.text()}', f'{contato.text()}'
+            cursor.execute(comando_SQL, dados)
+
+            self.AtualizaTabelasClientes()
+
+            cpf.clear()
+            nome.clear()
+            endereco.clear()
+            contato.clear()
+
+    def CadastrarFornecedores(self):
+
+        nome = self.ui.line_cadastrar_nome_fornecedores
+        endereco = self.ui.line_cadastrar_endereco_fornecedores
+        contato = self.ui.line_cadastrar_contato_fornecedores
+
+        cursor.execute('SELECT * FROM fornecedores')
+        banco_fornecedores = cursor.fetchall()
+
+        FornecedorNoBanco = False
+
+        for fornecedor in banco_fornecedores:
+            if fornecedor[0] == nome.text():
+                FornecedorNoBanco = True
+
+        if nome.text() != '' and endereco != '' and contato != '':
+            if FornecedorNoBanco == False:
+                comando_SQL = 'INSERT INTO fornecedores VALUES (%s,%s,%s)'
+                dados = f'{nome.text()}', f'{endereco.text()}', f'{contato.text()}'
+                cursor.execute(comando_SQL, dados)
+
+                nome.clear()
+                endereco.clear()
+                contato.clear()
+
+                nome.setStyleSheet('''
+                                background-color: rgba(0, 0 , 0, 0);
+                                border: 2px solid rgba(0,0,0,0);
+                                border-bottom-color: rgb(159, 63, 250);
+                                color: rgb(0,0,0);
+                                padding-bottom: 8px;
+                                border-radius: 0px;
+                                font: 10pt "Montserrat";''')
+
+                self.AtualizaTabelasFornecedores()
+                self.AtualizaCompleterSearch()
+
+            else:
+                nome.setStyleSheet(
+                    '''
+                        background-color: rgba(0, 0 , 0, 0);
+                        border: 2px solid rgba(0,0,0,0);
+                        border-bottom-color: rgb(255, 17, 49);;
+                        color: rgb(0,0,0);
+                        padding-bottom: 8px;
+                        border-radius: 0px;
+                        font: 10pt "Montserrat";'''
+                )
+
+    def CadastrarProdutos(self):
+
+        cod_produto = self.ui.line_codigo_produto_cadastrar
+        descricao = self.ui.line_descricao_cadastrar
+        valor_unitario = self.ui.line_valor_cadastrar
+        qtde_estoque = self.ui.line_qtde_cadastrar
+        fornecedor = self.ui.line_fornecedor_cadastrar
+
+        cursor.execute("SELECT * FROM produtos")
+        banco_produtos = cursor.fetchall()
+
+        ProdutoJaCadastrado = False
+
+        if cod_produto.text() != '' and descricao.text() != '' and valor_unitario.text() != '' and qtde_estoque.text() != '' and fornecedor.text() != '':
+            for produto in banco_produtos:
+                if produto[0] == cod_produto.text():
+                    cod_produto.setStyleSheet('''
+                            background-color: rgba(0, 0 , 0, 0);
+                            border: 2px solid rgba(0,0,0,0);
+                            border-bottom-color: rgb(255, 17, 49);;
+                            color: rgb(0,0,0);
+                            padding-bottom: 8px;
+                            border-radius: 0px;
+                            font: 10pt "Montserrat";''')
+
+                    ProdutoJaCadastrado = True
+
+            if ProdutoJaCadastrado == False:
+                comando_SQL = 'INSERT INTO produtos VALUES (%s,%s,%s,%s,%s)'
+                dados = f'{cod_produto.text()}', f'{descricao.text()}', f'{valor_unitario.text()}', f'{qtde_estoque.text()}', f'{fornecedor.text()}'
+                cursor.execute(comando_SQL, dados)
+
+                cod_produto.clear()
+                descricao.clear()
+                valor_unitario.clear()
+                qtde_estoque.clear()
+                fornecedor.clear()
+
+                cod_produto.setStyleSheet('''
+                                        background-color: rgba(0, 0 , 0, 0);
+                                        border: 2px solid rgba(0,0,0,0);
+                                        border-bottom-color: rgb(159, 63, 250);
+                                        color: rgb(0,0,0);
+                                        padding-bottom: 8px;
+                                        border-radius: 0px;
+                                        font: 10pt "Montserrat";''')
+
+                self.AtualizaTabelasProdutos()
+
+    # Funções de Alterar
 
     def AlterarColaboradores(self):
         global id_tabela_alterar
@@ -410,8 +540,9 @@ class FrmAdmin(QMainWindow):
             for pos, user in enumerate(banco_login):
                 if pos == id_tabela_alterar:
                     if LoginNoBanco == False:
-                        cursor.execute(f'UPDATE login set usuario = "{login.text()}", senha = "{senha.text()}", nivel = "{user[2]}", nome = "{nome.text()}"'
-                                       f'WHERE usuario = "{user[0]}"')
+                        cursor.execute(
+                            f'UPDATE login set usuario = "{login.text()}", senha = "{senha.text()}", nivel = "{user[2]}", nome = "{nome.text()}"'
+                            f'WHERE usuario = "{user[0]}"')
                         banco.commit()
 
                         login.clear()
@@ -421,23 +552,200 @@ class FrmAdmin(QMainWindow):
                         self.AtualizaTabelasLogin()
 
                         self.ui.line_login_alterar_colaboradores.setStyleSheet('''
-                                background-color: rgba(0, 0 , 0, 0);
-                                border: 2px solid rgba(0,0,0,0);
-                                border-bottom-color: rgb(159, 63, 250);
-                                color: rgb(0,0,0);
-                                padding-bottom: 8px;
-                                border-radius: 0px;
-                                font: 10pt "Montserrat";''')
+                                   background-color: rgba(0, 0 , 0, 0);
+                                   border: 2px solid rgba(0,0,0,0);
+                                   border-bottom-color: rgb(159, 63, 250);
+                                   color: rgb(0,0,0);
+                                   padding-bottom: 8px;
+                                   border-radius: 0px;
+                                   font: 10pt "Montserrat";''')
                         break
                     else:
                         self.ui.line_login_alterar_colaboradores.setStyleSheet('''
-                                background-color: rgba(0, 0 , 0, 0);
-                                border: 2px solid rgba(0,0,0,0);
-                                border-bottom-color: rgb(255, 17, 49);;
-                                color: rgb(0,0,0);
-                                padding-bottom: 8px;
-                                border-radius: 0px;
-                                font: 10pt "Montserrat";''')
+                                   background-color: rgba(0, 0 , 0, 0);
+                                   border: 2px solid rgba(0,0,0,0);
+                                   border-bottom-color: rgb(255, 17, 49);;
+                                   color: rgb(0,0,0);
+                                   padding-bottom: 8px;
+                                   border-radius: 0px;
+                                   font: 10pt "Montserrat";''')
+
+    def AlterarClientes(self):
+        global id_alterar_Clientes
+
+        cpf = self.ui.line_alterar_cpf_cliente
+        nome = self.ui.line_alterar_nome_cliente
+        endereco = self.ui.line_alterar_endereco_cliente
+        contato = self.ui.line_alterar_contato_cliente
+
+        cursor.execute('SELECT * FROM clientes')
+        banco_clientes = cursor.fetchall()
+        if cpf.text() != '' and nome.text() != '' and endereco.text() != '' and contato.text() != '':
+            for pos, cliente in enumerate(banco_clientes):
+                if pos == id_alterar_Clientes:
+                    cursor.execute(f'UPDATE clientes set CPF = "{cpf.text()}", nome = "{nome.text()}", endereço = "{endereco.text()}", contato = "{contato.text()}"'
+                                   f'WHERE CPF = "{cliente[0]}"')
+
+                    cpf.clear()
+                    nome.clear()
+                    endereco.clear()
+                    contato.clear()
+
+                    self.AtualizaTabelasClientes()
+
+                    break
+
+    def AlterarFornecedores(self):
+        global id_alterar_fornecedores
+
+        cursor.execute('SELECT * FROM fornecedores')
+        banco_fornecedores = cursor.fetchall()
+
+        nome = self.ui.line_alterar_nome_fornecedor
+        endereco = self.ui.line_alterar_endereco_fornecedor
+        contato = self.ui.line_alterar_contato_fornecedor
+
+        if nome.text() != '' and endereco.text() != '' and contato.text() != '':
+            for pos, fornecedores in enumerate(banco_fornecedores):
+                if pos == id_alterar_fornecedores:
+                    cursor.execute(f'UPDATE fornecedores set nome = "{nome.text()}", endereço = "{endereco.text()}", contato = "{contato.text()}"'
+                                   f'WHERE nome = "{fornecedores[0]}"')
+
+                    nome.clear()
+                    endereco.clear()
+                    contato.clear()
+
+                    self.AtualizaTabelasFornecedores()
+                    self.AtualizaCompleterSearch()
+                    break
+
+    # Funções de Excluir
+    def ExcluirColaboradores(self):
+
+        id = self.ui.tabela_colaboradores.currentRow()
+
+        cursor.execute('SELECT * FROM login')
+        banco_login = cursor.fetchall()
+
+        deletar_user = ''
+
+        for pos, user in enumerate(banco_login):
+            if id == pos:
+                deletar_user = user[0]
+
+        print(deletar_user)
+
+        cursor.execute(f'DELETE FROM login WHERE usuario = "{deletar_user}"')
+        banco.commit()
+
+        self.AtualizaTabelasLogin()
+
+    def ExcluirClientes(self):
+        id = self.ui.tabela_clientes.currentRow()
+
+        cursor.execute('SELECT * FROM clientes')
+        banco_clientes = cursor.fetchall()
+
+        deletar_cliente = ''
+
+        for pos, cliente in enumerate(banco_clientes):
+            if id == pos:
+                deletar_cliente = cliente[0]
+
+        cursor.execute(f'DELETE FROM clientes WHERE CPF = "{deletar_cliente}"')
+        banco.commit()
+
+        self.AtualizaTabelasClientes()
+
+    def ExluirFornecedores(self):
+        id = self.ui.tabela_fornecedores.currentRow()
+
+        cursor.execute('SELECT * FROM fornecedores')
+        banco_fornecedor = cursor.fetchall()
+
+        deletar_fornecedor = ''
+
+        for pos, fornecedor in enumerate(banco_fornecedor):
+            if id == pos:
+                deletar_fornecedor = fornecedor[0]
+
+        cursor.execute(f'DELETE FROM fornecedores WHERE Nome = "{deletar_fornecedor}"')
+        banco.commit()
+
+        self.AtualizaTabelasFornecedores()
+        self.AtualizaCompleterSearch()
+
+    def ExcluirProdutos(self):
+
+        id = self.ui.tabela_produto.currentRow()
+
+        cursor.execute('SELECT * FROM produtos')
+        banco_produtos = cursor.fetchall()
+
+        for pos, produto in enumerate(banco_produtos):
+            if pos == id:
+                cursor.execute(f'DELETE FROM produtos WHERE cód_produto = "{produto[0]}"')
+                banco.commit()
+
+                self.AtualizaTabelasProdutos()
+
+    # Funções de setar Texto
+
+    def setTextAlterarColaboradores(self):
+        global id_tabela_alterar
+        nome = self.ui.line_nome_alterar_colaboradores
+        login = self.ui.line_login_alterar_colaboradores
+        senha = self.ui.line_senha_alterar_colaboradores
+
+        id_tabela_alterar = self.ui.tabela_alterar_colaboradores.currentRow()
+
+        cursor.execute('SELECT * FROM login')
+        banco_login = cursor.fetchall()
+
+        for pos, user in enumerate(banco_login):
+            if pos == id_tabela_alterar:
+                nome.setText(user[3])
+                login.setText(user[0])
+                senha.setText(user[1])
+
+    def setTextAlterarClientes(self):
+        global id_alterar_Clientes
+        cpf = self.ui.line_alterar_cpf_cliente
+        nome = self.ui.line_alterar_nome_cliente
+        endereco = self.ui.line_alterar_endereco_cliente
+        contato = self.ui.line_alterar_contato_cliente
+
+        id_alterar_Clientes = self.ui.tabela_alterar_clientes.currentRow()
+
+        cursor.execute('SELECT * FROM clientes')
+        banco_clientes = cursor.fetchall()
+
+        for pos, cliente in enumerate(banco_clientes):
+            if pos == id_alterar_Clientes:
+                cpf.setText(cliente[0])
+                nome.setText(cliente[1])
+                endereco.setText(cliente[2])
+                contato.setText(cliente[3])
+
+    def setTextAlterarFornecedores(self):
+        global id_alterar_fornecedores
+
+        nome = self.ui.line_alterar_nome_fornecedor
+        endereco = self.ui.line_alterar_endereco_fornecedor
+        contato = self.ui.line_alterar_contato_fornecedor
+
+        id_alterar_fornecedores = self.ui.tabela_alterar_fornecedores.currentRow()
+
+        cursor.execute('SELECT * FROM fornecedores')
+        banco_fornecedores = cursor.fetchall()
+
+        for pos, fornecedor in enumerate(banco_fornecedores):
+            if pos == id_alterar_fornecedores:
+                nome.setText(fornecedor[0])
+                endereco.setText(fornecedor[1])
+                contato.setText(fornecedor[2])
+
+    # Funções para ver Senha
 
     def VerSenhaCadastroColaboradores(self):
         global click_cadastro_colaboradores
@@ -494,25 +802,7 @@ class FrmAdmin(QMainWindow):
                                                 'QPushButton:hover {'
                                                 'background-image: url(:/icones/bloquear senha hover.png);''}')
 
-    def ExcluirColaboradores(self):
-
-        id = self.ui.tabela_colaboradores.currentRow()
-
-        cursor.execute('SELECT * FROM login')
-        banco_login = cursor.fetchall()
-
-        deletar_user = ''
-
-        for pos, user in enumerate(banco_login):
-            if id == pos:
-                deletar_user = user[0]
-
-        print(deletar_user)
-
-        cursor.execute(f'DELETE FROM login WHERE usuario = "{deletar_user}"')
-        banco.commit()
-
-        self.AtualizaTabelasLogin()
+    # Funções para Atualizar Tabelas
 
     def AtualizaTabelasLogin(self):
 
@@ -540,88 +830,6 @@ class FrmAdmin(QMainWindow):
             self.ui.tabela_alterar_colaboradores.setItem(row, 2, QTableWidgetItem(logins[1]))
 
             row += 1
-
-    def CadastrarClientes(self):
-
-        cpf = self.ui.line_cpf_cadastrar_clientes
-        nome = self.ui.line_nome_cadastrar_clientes
-        endereco = self.ui.line_endereco_cadastrar_clientes
-        contato = self.ui.line_contato_cadastrar_clientes
-
-
-
-        if cpf.text() != '' and nome.text() != '' and endereco.text() != '' and contato.text() != '':
-            comando_SQL = 'INSERT INTO clientes (CPF, Nome, Endereço, Contato) VALUES (%s,%s,%s,%s)'
-            dados = f'{cpf.text()}', f'{nome.text()}', f'{endereco.text()}', f'{contato.text()}'
-            cursor.execute(comando_SQL, dados)
-
-            self.AtualizaTabelasClientes()
-
-            cpf.clear()
-            nome.clear()
-            endereco.clear()
-            contato.clear()
-
-    def setTextAlterarClientes(self):
-        global id_alterar_Clientes
-        cpf = self.ui.line_alterar_cpf_cliente
-        nome = self.ui.line_alterar_nome_cliente
-        endereco = self.ui.line_alterar_endereco_cliente
-        contato = self.ui.line_alterar_contato_cliente
-
-        id_alterar_Clientes = self.ui.tabela_alterar_clientes.currentRow()
-
-        cursor.execute('SELECT * FROM clientes')
-        banco_clientes = cursor.fetchall()
-
-        for pos, cliente in enumerate(banco_clientes):
-            if pos == id_alterar_Clientes:
-                cpf.setText(cliente[0])
-                nome.setText(cliente[1])
-                endereco.setText(cliente[2])
-                contato.setText(cliente[3])
-
-    def AlterarClientes(self):
-        global id_alterar_Clientes
-
-        cpf = self.ui.line_alterar_cpf_cliente
-        nome = self.ui.line_alterar_nome_cliente
-        endereco = self.ui.line_alterar_endereco_cliente
-        contato = self.ui.line_alterar_contato_cliente
-
-        cursor.execute('SELECT * FROM clientes')
-        banco_clientes = cursor.fetchall()
-        if cpf.text() != '' and nome.text() != '' and endereco.text() != '' and contato.text() != '':
-            for pos, cliente in enumerate(banco_clientes):
-                if pos == id_alterar_Clientes:
-                    cursor.execute(f'UPDATE clientes set CPF = "{cpf.text()}", nome = "{nome.text()}", endereço = "{endereco.text()}", contato = "{contato.text()}"'
-                                   f'WHERE CPF = "{cliente[0]}"')
-
-                    cpf.clear()
-                    nome.clear()
-                    endereco.clear()
-                    contato.clear()
-
-                    self.AtualizaTabelasClientes()
-
-                    break
-
-    def ExcluirClientes(self):
-        id = self.ui.tabela_clientes.currentRow()
-
-        cursor.execute('SELECT * FROM clientes')
-        banco_clientes = cursor.fetchall()
-
-        deletar_cliente = ''
-
-        for pos, cliente in enumerate(banco_clientes):
-            if id == pos:
-                deletar_cliente = cliente[0]
-
-        cursor.execute(f'DELETE FROM clientes WHERE CPF = "{deletar_cliente}"')
-        banco.commit()
-
-        self.AtualizaTabelasClientes()
 
     def AtualizaTabelasClientes(self):
         cursor.execute('SELECT * FROM clientes')
@@ -693,112 +901,6 @@ class FrmAdmin(QMainWindow):
             self.ui.tabela_cadastrar_fornecedores.setItem(row, 2, QTableWidgetItem(fornecedores[2]))
             row += 1
 
-    def setTextAlterarFornecedores(self):
-        global id_alterar_fornecedores
-
-        nome = self.ui.line_alterar_nome_fornecedor
-        endereco = self.ui.line_alterar_endereco_fornecedor
-        contato = self.ui.line_alterar_contato_fornecedor
-
-        id_alterar_fornecedores = self.ui.tabela_alterar_fornecedores.currentRow()
-
-        cursor.execute('SELECT * FROM fornecedores')
-        banco_fornecedores = cursor.fetchall()
-
-        for pos, fornecedor in enumerate(banco_fornecedores):
-            if pos == id_alterar_fornecedores:
-                nome.setText(fornecedor[0])
-                endereco.setText(fornecedor[1])
-                contato.setText(fornecedor[2])
-
-    def CadastrarFornecedores(self):
-
-        nome = self.ui.line_cadastrar_nome_fornecedores
-        endereco = self.ui.line_cadastrar_endereco_fornecedores
-        contato = self.ui.line_cadastrar_contato_fornecedores
-
-        cursor.execute('SELECT * FROM fornecedores')
-        banco_fornecedores = cursor.fetchall()
-
-        FornecedorNoBanco = False
-
-        for fornecedor in banco_fornecedores:
-            if fornecedor[0] == nome.text():
-                FornecedorNoBanco = True
-
-        if nome.text() != '' and endereco != '' and contato != '':
-            if FornecedorNoBanco == False:
-                comando_SQL = 'INSERT INTO fornecedores VALUES (%s,%s,%s)'
-                dados = f'{nome.text()}', f'{endereco.text()}', f'{contato.text()}'
-                cursor.execute(comando_SQL, dados)
-
-                nome.clear()
-                endereco.clear()
-                contato.clear()
-
-                nome.setStyleSheet('''
-                                background-color: rgba(0, 0 , 0, 0);
-                                border: 2px solid rgba(0,0,0,0);
-                                border-bottom-color: rgb(159, 63, 250);
-                                color: rgb(0,0,0);
-                                padding-bottom: 8px;
-                                border-radius: 0px;
-                                font: 10pt "Montserrat";''')
-
-                self.AtualizaTabelasFornecedores()
-
-            else:
-                nome.setStyleSheet(
-                    '''
-                        background-color: rgba(0, 0 , 0, 0);
-                        border: 2px solid rgba(0,0,0,0);
-                        border-bottom-color: rgb(255, 17, 49);;
-                        color: rgb(0,0,0);
-                        padding-bottom: 8px;
-                        border-radius: 0px;
-                        font: 10pt "Montserrat";'''
-                )
-
-    def AlterarFornecedores(self):
-        global id_alterar_fornecedores
-
-        cursor.execute('SELECT * FROM fornecedores')
-        banco_fornecedores = cursor.fetchall()
-
-        nome = self.ui.line_alterar_nome_fornecedor
-        endereco = self.ui.line_alterar_endereco_fornecedor
-        contato = self.ui.line_alterar_contato_fornecedor
-
-        if nome.text() != '' and endereco.text() != '' and contato.text() != '':
-            for pos, fornecedores in enumerate(banco_fornecedores):
-                if pos == id_alterar_fornecedores:
-                    cursor.execute(f'UPDATE fornecedores set nome = "{nome.text()}", endereço = "{endereco.text()}", contato = "{contato.text()}"'
-                                   f'WHERE nome = "{fornecedores[0]}"')
-
-                    nome.clear()
-                    endereco.clear()
-                    contato.clear()
-
-                    self.AtualizaTabelasFornecedores()
-                    break
-
-    def ExluirFornecedores(self):
-        id = self.ui.tabela_fornecedores.currentRow()
-
-        cursor.execute('SELECT * FROM fornecedores')
-        banco_fornecedor = cursor.fetchall()
-
-        deletar_fornecedor = ''
-
-        for pos, fornecedor in enumerate(banco_fornecedor):
-            if id == pos:
-                deletar_fornecedor = fornecedor[0]
-
-        cursor.execute(f'DELETE FROM fornecedores WHERE Nome = "{deletar_fornecedor}"')
-        banco.commit()
-
-        self.AtualizaTabelasFornecedores()
-
     def AtualizaTabelasProdutos(self):
         cursor.execute('SELECT * FROM produtos')
         banco_produtos = cursor.fetchall()
@@ -840,69 +942,6 @@ class FrmAdmin(QMainWindow):
             self.ui.tabela_cadastro.setItem(row, 4, QTableWidgetItem(produto[3]))
             self.ui.tabela_cadastro.setItem(row, 5, QTableWidgetItem(produto[4]))
             row += 1
-
-    def CadastrarProdutos(self):
-
-        cod_produto = self.ui.line_codigo_produto_cadastrar
-        descricao = self.ui.line_descricao_cadastrar
-        valor_unitario = self.ui.line_valor_cadastrar
-        qtde_estoque = self.ui.line_qtde_cadastrar
-        fornecedor = self.ui.line_fornecedor_cadastrar
-
-        cursor.execute("SELECT * FROM produtos")
-        banco_produtos = cursor.fetchall()
-
-        ProdutoJaCadastrado = False
-
-        if cod_produto.text() != '' and descricao.text() != '' and valor_unitario.text() != '' and qtde_estoque.text() != '' and fornecedor.text() != '':
-            for produto in banco_produtos:
-                if produto[0] == cod_produto.text():
-                    cod_produto.setStyleSheet('''
-                            background-color: rgba(0, 0 , 0, 0);
-                            border: 2px solid rgba(0,0,0,0);
-                            border-bottom-color: rgb(255, 17, 49);;
-                            color: rgb(0,0,0);
-                            padding-bottom: 8px;
-                            border-radius: 0px;
-                            font: 10pt "Montserrat";''')
-
-                    ProdutoJaCadastrado = True
-
-            if ProdutoJaCadastrado == False:
-                comando_SQL = 'INSERT INTO produtos VALUES (%s,%s,%s,%s,%s)'
-                dados = f'{cod_produto.text()}', f'{descricao.text()}', f'{valor_unitario.text()}', f'{qtde_estoque.text()}', f'{fornecedor.text()}'
-                cursor.execute(comando_SQL, dados)
-
-                cod_produto.clear()
-                descricao.clear()
-                valor_unitario.clear()
-                qtde_estoque.clear()
-                fornecedor.clear()
-
-                cod_produto.setStyleSheet('''
-                                        background-color: rgba(0, 0 , 0, 0);
-                                        border: 2px solid rgba(0,0,0,0);
-                                        border-bottom-color: rgb(159, 63, 250);
-                                        color: rgb(0,0,0);
-                                        padding-bottom: 8px;
-                                        border-radius: 0px;
-                                        font: 10pt "Montserrat";''')
-
-                self.AtualizaTabelasProdutos()
-
-    def ExcluirProdutos(self):
-
-        id = self.ui.tabela_produto.currentRow()
-
-        cursor.execute('SELECT * FROM produtos')
-        banco_produtos = cursor.fetchall()
-
-        for pos, produto in enumerate(banco_produtos):
-            if pos == id:
-                cursor.execute(f'DELETE FROM produtos WHERE cód_produto = "{produto[0]}"')
-                banco.commit()
-
-                self.AtualizaTabelasProdutos()
 
 
 class FrmColaborador(QMainWindow):
@@ -978,6 +1017,8 @@ if __name__ == '__main__':
     id_tabela_alterar = None
     id_alterar_Clientes = None
     id_alterar_fornecedores = None
+
+    search_fornecedores = list()
 
     UserLogado = None
 
