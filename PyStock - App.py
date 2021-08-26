@@ -332,7 +332,8 @@ class FrmAdmin(QMainWindow):
         self.ui.line_search_Bar_fornecedores.setCompleter(self.completer)
         self.ui.line_search_Bar_altarar_fornecedor.setCompleter(self.completer)
         self.ui.line_search_Bar_cadastrar_fornecedores.setCompleter(self.completer)
-        
+        self.ui.line_fornecedor_cadastrar.setCompleter(self.completer)
+
     # Funções de Cadastro
 
     def CadastroColaboradores(self):
@@ -470,6 +471,8 @@ class FrmAdmin(QMainWindow):
 
     def CadastrarProdutos(self):
 
+        global search_fornecedores
+
         cod_produto = self.ui.line_codigo_produto_cadastrar
         descricao = self.ui.line_descricao_cadastrar
         valor_unitario = self.ui.line_valor_cadastrar
@@ -480,6 +483,7 @@ class FrmAdmin(QMainWindow):
         banco_produtos = cursor.fetchall()
 
         ProdutoJaCadastrado = False
+        FornecedorNoSearch = False
 
         if cod_produto.text() != '' and descricao.text() != '' and valor_unitario.text() != '' and qtde_estoque.text() != '' and fornecedor.text() != '':
             for produto in banco_produtos:
@@ -495,27 +499,51 @@ class FrmAdmin(QMainWindow):
 
                     ProdutoJaCadastrado = True
 
-            if ProdutoJaCadastrado == False:
-                comando_SQL = 'INSERT INTO produtos VALUES (%s,%s,%s,%s,%s)'
-                dados = f'{cod_produto.text()}', f'{descricao.text()}', f'{valor_unitario.text()}', f'{qtde_estoque.text()}', f'{fornecedor.text()}'
-                cursor.execute(comando_SQL, dados)
+                else:
+                    cod_produto.setStyleSheet('''
+                                            background-color: rgba(0, 0 , 0, 0);
+                                            border: 2px solid rgba(0,0,0,0);
+                                            border-bottom-color: rgb(159, 63, 250);
+                                            color: rgb(0,0,0);
+                                            padding-bottom: 8px;
+                                            border-radius: 0px;
+                                            font: 10pt "Montserrat";''')
 
-                cod_produto.clear()
-                descricao.clear()
-                valor_unitario.clear()
-                qtde_estoque.clear()
-                fornecedor.clear()
+            if fornecedor.text() in search_fornecedores:
+                FornecedorNoSearch = True
 
-                cod_produto.setStyleSheet('''
-                                        background-color: rgba(0, 0 , 0, 0);
-                                        border: 2px solid rgba(0,0,0,0);
-                                        border-bottom-color: rgb(159, 63, 250);
-                                        color: rgb(0,0,0);
-                                        padding-bottom: 8px;
-                                        border-radius: 0px;
-                                        font: 10pt "Montserrat";''')
+                fornecedor.setStyleSheet('''
+                                            background-color: rgba(0, 0 , 0, 0);
+                                            border: 2px solid rgba(0,0,0,0);
+                                            border-bottom-color: rgb(159, 63, 250);
+                                            color: rgb(0,0,0);
+                                            padding-bottom: 8px;
+                                            border-radius: 0px;
+                                            font: 10pt "Montserrat";''')
 
-                self.AtualizaTabelasProdutos()
+            else:
+                fornecedor.setStyleSheet('''
+                            background-color: rgba(0, 0 , 0, 0);
+                            border: 2px solid rgba(0,0,0,0);
+                            border-bottom-color: rgb(255, 17, 49);;
+                            color: rgb(0,0,0);
+                            padding-bottom: 8px;
+                            border-radius: 0px;
+                            font: 10pt "Montserrat";''')
+
+            if ProdutoJaCadastrado == False and FornecedorNoSearch == True:
+
+                    comando_SQL = 'INSERT INTO produtos VALUES (%s,%s,%s,%s,%s)'
+                    dados = f'{cod_produto.text()}', f'{descricao.text()}', f'{valor_unitario.text()}', f'{qtde_estoque.text()}', f'{fornecedor.text()}'
+                    cursor.execute(comando_SQL, dados)
+
+                    cod_produto.clear()
+                    descricao.clear()
+                    valor_unitario.clear()
+                    qtde_estoque.clear()
+                    fornecedor.clear()
+
+                    self.AtualizaTabelasProdutos()
 
     # Funções de Alterar
 
