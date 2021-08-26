@@ -256,6 +256,7 @@ class FrmAdmin(QMainWindow):
         self.AtualizaTabelasLogin()
         self.AtualizaTabelasClientes()
         self.AtualizaTabelasFornecedores()
+        self.AtualizaTabelasProdutos()
 
         # iniciando Hora e Data do Sistema
         tempo = QTimer(self)
@@ -797,8 +798,49 @@ class FrmAdmin(QMainWindow):
 
         self.AtualizaTabelasFornecedores()
 
+    def AtualizaTabelasProdutos(self):
+        cursor.execute('SELECT * FROM produtos')
+        banco_produtos = cursor.fetchall()
+
+        self.ui.tabela_produto.clear()
+        self.ui.tabela_alterar_produto.clear()
+        self.ui.tabela_cadastro.clear()
+
+        row = 0
+
+        self.ui.tabela_produto.setRowCount(len(banco_produtos))
+        self.ui.tabela_alterar_produto.setRowCount(len(banco_produtos))
+        self.ui.tabela_cadastro.setRowCount(len(banco_produtos))
+
+        colunas = ['Item', 'Cód', 'Produto', 'Valor Unitário', 'Qtde', 'Fornecedor']
+        self.ui.tabela_produto.setHorizontalHeaderLabels(colunas)
+        self.ui.tabela_alterar_produto.setHorizontalHeaderLabels(colunas)
+        self.ui.tabela_cadastro.setHorizontalHeaderLabels(colunas)
+
+        for pos, produto in enumerate(banco_produtos):
+            self.ui.tabela_produto.setItem(row, 0, QTableWidgetItem(f'{pos}'))
+            self.ui.tabela_produto.setItem(row, 1, QTableWidgetItem(produto[0]))
+            self.ui.tabela_produto.setItem(row, 2, QTableWidgetItem(produto[1]))
+            self.ui.tabela_produto.setItem(row, 3, QTableWidgetItem(produto[2]))
+            self.ui.tabela_produto.setItem(row, 4, QTableWidgetItem(produto[3]))
+            self.ui.tabela_produto.setItem(row, 5, QTableWidgetItem(produto[4]))
+
+            self.ui.tabela_alterar_produto.setItem(row, 0, QTableWidgetItem(f'{pos}'))
+            self.ui.tabela_alterar_produto.setItem(row, 1, QTableWidgetItem(produto[0]))
+            self.ui.tabela_alterar_produto.setItem(row, 2, QTableWidgetItem(produto[1]))
+            self.ui.tabela_alterar_produto.setItem(row, 3, QTableWidgetItem(produto[2]))
+            self.ui.tabela_alterar_produto.setItem(row, 4, QTableWidgetItem(produto[3]))
+            self.ui.tabela_alterar_produto.setItem(row, 5, QTableWidgetItem(produto[4]))
+
+            self.ui.tabela_cadastro.setItem(row, 0, QTableWidgetItem(f'{pos}'))
+            self.ui.tabela_cadastro.setItem(row, 1, QTableWidgetItem(produto[0]))
+            self.ui.tabela_cadastro.setItem(row, 2, QTableWidgetItem(produto[1]))
+            self.ui.tabela_cadastro.setItem(row, 3, QTableWidgetItem(produto[2]))
+            self.ui.tabela_cadastro.setItem(row, 4, QTableWidgetItem(produto[3]))
+            self.ui.tabela_cadastro.setItem(row, 5, QTableWidgetItem(produto[4]))
+            row += 1
+
     def CadastrarProdutos(self):
-        print('dasdasfdsfasd')
 
         cod_produto = self.ui.line_codigo_produto_cadastrar
         descricao = self.ui.line_descricao_cadastrar
@@ -844,6 +886,8 @@ class FrmAdmin(QMainWindow):
                                         padding-bottom: 8px;
                                         border-radius: 0px;
                                         font: 10pt "Montserrat";''')
+
+                self.AtualizaTabelasProdutos()
 
 
 class FrmColaborador(QMainWindow):
