@@ -223,6 +223,8 @@ class FrmAdmin(QMainWindow):
             lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_alterar_produtos))
         self.ui.btn_finalizar_cadastro.clicked.connect(self.CadastrarProdutos)
         self.ui.btn_excluir_produto.clicked.connect(self.ExcluirProdutos)
+        self.ui.tabela_alterar_produto.doubleClicked.connect(self.setTextAlterarProdutos)
+        self.ui.btn_finalizar_alterar.clicked.connect(self.AlterarProdutos)
 
         # Tabela Produtos
         self.ui.tabela_produto.setColumnWidth(0, 50)
@@ -333,6 +335,7 @@ class FrmAdmin(QMainWindow):
         self.ui.line_search_Bar_altarar_fornecedor.setCompleter(self.completer)
         self.ui.line_search_Bar_cadastrar_fornecedores.setCompleter(self.completer)
         self.ui.line_fornecedor_cadastrar.setCompleter(self.completer)
+        self.ui.line_fornecedor_alterar_produto.setCompleter(self.completer)
 
     # Funções de Cadastro
 
@@ -646,6 +649,84 @@ class FrmAdmin(QMainWindow):
                     self.AtualizaTabelasFornecedores()
                     self.AtualizaCompleterSearch()
                     break
+
+    def AlterarProdutos(self):
+        global id_alterar_produtos
+        global search_fornecedores
+
+        cursor.execute('SELECT * FROM produtos')
+        banco_produtos = cursor.fetchall()
+
+        cod_produto = self.ui.line_codigo_alterar_produto
+        descricao = self.ui.line_decricao_alterar_produto
+        valor_unitario = self.ui.line_valor_alterar_produto
+        qtde_estoque = self.ui.line_qtde_alterar_produto
+        fornecedor = self.ui.line_fornecedor_alterar_produto
+
+        FornecedorNoSearch = False
+        ProdutoJaCadastrado = False
+        AlterarProduto = ''
+
+        if cod_produto.text() != '' and descricao.text() != '' and valor_unitario.text() != '' and qtde_estoque != '' and fornecedor != '':
+            if fornecedor.text() in search_fornecedores:
+                FornecedorNoSearch = True
+
+                fornecedor.setStyleSheet('''
+                                                   background-color: rgba(0, 0 , 0, 0);
+                                                   border: 2px solid rgba(0,0,0,0);
+                                                   border-bottom-color: rgb(159, 63, 250);
+                                                   color: rgb(0,0,0);
+                                                   padding-bottom: 8px;
+                                                   border-radius: 0px;
+                                                   font: 10pt "Montserrat";''')
+            else:
+                fornecedor.setStyleSheet('''
+                                                   background-color: rgba(0, 0 , 0, 0);
+                                                   border: 2px solid rgba(0,0,0,0);
+                                                   border-bottom-color: rgb(255, 17, 49);;
+                                                   color: rgb(0,0,0);
+                                                   padding-bottom: 8px;
+                                                   border-radius: 0px;
+                                                   font: 10pt "Montserrat";''')
+
+            for pos, produto in enumerate(banco_produtos):
+                if cod_produto.text() == produto[0]:
+                    ProdutoJaCadastrado = True
+
+                    cod_produto.setStyleSheet('''
+                                   background-color: rgba(0, 0 , 0, 0);
+                                   border: 2px solid rgba(0,0,0,0);
+                                   border-bottom-color: rgb(159, 63, 250);
+                                   color: rgb(0,0,0);
+                                   padding-bottom: 8px;
+                                   border-radius: 0px;
+                                   font: 10pt "Montserrat";''')
+                else:
+                    cod_produto.setStyleSheet('''
+                                   background-color: rgba(0, 0 , 0, 0);
+                                   border: 2px solid rgba(0,0,0,0);
+                                   border-bottom-color: rgb(255, 17, 49);;
+                                   color: rgb(0,0,0);
+                                   padding-bottom: 8px;
+                                   border-radius: 0px;
+                                   font: 10pt "Montserrat";''')
+
+                if pos == id_alterar_produtos:
+                    AlterarProduto = produto[0]
+
+
+        if FornecedorNoSearch == True and ProdutoJaCadastrado == False:
+            cursor.execute(
+                f'UPDATE produtos set cód_produto = "{cod_produto.text()}", descrição = "{descricao.text()}", valor_unitário = "{valor_unitario.text()}", qtde_estoque = "{valor_unitario.text()}", fornecedor = "{fornecedor.text()}"'
+                f'WHERE cód_produto = "{AlterarProduto}"')
+
+            cod_produto.clear()
+            descricao.clear()
+            valor_unitario.clear()
+            qtde_estoque.clear()
+            fornecedor.clear()
+
+            self.AtualizaTabelasProdutos()
 
     # Funções de Excluir
     def ExcluirColaboradores(self):
