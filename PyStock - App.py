@@ -267,7 +267,8 @@ class FrmAdmin(QMainWindow):
         tempo.timeout.connect(self.HoraData)
         tempo.start(1000)
 
-        self.AtualizaCompleterSearch()
+        self.AtualizaCompleterSearchFornecedores()
+        self.AtualizaCompleterSearchProdutos()
 
     # Pequenas Funções
 
@@ -316,7 +317,8 @@ class FrmAdmin(QMainWindow):
         self.ui.lbl_hora_data_cadastrar_clientes.setText(f'{dataTexto} {tempoTexto}')
         self.ui.lbl_hora_data_alterar_clientes.setText(f'{dataTexto} {tempoTexto}')
 
-    def AtualizaCompleterSearch(self):
+    # Funções para Atuliazer as previções das barras de pesquisa
+    def AtualizaCompleterSearchFornecedores(self):
         global search_fornecedores
 
         cursor.execute('SELECT * FROM fornecedores')
@@ -337,8 +339,28 @@ class FrmAdmin(QMainWindow):
         self.ui.line_fornecedor_cadastrar.setCompleter(self.completer)
         self.ui.line_fornecedor_alterar_produto.setCompleter(self.completer)
 
-    # Funções de Cadastro
+    def AtualizaCompleterSearchProdutos(self):
+        global search_produtos
 
+        cursor.execute('SELECT * FROM produtos')
+        banco_produtos = cursor.fetchall()
+
+        search_produtos.clear()
+
+        for produto in banco_produtos:
+            search_produtos.append(produto[0])
+            search_produtos.append(produto[1])
+            search_produtos.append(produto[4])
+
+        self.completer = QCompleter(search_produtos)
+        self.completer.setCaseSensitivity(Qt.CaseInsensitive)
+
+        self.ui.line_search_Bar_produtos.setCompleter(self.completer)
+        self.ui.line_search_Bar_alterar_produto.setCompleter(self.completer)
+        self.ui.line_search_Bar_cadastrar_produto.setCompleter(self.completer)
+
+
+    # Funções de Cadastro
     def CadastroColaboradores(self):
 
         login = self.ui.line_login
@@ -458,7 +480,7 @@ class FrmAdmin(QMainWindow):
                                 font: 10pt "Montserrat";''')
 
                 self.AtualizaTabelasFornecedores()
-                self.AtualizaCompleterSearch()
+                self.AtualizaCompleterSearchFornecedores()
 
             else:
                 nome.setStyleSheet(
@@ -547,9 +569,9 @@ class FrmAdmin(QMainWindow):
                     fornecedor.clear()
 
                     self.AtualizaTabelasProdutos()
+                    self.AtualizaCompleterSearchProdutos()
 
     # Funções de Alterar
-
     def AlterarColaboradores(self):
         global id_tabela_alterar
 
@@ -647,7 +669,7 @@ class FrmAdmin(QMainWindow):
                     contato.clear()
 
                     self.AtualizaTabelasFornecedores()
-                    self.AtualizaCompleterSearch()
+                    self.AtualizaCompleterSearchFornecedores()
                     break
 
     def AlterarProdutos(self):
@@ -696,7 +718,7 @@ class FrmAdmin(QMainWindow):
                     cod_produto.setStyleSheet('''
                                    background-color: rgba(0, 0 , 0, 0);
                                    border: 2px solid rgba(0,0,0,0);
-                                   border-bottom-color: rgb(159, 63, 250);
+                                   border-bottom-color: rgb(255, 17, 49);;
                                    color: rgb(0,0,0);
                                    padding-bottom: 8px;
                                    border-radius: 0px;
@@ -705,7 +727,7 @@ class FrmAdmin(QMainWindow):
                     cod_produto.setStyleSheet('''
                                    background-color: rgba(0, 0 , 0, 0);
                                    border: 2px solid rgba(0,0,0,0);
-                                   border-bottom-color: rgb(255, 17, 49);;
+                                   border-bottom-color: rgb(159, 63, 250);
                                    color: rgb(0,0,0);
                                    padding-bottom: 8px;
                                    border-radius: 0px;
@@ -727,6 +749,7 @@ class FrmAdmin(QMainWindow):
             fornecedor.clear()
 
             self.AtualizaTabelasProdutos()
+            self.AtualizaCompleterSearchProdutos()
 
     # Funções de Excluir
     def ExcluirColaboradores(self):
@@ -782,7 +805,7 @@ class FrmAdmin(QMainWindow):
         banco.commit()
 
         self.AtualizaTabelasFornecedores()
-        self.AtualizaCompleterSearch()
+        self.AtualizaCompleterSearchFornecedores()
 
     def ExcluirProdutos(self):
 
@@ -797,9 +820,9 @@ class FrmAdmin(QMainWindow):
                 banco.commit()
 
                 self.AtualizaTabelasProdutos()
+                self.AtualizaCompleterSearchProdutos()
 
     # Funções de setar Texto
-
     def setTextAlterarColaboradores(self):
         global id_tabela_alterar
         nome = self.ui.line_nome_alterar_colaboradores
@@ -877,7 +900,6 @@ class FrmAdmin(QMainWindow):
                 fornecedor.setText(produto[4])
 
     # Funções para ver Senha
-
     def VerSenhaCadastroColaboradores(self):
         global click_cadastro_colaboradores
 
@@ -934,7 +956,6 @@ class FrmAdmin(QMainWindow):
                                                 'background-image: url(:/icones/bloquear senha hover.png);''}')
 
     # Funções para Atualizar Tabelas
-
     def AtualizaTabelasLogin(self):
 
         cursor.execute('SELECT * FROM login')
@@ -1145,13 +1166,21 @@ if __name__ == '__main__':
     click_cadastro_colaboradores = 0
     click_alterar_colaboradores = 0
 
+    # Id para alterar os itens das tabelas
     id_tabela_alterar = None
     id_alterar_Clientes = None
     id_alterar_fornecedores = None
     id_alterar_produtos = None
 
+    # Lista com os itens para fazer as previções das barras
     search_fornecedores = list()
+    search_produtos = list()
+    search_colaboradores = list()
+    search_clientes = list()
+    search_monitoramento = list()
+    search_vendas = list()
 
+    # Var para pegar o nome de quem logou
     UserLogado = None
 
     # Configurando Aplicação
