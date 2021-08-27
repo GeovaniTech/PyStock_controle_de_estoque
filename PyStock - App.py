@@ -773,6 +773,28 @@ class FrmAdmin(QMainWindow):
                 endereco.setText(fornecedor[1])
                 contato.setText(fornecedor[2])
 
+    def setTextAlterarProdutos(self):
+        global id_alterar_produtos
+
+        cod_produto = self.ui.line_codigo_alterar_produto
+        descricao = self.ui.line_decricao_alterar_produto
+        valor_unitario = self.ui.line_valor_alterar_produto
+        qtde_estoque = self.ui.line_qtde_alterar_produto
+        fornecedor = self.ui.line_fornecedor_alterar_produto
+
+        id_alterar_produtos = self.ui.tabela_alterar_produto.currentRow()
+
+        cursor.execute('SELECT * FROM produtos')
+        banco_produtos = cursor.fetchall()
+
+        for pos, produto in enumerate(banco_produtos):
+            if pos == id_alterar_produtos:
+                cod_produto.setText(produto[0])
+                descricao.setText(produto[1])
+                valor_unitario.setText(produto[2])
+                qtde_estoque.setText(produto[3])
+                fornecedor.setText(produto[4])
+
     # Funções para ver Senha
 
     def VerSenhaCadastroColaboradores(self):
@@ -1045,6 +1067,7 @@ if __name__ == '__main__':
     id_tabela_alterar = None
     id_alterar_Clientes = None
     id_alterar_fornecedores = None
+    id_alterar_produtos = None
 
     search_fornecedores = list()
 
