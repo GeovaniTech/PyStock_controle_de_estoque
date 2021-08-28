@@ -94,6 +94,7 @@ class FrmAdmin(QMainWindow):
     def __init__(self):
         global filtro
         global search_fornecedores
+        global window
 
         QMainWindow.__init__(self)
 
@@ -270,6 +271,16 @@ class FrmAdmin(QMainWindow):
         self.AtualizaCompleterSearchFornecedores()
         self.AtualizaCompleterSearchProdutos()
 
+        # Filtrando os dados das tabelas
+        self.ui.btn_pesquisar_produto.clicked.connect(lambda: self.SearchProdutos(pg='Produtos'))
+        self.ui.line_search_Bar_produtos.returnPressed.connect(lambda: self.SearchProdutos(pg='Produtos'))
+
+        self.ui.line_search_Bar_alterar_produto.returnPressed.connect(lambda: self.SearchProdutos(pg='Alterar'))
+        self.ui.btn_pesquisar_alterar_produto.clicked.connect(lambda: self.SearchProdutos(pg='Alterar'))
+
+        self.ui.line_search_Bar_cadastrar_produto.returnPressed.connect(lambda: self.SearchProdutos(pg='Cadastrar'))
+        self.ui.btn_pesquisar_cadastrar_produto.clicked.connect(lambda: self.SearchProdutos(pg='Cadastrar'))
+
     # Pequenas Funções
 
     def Voltar(self):
@@ -278,6 +289,28 @@ class FrmAdmin(QMainWindow):
         window.close()
         window = FrmLogin()
         window.show()
+
+    def SearchProdutos(self, pg=''):
+        tabela = self
+        produto = self
+
+        if pg == 'Produtos':
+            tabela = self.ui.tabela_produto
+            produto = self.ui.line_search_Bar_produtos
+
+        if pg == 'Alterar':
+            tabela = self.ui.tabela_alterar_produto
+            produto = self.ui.line_search_Bar_alterar_produto
+
+        if pg == 'Cadastrar':
+            tabela = self.ui.tabela_cadastro
+            produto = self.ui.line_search_Bar_cadastrar_produto
+
+        items = tabela.findItems(produto.text(), Qt.MatchContains)
+
+        if items:
+            item = items[0]
+            tabela.setCurrentItem(item)
 
     def Popup(self):
         msg = QMessageBox()
@@ -348,9 +381,7 @@ class FrmAdmin(QMainWindow):
         search_produtos.clear()
 
         for produto in banco_produtos:
-            search_produtos.append(produto[0])
             search_produtos.append(produto[1])
-            search_produtos.append(produto[4])
 
         self.completer = QCompleter(search_produtos)
         self.completer.setCaseSensitivity(Qt.CaseInsensitive)
@@ -358,7 +389,6 @@ class FrmAdmin(QMainWindow):
         self.ui.line_search_Bar_produtos.setCompleter(self.completer)
         self.ui.line_search_Bar_alterar_produto.setCompleter(self.completer)
         self.ui.line_search_Bar_cadastrar_produto.setCompleter(self.completer)
-
 
     # Funções de Cadastro
     def CadastroColaboradores(self):
