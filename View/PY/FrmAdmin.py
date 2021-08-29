@@ -1142,9 +1142,9 @@ class Ui_FrmAdmin(object):
 "}\n"
 "")
         self.btn_finalizar_cadastro_clientes.setObjectName("btn_finalizar_cadastro_clientes")
-        self.btn_pesquisar_produto_8 = QtWidgets.QPushButton(self.pg_cadastrar_clientes)
-        self.btn_pesquisar_produto_8.setGeometry(QtCore.QRect(20, 80, 51, 41))
-        self.btn_pesquisar_produto_8.setStyleSheet("QPushButton {\n"
+        self.btn_pesquisar_cadastrar_cliente = QtWidgets.QPushButton(self.pg_cadastrar_clientes)
+        self.btn_pesquisar_cadastrar_cliente.setGeometry(QtCore.QRect(20, 80, 51, 41))
+        self.btn_pesquisar_cadastrar_cliente.setStyleSheet("QPushButton {\n"
 "border: 2px;\n"
 "background-color: rgb(159, 63, 250);\n"
 "color: white;\n"
@@ -1157,10 +1157,10 @@ class Ui_FrmAdmin(object):
 "    background-color: rgb(197, 62, 255);\n"
 "}\n"
 "")
-        self.btn_pesquisar_produto_8.setText("")
-        self.btn_pesquisar_produto_8.setIcon(icon10)
-        self.btn_pesquisar_produto_8.setIconSize(QtCore.QSize(25, 25))
-        self.btn_pesquisar_produto_8.setObjectName("btn_pesquisar_produto_8")
+        self.btn_pesquisar_cadastrar_cliente.setText("")
+        self.btn_pesquisar_cadastrar_cliente.setIcon(icon10)
+        self.btn_pesquisar_cadastrar_cliente.setIconSize(QtCore.QSize(25, 25))
+        self.btn_pesquisar_cadastrar_cliente.setObjectName("btn_pesquisar_cadastrar_cliente")
         self.line_nome_cadastrar_clientes = QtWidgets.QLineEdit(self.pg_cadastrar_clientes)
         self.line_nome_cadastrar_clientes.setGeometry(QtCore.QRect(20, 140, 161, 31))
         self.line_nome_cadastrar_clientes.setStyleSheet("background-color: rgba(0, 0 , 0, 0);\n"

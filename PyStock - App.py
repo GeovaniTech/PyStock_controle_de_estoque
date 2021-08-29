@@ -268,9 +268,11 @@ class FrmAdmin(QMainWindow):
         tempo.timeout.connect(self.HoraData)
         tempo.start(1000)
 
+        # Atuliza previsão de texto das barras de pesquisa
         self.AtualizaCompleterSearchFornecedores()
         self.AtualizaCompleterSearchProdutos()
         self.AtualizaCompleterSearchColaboradores()
+        self.AtualizaCompleterSearchClientes()
 
         # Conectando com a função fazer a pesquisa dos dados inseridos
 
@@ -300,6 +302,16 @@ class FrmAdmin(QMainWindow):
 
         self.ui.btn_pesquisar_alterar_colaboradores.clicked.connect(lambda: self.SearchColaboradores(pg='Alterar'))
         self.ui.line_search_bar_buscar_colaboradores.returnPressed.connect(lambda: self.SearchColaboradores(pg='Alterar'))
+
+        # Clientes
+        self.ui.btn_pesquisar_clientes.clicked.connect(lambda: self.SearchClientes(pg='Clientes'))
+        self.ui.line_search_Bar_clientes.returnPressed.connect(lambda: self.SearchClientes(pg='Clientes'))
+
+        self.ui.btn_filtrar_clientes.clicked.connect(lambda: self.SearchClientes(pg='Alterar'))
+        self.ui.line_search_Bar_alterar_clientes.returnPressed.connect(lambda: self.SearchClientes(pg='Alterar'))
+
+        self.ui.btn_pesquisar_cadastrar_cliente.clicked.connect(lambda: self.SearchClientes(pg='Cadastrar'))
+        self.ui.line_search_Bar_cadastrar_clientes.returnPressed.connect(lambda: self.SearchClientes(pg='Cadastrar'))
 
     # Pequenas Funções
 
@@ -411,6 +423,28 @@ class FrmAdmin(QMainWindow):
             item = items[0]
             tabela.setCurrentItem(item)
 
+    def SearchClientes(self, pg=''):
+        tabela = self
+        produto = self
+
+        if pg == 'Clientes':
+            tabela = self.ui.tabela_clientes
+            produto = self.ui.line_search_Bar_clientes
+
+        if pg == 'Alterar':
+            tabela = self.ui.tabela_alterar_clientes
+            produto = self.ui.line_search_Bar_alterar_clientes
+
+        if pg == 'Cadastrar':
+            tabela = self.ui.tabela_cadastrar_clientes
+            produto = self.ui.line_search_Bar_cadastrar_clientes
+
+        items = tabela.findItems(produto.text(), Qt.MatchContains)
+
+        if items:
+            item = items[0]
+            tabela.setCurrentItem(item)
+
     # Funções para Atualiazar as previções das barras de pesquisa
     def AtualizaCompleterSearchFornecedores(self):
         global search_fornecedores
@@ -467,6 +501,25 @@ class FrmAdmin(QMainWindow):
 
         self.ui.line_search_bar_buscar_colaboradores.setCompleter(self.completer)
         self.ui.line_search_bar_colaboradores.setCompleter(self.completer)
+
+    def AtualizaCompleterSearchClientes(self):
+        global search_clientes
+
+        cursor.execute('SELECT * FROM clientes')
+        banco_clientes = cursor.fetchall()
+
+        search_clientes.clear()
+
+        for clientes in banco_clientes:
+            search_clientes.append(clientes[0])
+            search_clientes.append(clientes[1])
+
+        self.completer = QCompleter(search_clientes)
+        self.completer.setCaseSensitivity(Qt.CaseInsensitive)
+
+        self.ui.line_search_Bar_clientes.setCompleter(self.completer)
+        self.ui.line_search_Bar_alterar_clientes.setCompleter(self.completer)
+        self.ui.line_search_Bar_cadastrar_clientes.setCompleter(self.completer)
 
     # Funções de Cadastro
     def CadastroColaboradores(self):
@@ -548,6 +601,7 @@ class FrmAdmin(QMainWindow):
             cursor.execute(comando_SQL, dados)
 
             self.AtualizaTabelasClientes()
+            self.AtualizaCompleterSearchClientes()
 
             cpf.clear()
             nome.clear()
@@ -755,6 +809,7 @@ class FrmAdmin(QMainWindow):
                     contato.clear()
 
                     self.AtualizaTabelasClientes()
+                    self.AtualizaCompleterSearchClientes()
 
                     break
 
@@ -899,6 +954,7 @@ class FrmAdmin(QMainWindow):
         banco.commit()
 
         self.AtualizaTabelasClientes()
+        self.AtualizaCompleterSearchClientes()
 
     def ExluirFornecedores(self):
         id = self.ui.tabela_fornecedores.currentRow()
