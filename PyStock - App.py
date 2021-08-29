@@ -294,14 +294,17 @@ class FrmAdmin(QMainWindow):
         self.ui.line_search_Bar_altarar_fornecedor.returnPressed.connect(lambda: self.SearchFornecedores(pg='Alterar'))
 
         self.ui.btn_pesquisar_fornecedores.clicked.connect(lambda: self.SearchFornecedores(pg='Cadastrar'))
-        self.ui.line_search_Bar_cadastrar_fornecedores.returnPressed.connect(lambda: self.SearchFornecedores(pg='Cadastrar'))
+        self.ui.line_search_Bar_cadastrar_fornecedores.returnPressed.connect(
+            lambda: self.SearchFornecedores(pg='Cadastrar'))
 
         # Colaboradores
         self.ui.btn_pesquisar_colaboradores.clicked.connect(lambda: self.SearchColaboradores(pg='Colaboradores'))
-        self.ui.line_search_bar_colaboradores.returnPressed.connect(lambda: self.SearchColaboradores(pg='Colaboradores'))
+        self.ui.line_search_bar_colaboradores.returnPressed.connect(
+            lambda: self.SearchColaboradores(pg='Colaboradores'))
 
         self.ui.btn_pesquisar_alterar_colaboradores.clicked.connect(lambda: self.SearchColaboradores(pg='Alterar'))
-        self.ui.line_search_bar_buscar_colaboradores.returnPressed.connect(lambda: self.SearchColaboradores(pg='Alterar'))
+        self.ui.line_search_bar_buscar_colaboradores.returnPressed.connect(
+            lambda: self.SearchColaboradores(pg='Alterar'))
 
         # Clientes
         self.ui.btn_pesquisar_clientes.clicked.connect(lambda: self.SearchClientes(pg='Clientes'))
@@ -313,10 +316,21 @@ class FrmAdmin(QMainWindow):
         self.ui.btn_pesquisar_cadastrar_cliente.clicked.connect(lambda: self.SearchClientes(pg='Cadastrar'))
         self.ui.line_search_Bar_cadastrar_clientes.returnPressed.connect(lambda: self.SearchClientes(pg='Cadastrar'))
 
-        self.ui.line_cadastrar_contato_fornecedores.textChanged.connect(self.FormataNumeroContato)
+        # Formatando número de contato dos Fornecedores
+        self.ui.line_cadastrar_contato_fornecedores.textChanged.connect(
+            lambda: self.FormataNumeroContato(pg='CadastrarFornecedores'))
+        self.ui.line_alterar_contato_fornecedor.textChanged.connect(
+            lambda: self.FormataNumeroContato(pg='AlterarFornecedores'))
+
+        # Formatando número de contato dos Clientes
+        self.ui.line_contato_cadastrar_clientes.textChanged.connect(lambda: self.FormataNumeroContato(pg='CadastrarClientes'))
+        self.ui.line_alterar_contato_cliente.textChanged.connect(lambda: self.FormataNumeroContato(pg='AlterarClientes'))
+
+        # Formatando CPF dos Clientes
+        self.ui.line_cpf_cadastrar_clientes.textChanged.connect(lambda: self.FormataCPFClientes(pg='Cadastrar'))
+        self.ui.line_alterar_cpf_cliente.textChanged.connect(lambda: self.FormataCPFClientes(pg='Alterar'))
 
     # Pequenas Funções
-
     def Voltar(self):
         global window
 
@@ -362,8 +376,18 @@ class FrmAdmin(QMainWindow):
         self.ui.lbl_hora_data_cadastrar_clientes.setText(f'{dataTexto} {tempoTexto}')
         self.ui.lbl_hora_data_alterar_clientes.setText(f'{dataTexto} {tempoTexto}')
 
-    def FormataNumeroContatoFornecedores(self):
-        numero = self.ui.line_cadastrar_contato_fornecedores
+    # Função para formartar o número de contato inserido
+    def FormataNumeroContato(self, pg):
+        global numero
+        if pg == 'CadastrarFornecedores':
+            numero = self.ui.line_cadastrar_contato_fornecedores
+        if pg == 'AlterarFornecedores':
+            numero = self.ui.line_alterar_contato_fornecedor
+
+        if pg == 'CadastrarClientes':
+            numero = self.ui.line_contato_cadastrar_clientes
+        if pg == 'AlterarClientes':
+            numero = self.ui.line_alterar_contato_cliente
 
         texto = numero.text()
         tamanho = len(numero.text())
@@ -380,11 +404,26 @@ class FrmAdmin(QMainWindow):
         if tamanho == 11 and texto[7].isnumeric() == True:
             numero.setText(f'{texto}-')
 
+    # Função para formatar o cpf inserido
+    def FormataCPFClientes(self, pg):
 
+        if pg == 'Cadastrar':
+            CPF = self.ui.line_cpf_cadastrar_clientes
+        else:
+            CPF = self.ui.line_alterar_cpf_cliente
 
+        TextoInserido = CPF.text()
+        TamanhoDoTexto = len(CPF.text())
+
+        if TamanhoDoTexto == 3 and TextoInserido.isnumeric() == True:
+            CPF.setText(f'{TextoInserido}.')
+        if TamanhoDoTexto == 7 and TextoInserido[4:].isnumeric() == True:
+            CPF.setText(f'{TextoInserido}.')
+        if TamanhoDoTexto == 11 and TextoInserido[8:].isnumeric() == True:
+            CPF.setText(f'{TextoInserido}-')
 
     # Função para Fazer a pesquisa dos item inserido
-    def SearchProdutos(self, pg=''):
+    def SearchProdutos(self, pg):
         tabela = self
         produto = self
 
@@ -406,7 +445,7 @@ class FrmAdmin(QMainWindow):
             item = items[0]
             tabela.setCurrentItem(item)
 
-    def SearchFornecedores(self, pg=''):
+    def SearchFornecedores(self, pg):
         tabela = self
         produto = self
 
@@ -428,7 +467,7 @@ class FrmAdmin(QMainWindow):
             item = items[0]
             tabela.setCurrentItem(item)
 
-    def SearchColaboradores(self, pg=''):
+    def SearchColaboradores(self, pg):
         tabela = self
         produto = self
 
@@ -447,7 +486,7 @@ class FrmAdmin(QMainWindow):
 
             tabela.setCurrentItem(item)
 
-    def SearchClientes(self, pg=''):
+    def SearchClientes(self, pg):
         tabela = self
         produto = self
 
@@ -617,8 +656,6 @@ class FrmAdmin(QMainWindow):
         endereco = self.ui.line_endereco_cadastrar_clientes
         contato = self.ui.line_contato_cadastrar_clientes
 
-
-
         if cpf.text() != '' and nome.text() != '' and endereco.text() != '' and contato.text() != '':
             comando_SQL = 'INSERT INTO clientes (CPF, Nome, Endereço, Contato) VALUES (%s,%s,%s,%s)'
             dados = f'{cpf.text()}', f'{nome.text()}', f'{endereco.text()}', f'{contato.text()}'
@@ -744,19 +781,18 @@ class FrmAdmin(QMainWindow):
                             font: 10pt "Montserrat";''')
 
             if ProdutoJaCadastrado == False and FornecedorNoSearch == True:
+                comando_SQL = 'INSERT INTO produtos VALUES (%s,%s,%s,%s,%s)'
+                dados = f'{cod_produto.text()}', f'{descricao.text()}', f'{valor_unitario.text()}', f'{qtde_estoque.text()}', f'{fornecedor.text()}'
+                cursor.execute(comando_SQL, dados)
 
-                    comando_SQL = 'INSERT INTO produtos VALUES (%s,%s,%s,%s,%s)'
-                    dados = f'{cod_produto.text()}', f'{descricao.text()}', f'{valor_unitario.text()}', f'{qtde_estoque.text()}', f'{fornecedor.text()}'
-                    cursor.execute(comando_SQL, dados)
+                cod_produto.clear()
+                descricao.clear()
+                valor_unitario.clear()
+                qtde_estoque.clear()
+                fornecedor.clear()
 
-                    cod_produto.clear()
-                    descricao.clear()
-                    valor_unitario.clear()
-                    qtde_estoque.clear()
-                    fornecedor.clear()
-
-                    self.AtualizaTabelasProdutos()
-                    self.AtualizaCompleterSearchProdutos()
+                self.AtualizaTabelasProdutos()
+                self.AtualizaCompleterSearchProdutos()
 
     # Funções de Alterar
     def AlterarColaboradores(self):
@@ -824,8 +860,9 @@ class FrmAdmin(QMainWindow):
         if cpf.text() != '' and nome.text() != '' and endereco.text() != '' and contato.text() != '':
             for pos, cliente in enumerate(banco_clientes):
                 if pos == id_alterar_Clientes:
-                    cursor.execute(f'UPDATE clientes set CPF = "{cpf.text()}", nome = "{nome.text()}", endereço = "{endereco.text()}", contato = "{contato.text()}"'
-                                   f'WHERE CPF = "{cliente[0]}"')
+                    cursor.execute(
+                        f'UPDATE clientes set CPF = "{cpf.text()}", nome = "{nome.text()}", endereço = "{endereco.text()}", contato = "{contato.text()}"'
+                        f'WHERE CPF = "{cliente[0]}"')
 
                     cpf.clear()
                     nome.clear()
@@ -850,8 +887,9 @@ class FrmAdmin(QMainWindow):
         if nome.text() != '' and endereco.text() != '' and contato.text() != '':
             for pos, fornecedores in enumerate(banco_fornecedores):
                 if pos == id_alterar_fornecedores:
-                    cursor.execute(f'UPDATE fornecedores set nome = "{nome.text()}", endereço = "{endereco.text()}", contato = "{contato.text()}"'
-                                   f'WHERE nome = "{fornecedores[0]}"')
+                    cursor.execute(
+                        f'UPDATE fornecedores set nome = "{nome.text()}", endereço = "{endereco.text()}", contato = "{contato.text()}"'
+                        f'WHERE nome = "{fornecedores[0]}"')
 
                     nome.clear()
                     endereco.clear()
@@ -924,7 +962,6 @@ class FrmAdmin(QMainWindow):
 
                 if pos == id_alterar_produtos:
                     AlterarProduto = produto[0]
-
 
         if FornecedorNoSearch == True and ProdutoJaCadastrado == False:
             cursor.execute(
@@ -1127,24 +1164,24 @@ class FrmAdmin(QMainWindow):
         if click_alterar_colaboradores % 2 == 0:
             self.ui.line_senha_alterar_colaboradores.setEchoMode(QLineEdit.EchoMode.Password)
             self.ui.btn_ver_senha_alterar.setStyleSheet('QPushButton {'
-                                                'background-image: url(:/icones/ver senha.png);'
-                                                'border: 0px;'
-                                                'outline: 0;'
-                                                '}'
-                                                ''
-                                                'QPushButton:hover {'
-                                                'background-image: url(:/icones/ver senha hover.png);'
-                                                '}')
+                                                        'background-image: url(:/icones/ver senha.png);'
+                                                        'border: 0px;'
+                                                        'outline: 0;'
+                                                        '}'
+                                                        ''
+                                                        'QPushButton:hover {'
+                                                        'background-image: url(:/icones/ver senha hover.png);'
+                                                        '}')
         if click_alterar_colaboradores % 2 == 1:
             self.ui.line_senha_alterar_colaboradores.setEchoMode(QLineEdit.EchoMode.Normal)
             self.ui.btn_ver_senha_alterar.setStyleSheet('QPushButton {'
-                                                'background-image: url(:/icones/bloquear senha.png);'
-                                                'border: 0px;'
-                                                'outline: 0;'
-                                                '}'
-                                                ''
-                                                'QPushButton:hover {'
-                                                'background-image: url(:/icones/bloquear senha hover.png);''}')
+                                                        'background-image: url(:/icones/bloquear senha.png);'
+                                                        'border: 0px;'
+                                                        'outline: 0;'
+                                                        '}'
+                                                        ''
+                                                        'QPushButton:hover {'
+                                                        'background-image: url(:/icones/bloquear senha hover.png);''}')
 
     # Funções para Atualizar Tabelas
     def AtualizaTabelasLogin(self):
@@ -1352,7 +1389,6 @@ class FrmColaborador(QMainWindow):
 
 
 if __name__ == '__main__':
-
     # Variáveis Globais
     click_cadastro_colaboradores = 0
     click_alterar_colaboradores = 0
