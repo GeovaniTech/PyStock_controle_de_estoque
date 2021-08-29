@@ -271,7 +271,9 @@ class FrmAdmin(QMainWindow):
         self.AtualizaCompleterSearchFornecedores()
         self.AtualizaCompleterSearchProdutos()
 
-        # Filtrando os dados das tabelas
+        # Conectando com a função fazer a pesquisa dos dados inseridos
+
+        # Produtos
         self.ui.btn_pesquisar_produto.clicked.connect(lambda: self.SearchProdutos(pg='Produtos'))
         self.ui.line_search_Bar_produtos.returnPressed.connect(lambda: self.SearchProdutos(pg='Produtos'))
 
@@ -281,6 +283,16 @@ class FrmAdmin(QMainWindow):
         self.ui.line_search_Bar_cadastrar_produto.returnPressed.connect(lambda: self.SearchProdutos(pg='Cadastrar'))
         self.ui.btn_pesquisar_cadastrar_produto.clicked.connect(lambda: self.SearchProdutos(pg='Cadastrar'))
 
+        # Fornecedores
+        self.ui.btn_filtrar_fornecedores.clicked.connect(lambda: self.SearchFornecedores(pg='Fornecedores'))
+        self.ui.line_search_Bar_fornecedores.returnPressed.connect(lambda: self.SearchFornecedores(pg='Fornecedores'))
+
+        self.ui.btn_flitrar_fornecedores.clicked.connect(lambda: self.SearchFornecedores(pg='Alterar'))
+        self.ui.line_search_Bar_altarar_fornecedor.returnPressed.connect(lambda: self.SearchFornecedores(pg='Alterar'))
+
+        self.ui.btn_pesquisar_fornecedores.clicked.connect(lambda: self.SearchFornecedores(pg='Cadastrar'))
+        self.ui.line_search_Bar_cadastrar_fornecedores.returnPressed.connect(lambda: self.SearchFornecedores(pg='Cadastrar'))
+
     # Pequenas Funções
 
     def Voltar(self):
@@ -289,28 +301,6 @@ class FrmAdmin(QMainWindow):
         window.close()
         window = FrmLogin()
         window.show()
-
-    def SearchProdutos(self, pg=''):
-        tabela = self
-        produto = self
-
-        if pg == 'Produtos':
-            tabela = self.ui.tabela_produto
-            produto = self.ui.line_search_Bar_produtos
-
-        if pg == 'Alterar':
-            tabela = self.ui.tabela_alterar_produto
-            produto = self.ui.line_search_Bar_alterar_produto
-
-        if pg == 'Cadastrar':
-            tabela = self.ui.tabela_cadastro
-            produto = self.ui.line_search_Bar_cadastrar_produto
-
-        items = tabela.findItems(produto.text(), Qt.MatchContains)
-
-        if items:
-            item = items[0]
-            tabela.setCurrentItem(item)
 
     def Popup(self):
         msg = QMessageBox()
@@ -350,7 +340,52 @@ class FrmAdmin(QMainWindow):
         self.ui.lbl_hora_data_cadastrar_clientes.setText(f'{dataTexto} {tempoTexto}')
         self.ui.lbl_hora_data_alterar_clientes.setText(f'{dataTexto} {tempoTexto}')
 
-    # Funções para Atuliazer as previções das barras de pesquisa
+    # Função para Fazer a pesquisa dos item inserido
+    def SearchProdutos(self, pg=''):
+        tabela = self
+        produto = self
+
+        if pg == 'Produtos':
+            tabela = self.ui.tabela_produto
+            produto = self.ui.line_search_Bar_produtos
+
+        if pg == 'Alterar':
+            tabela = self.ui.tabela_alterar_produto
+            produto = self.ui.line_search_Bar_alterar_produto
+
+        if pg == 'Cadastrar':
+            tabela = self.ui.tabela_cadastro
+            produto = self.ui.line_search_Bar_cadastrar_produto
+
+        items = tabela.findItems(produto.text(), Qt.MatchContains)
+
+        if items:
+            item = items[0]
+            tabela.setCurrentItem(item)
+
+    def SearchFornecedores(self, pg=''):
+        tabela = self
+        produto = self
+
+        if pg == 'Fornecedores':
+            tabela = self.ui.tabela_fornecedores
+            produto = self.ui.line_search_Bar_fornecedores
+
+        if pg == 'Alterar':
+            tabela = self.ui.tabela_alterar_fornecedores
+            produto = self.ui.line_search_Bar_altarar_fornecedor
+
+        if pg == 'Cadastrar':
+            tabela = self.ui.tabela_cadastrar_fornecedores
+            produto = self.ui.line_search_Bar_cadastrar_fornecedores
+
+        items = tabela.findItems(produto.text(), Qt.MatchContains)
+
+        if items:
+            item = items[0]
+            tabela.setCurrentItem(item)
+
+    # Funções para Atualiazar as previções das barras de pesquisa
     def AtualizaCompleterSearchFornecedores(self):
         global search_fornecedores
 
