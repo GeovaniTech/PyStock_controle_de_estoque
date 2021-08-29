@@ -270,6 +270,7 @@ class FrmAdmin(QMainWindow):
 
         self.AtualizaCompleterSearchFornecedores()
         self.AtualizaCompleterSearchProdutos()
+        self.AtualizaCompleterSearchColaboradores()
 
         # Conectando com a função fazer a pesquisa dos dados inseridos
 
@@ -292,6 +293,13 @@ class FrmAdmin(QMainWindow):
 
         self.ui.btn_pesquisar_fornecedores.clicked.connect(lambda: self.SearchFornecedores(pg='Cadastrar'))
         self.ui.line_search_Bar_cadastrar_fornecedores.returnPressed.connect(lambda: self.SearchFornecedores(pg='Cadastrar'))
+
+        # Colaboradores
+        self.ui.btn_pesquisar_colaboradores.clicked.connect(lambda: self.SearchColaboradores(pg='Colaboradores'))
+        self.ui.line_search_bar_colaboradores.returnPressed.connect(lambda: self.SearchColaboradores(pg='Colaboradores'))
+
+        self.ui.btn_pesquisar_alterar_colaboradores.clicked.connect(lambda: self.SearchColaboradores(pg='Alterar'))
+        self.ui.line_search_bar_buscar_colaboradores.returnPressed.connect(lambda: self.SearchColaboradores(pg='Alterar'))
 
     # Pequenas Funções
 
@@ -385,6 +393,24 @@ class FrmAdmin(QMainWindow):
             item = items[0]
             tabela.setCurrentItem(item)
 
+    def SearchColaboradores(self, pg=''):
+        tabela = self
+        produto = self
+
+        if pg == 'Colaboradores':
+            tabela = self.ui.tabela_colaboradores
+            produto = self.ui.line_search_bar_colaboradores
+
+        if pg == 'Alterar':
+            tabela = self.ui.tabela_alterar_colaboradores
+            produto = self.ui.line_search_bar_buscar_colaboradores
+
+        items = tabela.findItems(produto.text(), Qt.MatchContains)
+
+        if items:
+            item = items[0]
+            tabela.setCurrentItem(item)
+
     # Funções para Atualiazar as previções das barras de pesquisa
     def AtualizaCompleterSearchFornecedores(self):
         global search_fornecedores
@@ -424,6 +450,23 @@ class FrmAdmin(QMainWindow):
         self.ui.line_search_Bar_produtos.setCompleter(self.completer)
         self.ui.line_search_Bar_alterar_produto.setCompleter(self.completer)
         self.ui.line_search_Bar_cadastrar_produto.setCompleter(self.completer)
+
+    def AtualizaCompleterSearchColaboradores(self):
+        global search_colaboradores
+
+        cursor.execute('SELECT * FROM login')
+        banco_colaboradores = cursor.fetchall()
+
+        search_colaboradores.clear()
+
+        for colaborador in banco_colaboradores:
+            search_colaboradores.append(colaborador[0])
+
+        self.completer = QCompleter(search_colaboradores)
+        self.completer.setCaseSensitivity(Qt.CaseInsensitive)
+
+        self.ui.line_search_bar_buscar_colaboradores.setCompleter(self.completer)
+        self.ui.line_search_bar_colaboradores.setCompleter(self.completer)
 
     # Funções de Cadastro
     def CadastroColaboradores(self):
@@ -488,6 +531,7 @@ class FrmAdmin(QMainWindow):
                             font: 10pt "Montserrat";''')
 
             self.AtualizaTabelasLogin()
+            self.AtualizaCompleterSearchColaboradores()
 
     def CadastrarClientes(self):
 
@@ -668,6 +712,7 @@ class FrmAdmin(QMainWindow):
                         nome.clear()
 
                         self.AtualizaTabelasLogin()
+                        self.AtualizaCompleterSearchColaboradores()
 
                         self.ui.line_login_alterar_colaboradores.setStyleSheet('''
                                    background-color: rgba(0, 0 , 0, 0);
@@ -836,6 +881,7 @@ class FrmAdmin(QMainWindow):
         banco.commit()
 
         self.AtualizaTabelasLogin()
+        self.AtualizaCompleterSearchColaboradores()
 
     def ExcluirClientes(self):
         id = self.ui.tabela_clientes.currentRow()
