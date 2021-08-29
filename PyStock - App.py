@@ -313,6 +313,8 @@ class FrmAdmin(QMainWindow):
         self.ui.btn_pesquisar_cadastrar_cliente.clicked.connect(lambda: self.SearchClientes(pg='Cadastrar'))
         self.ui.line_search_Bar_cadastrar_clientes.returnPressed.connect(lambda: self.SearchClientes(pg='Cadastrar'))
 
+        self.ui.line_cadastrar_contato_fornecedores.textChanged.connect(self.FormataNumeroContato)
+
     # Pequenas Funções
 
     def Voltar(self):
@@ -359,6 +361,27 @@ class FrmAdmin(QMainWindow):
         self.ui.lbl_hora_data_clientes.setText(f'{dataTexto} {tempoTexto}')
         self.ui.lbl_hora_data_cadastrar_clientes.setText(f'{dataTexto} {tempoTexto}')
         self.ui.lbl_hora_data_alterar_clientes.setText(f'{dataTexto} {tempoTexto}')
+
+    def FormataNumeroContatoFornecedores(self):
+        numero = self.ui.line_cadastrar_contato_fornecedores
+
+        texto = numero.text()
+        tamanho = len(numero.text())
+
+        if tamanho == 1 and texto.isnumeric() == True:
+            numero.setText(f'({texto}')
+
+        if tamanho == 3 and texto[1:].isnumeric() == True:
+            numero.setText(f'{texto}) ')
+
+        if tamanho == 6 and texto[5].isnumeric() == True:
+            numero.setText(f'{texto} ')
+
+        if tamanho == 11 and texto[7].isnumeric() == True:
+            numero.setText(f'{texto}-')
+
+
+
 
     # Função para Fazer a pesquisa dos item inserido
     def SearchProdutos(self, pg=''):
@@ -421,6 +444,7 @@ class FrmAdmin(QMainWindow):
 
         if items:
             item = items[0]
+
             tabela.setCurrentItem(item)
 
     def SearchClientes(self, pg=''):
