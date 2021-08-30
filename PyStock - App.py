@@ -330,6 +330,9 @@ class FrmAdmin(QMainWindow):
         self.ui.line_cpf_cadastrar_clientes.textChanged.connect(lambda: self.FormataCPFClientes(pg='Cadastrar'))
         self.ui.line_alterar_cpf_cliente.textChanged.connect(lambda: self.FormataCPFClientes(pg='Alterar'))
 
+        self.ui.line_codigo_produto.returnPressed.connect(self.PesquisandoProdutoPeloCodigo)
+        self.ui.btn_confirmar_codigo.clicked.connect(self.PesquisandoProdutoPeloCodigo)
+
     # Pequenas Funções
     def Voltar(self):
         global window
@@ -376,7 +379,46 @@ class FrmAdmin(QMainWindow):
         self.ui.lbl_hora_data_cadastrar_clientes.setText(f'{dataTexto} {tempoTexto}')
         self.ui.lbl_hora_data_alterar_clientes.setText(f'{dataTexto} {tempoTexto}')
 
-    # Função para formartar o número de contato inserido
+    def PesquisandoProdutoPeloCodigo(self):
+        produtos = list()
+
+        cod_inserido = self.ui.line_codigo_produto
+
+        cursor.execute('SELECT * FROM produtos')
+        banco_produtos = cursor.fetchall()
+
+        produtos.clear()
+        tabela = self.ui.tabela_produto
+
+        for produto in banco_produtos:
+            produtos.append(produto[0])
+
+        items = tabela.findItems(cod_inserido.text(), Qt.MatchExactly)
+
+        if items:
+            item = items[0]
+            tabela.setCurrentItem(item)
+
+            cod_inserido.setStyleSheet('''
+                        background-color: rgba(0, 0 , 0, 0);
+                        border: 2px solid rgba(0,0,0,0);
+                        border-bottom-color: rgb(159, 63, 250);
+                        color: rgb(0,0,0);
+                        padding-bottom: 8px;
+                        border-radius: 0px;
+                        font: 10pt "Montserrat";''')
+
+        else:
+            cod_inserido.setStyleSheet('''
+                        background-color: rgba(0, 0 , 0, 0);
+                        border: 2px solid rgba(0,0,0,0);
+                        border-bottom-color: rgb(255, 17, 49);;
+                        color: rgb(0,0,0);
+                        padding-bottom: 8px;
+                        border-radius: 0px;
+                        font: 10pt "Montserrat";''')
+
+# Função para formartar o número de contato inserido
     def FormataNumeroContato(self, pg):
         global numero
         if pg == 'CadastrarFornecedores':
@@ -809,8 +851,8 @@ class FrmAdmin(QMainWindow):
 
             LoginNoBanco = False
 
-            for user in banco_login:
-                if login.text() == user[0]:
+            for pos, user in enumerate(banco_login):
+                if login.text() == user[0] and pos != id_tabela_alterar:
                     LoginNoBanco = True
 
             for pos, user in enumerate(banco_login):
@@ -921,13 +963,14 @@ class FrmAdmin(QMainWindow):
                 FornecedorNoSearch = True
 
                 fornecedor.setStyleSheet('''
-                                                   background-color: rgba(0, 0 , 0, 0);
-                                                   border: 2px solid rgba(0,0,0,0);
-                                                   border-bottom-color: rgb(159, 63, 250);
-                                                   color: rgb(0,0,0);
-                                                   padding-bottom: 8px;
-                                                   border-radius: 0px;
-                                                   font: 10pt "Montserrat";''')
+                                           background-color: rgba(0, 0 , 0, 0);
+                                           border: 2px solid rgba(0,0,0,0);
+                                           border-bottom-color: rgb(159, 63, 250);
+                                           color: rgb(0,0,0);
+                                           padding-bottom: 8px;
+                                           border-radius: 0px;
+                                           font: 10pt "Montserrat";''')
+
             else:
                 fornecedor.setStyleSheet('''
                                                    background-color: rgba(0, 0 , 0, 0);
@@ -939,17 +982,18 @@ class FrmAdmin(QMainWindow):
                                                    font: 10pt "Montserrat";''')
 
             for pos, produto in enumerate(banco_produtos):
-                if cod_produto.text() == produto[0]:
+                if cod_produto.text() == produto[0] and pos != id_alterar_produtos:
                     ProdutoJaCadastrado = True
 
                     cod_produto.setStyleSheet('''
-                                   background-color: rgba(0, 0 , 0, 0);
-                                   border: 2px solid rgba(0,0,0,0);
-                                   border-bottom-color: rgb(255, 17, 49);;
-                                   color: rgb(0,0,0);
-                                   padding-bottom: 8px;
-                                   border-radius: 0px;
-                                   font: 10pt "Montserrat";''')
+                            background-color: rgba(0, 0 , 0, 0);
+                            border: 2px solid rgba(0,0,0,0);
+                            border-bottom-color: rgb(255, 17, 49);;
+                            color: rgb(0,0,0);
+                            padding-bottom: 8px;
+                            border-radius: 0px;
+                            font: 10pt "Montserrat";''')
+
                 else:
                     cod_produto.setStyleSheet('''
                                    background-color: rgba(0, 0 , 0, 0);
