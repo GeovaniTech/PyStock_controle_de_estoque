@@ -103,6 +103,7 @@ class FrmAdmin(QMainWindow):
 
         # Nome do User
         self.ui.lbl_seja_bem_vindo.setText(f'Seja Bem-Vindo(a) - {UserLogado}')
+        self.ui.lbl_titulo_vendas.setText(f'Vendedor - {UserLogado}')
         self.ui.lbl_seja_bem_vindo.setFixedWidth(500)
 
         ## Configurando páginas e os botões do menu
@@ -330,8 +331,11 @@ class FrmAdmin(QMainWindow):
         self.ui.line_cpf_cadastrar_clientes.textChanged.connect(lambda: self.FormataCPFClientes(pg='Cadastrar'))
         self.ui.line_alterar_cpf_cliente.textChanged.connect(lambda: self.FormataCPFClientes(pg='Alterar'))
 
+        # Pesquisando produto pelo código
         self.ui.line_codigo_produto.returnPressed.connect(self.PesquisandoProdutoPeloCodigo)
         self.ui.btn_confirmar_codigo.clicked.connect(self.PesquisandoProdutoPeloCodigo)
+
+        self.ui.line_search_bar_vendas.returnPressed.connect(self.CodProdutoVendas)
 
     # Pequenas Funções
     def Voltar(self):
@@ -417,6 +421,17 @@ class FrmAdmin(QMainWindow):
                         padding-bottom: 8px;
                         border-radius: 0px;
                         font: 10pt "Montserrat";''')
+
+    def CodProdutoVendas(self):
+        cursor.execute('SELECT * FROM produtos')
+        banco_produtos = cursor.fetchall()
+
+        produto_inserido = self.ui.line_search_bar_vendas
+
+        for pos, produto in enumerate(banco_produtos):
+            if produto[1] == produto_inserido.text():
+                self.ui.line_codigo_vendas.setText(produto[0])
+                break
 
 # Função para formartar o número de contato inserido
     def FormataNumeroContato(self, pg):
@@ -589,6 +604,7 @@ class FrmAdmin(QMainWindow):
         self.ui.line_search_Bar_produtos.setCompleter(self.completer)
         self.ui.line_search_Bar_alterar_produto.setCompleter(self.completer)
         self.ui.line_search_Bar_cadastrar_produto.setCompleter(self.completer)
+        self.ui.line_search_bar_vendas.setCompleter(self.completer)
 
     def AtualizaCompleterSearchColaboradores(self):
         global search_colaboradores
