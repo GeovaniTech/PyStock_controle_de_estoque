@@ -3,6 +3,7 @@ import sys
 import mysql.connector
 import datetime
 
+
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -1360,25 +1361,30 @@ class FrmAdmin(QMainWindow):
         self.ui.tabela_alterar_produto.setHorizontalHeaderLabels(colunas)
         self.ui.tabela_cadastro.setHorizontalHeaderLabels(colunas)
 
+
+
         for pos, produto in enumerate(banco_produtos):
+
+            valor_unitario = lang.toString(int(produto[2]) * 0.01, 'f', 2)
+
             self.ui.tabela_produto.setItem(row, 0, QTableWidgetItem(f'{pos}'))
             self.ui.tabela_produto.setItem(row, 1, QTableWidgetItem(produto[0]))
             self.ui.tabela_produto.setItem(row, 2, QTableWidgetItem(produto[1]))
-            self.ui.tabela_produto.setItem(row, 3, QTableWidgetItem(produto[2]))
+            self.ui.tabela_produto.setItem(row, 3, QTableWidgetItem('R$ ' + valor_unitario))
             self.ui.tabela_produto.setItem(row, 4, QTableWidgetItem(produto[3]))
             self.ui.tabela_produto.setItem(row, 5, QTableWidgetItem(produto[4]))
 
             self.ui.tabela_alterar_produto.setItem(row, 0, QTableWidgetItem(f'{pos}'))
             self.ui.tabela_alterar_produto.setItem(row, 1, QTableWidgetItem(produto[0]))
             self.ui.tabela_alterar_produto.setItem(row, 2, QTableWidgetItem(produto[1]))
-            self.ui.tabela_alterar_produto.setItem(row, 3, QTableWidgetItem(produto[2]))
+            self.ui.tabela_alterar_produto.setItem(row, 3, QTableWidgetItem('R$ ' + valor_unitario))
             self.ui.tabela_alterar_produto.setItem(row, 4, QTableWidgetItem(produto[3]))
             self.ui.tabela_alterar_produto.setItem(row, 5, QTableWidgetItem(produto[4]))
 
             self.ui.tabela_cadastro.setItem(row, 0, QTableWidgetItem(f'{pos}'))
             self.ui.tabela_cadastro.setItem(row, 1, QTableWidgetItem(produto[0]))
             self.ui.tabela_cadastro.setItem(row, 2, QTableWidgetItem(produto[1]))
-            self.ui.tabela_cadastro.setItem(row, 3, QTableWidgetItem(produto[2]))
+            self.ui.tabela_cadastro.setItem(row, 3, QTableWidgetItem('R$ ' + valor_unitario))
             self.ui.tabela_cadastro.setItem(row, 4, QTableWidgetItem(produto[3]))
             self.ui.tabela_cadastro.setItem(row, 5, QTableWidgetItem(produto[4]))
             row += 1
@@ -1466,6 +1472,9 @@ if __name__ == '__main__':
     search_clientes = list()
     search_monitoramento = list()
     search_vendas = list()
+
+    loc = QLocale.system().name()
+    lang = QLocale(loc)
 
     # Var para pegar o nome de quem logou
     UserLogado = None
