@@ -331,11 +331,11 @@ class FrmAdmin(QMainWindow):
         # Formatando CPF dos Clientes
         self.ui.line_cpf_cadastrar_clientes.textChanged.connect(lambda: self.FormataCPFClientes(pg='Cadastrar'))
         self.ui.line_alterar_cpf_cliente.textChanged.connect(lambda: self.FormataCPFClientes(pg='Alterar'))
+        self.ui.line_cliente.textChanged.connect(lambda: self.FormataCPFClientes(pg='Vendas'))
 
         # Pesquisando produto pelo código
         self.ui.line_codigo_produto.returnPressed.connect(self.PesquisandoProdutoPeloCodigo)
         self.ui.btn_confirmar_codigo.clicked.connect(self.PesquisandoProdutoPeloCodigo)
-
         self.ui.line_search_bar_vendas.returnPressed.connect(self.CodProdutoVendas)
 
     # Pequenas Funções
@@ -434,7 +434,7 @@ class FrmAdmin(QMainWindow):
                 self.ui.line_codigo_vendas.setText(produto[0])
                 break
 
-# Função para formartar o número de contato inserido
+    # Função para formartar o número de contato inserido
     def FormataNumeroContato(self, pg):
         global numero
         if pg == 'CadastrarFornecedores':
@@ -467,8 +467,10 @@ class FrmAdmin(QMainWindow):
 
         if pg == 'Cadastrar':
             CPF = self.ui.line_cpf_cadastrar_clientes
-        else:
+        if pg == 'Alterar':
             CPF = self.ui.line_alterar_cpf_cliente
+        if pg == 'Vendas':
+            CPF = self.ui.line_cliente
 
         TextoInserido = CPF.text()
         TamanhoDoTexto = len(CPF.text())
@@ -642,6 +644,7 @@ class FrmAdmin(QMainWindow):
         self.ui.line_search_Bar_clientes.setCompleter(self.completer)
         self.ui.line_search_Bar_alterar_clientes.setCompleter(self.completer)
         self.ui.line_search_Bar_cadastrar_clientes.setCompleter(self.completer)
+        self.ui.line_cliente.setCompleter(self.completer)
 
     # Funções de Cadastro
     def CadastroColaboradores(self):
@@ -1367,21 +1370,21 @@ class FrmAdmin(QMainWindow):
 
             valor_unitario = lang.toString(int(produto[2]) * 0.01, 'f', 2)
 
-            self.ui.tabela_produto.setItem(row, 0, QTableWidgetItem(f'{pos}'))
+            self.ui.tabela_produto.setItem(row, 0, QTableWidgetItem(f'{pos + 1}'))
             self.ui.tabela_produto.setItem(row, 1, QTableWidgetItem(produto[0]))
             self.ui.tabela_produto.setItem(row, 2, QTableWidgetItem(produto[1]))
             self.ui.tabela_produto.setItem(row, 3, QTableWidgetItem('R$ ' + valor_unitario))
             self.ui.tabela_produto.setItem(row, 4, QTableWidgetItem(produto[3]))
             self.ui.tabela_produto.setItem(row, 5, QTableWidgetItem(produto[4]))
 
-            self.ui.tabela_alterar_produto.setItem(row, 0, QTableWidgetItem(f'{pos}'))
+            self.ui.tabela_alterar_produto.setItem(row, 0, QTableWidgetItem(f'{pos + 1}'))
             self.ui.tabela_alterar_produto.setItem(row, 1, QTableWidgetItem(produto[0]))
             self.ui.tabela_alterar_produto.setItem(row, 2, QTableWidgetItem(produto[1]))
             self.ui.tabela_alterar_produto.setItem(row, 3, QTableWidgetItem('R$ ' + valor_unitario))
             self.ui.tabela_alterar_produto.setItem(row, 4, QTableWidgetItem(produto[3]))
             self.ui.tabela_alterar_produto.setItem(row, 5, QTableWidgetItem(produto[4]))
 
-            self.ui.tabela_cadastro.setItem(row, 0, QTableWidgetItem(f'{pos}'))
+            self.ui.tabela_cadastro.setItem(row, 0, QTableWidgetItem(f'{pos + 1}'))
             self.ui.tabela_cadastro.setItem(row, 1, QTableWidgetItem(produto[0]))
             self.ui.tabela_cadastro.setItem(row, 2, QTableWidgetItem(produto[1]))
             self.ui.tabela_cadastro.setItem(row, 3, QTableWidgetItem('R$ ' + valor_unitario))
