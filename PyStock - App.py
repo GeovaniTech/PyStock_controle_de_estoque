@@ -338,6 +338,10 @@ class FrmAdmin(QMainWindow):
         self.ui.btn_confirmar_codigo.clicked.connect(self.PesquisandoProdutoPeloCodigo)
         self.ui.line_search_bar_vendas.returnPressed.connect(self.CodProdutoVendas)
 
+        # Confirmando cliente informado na pg Vendas
+        self.ui.line_cliente.returnPressed.connect(self.ConfirmarCliente)
+        self.ui.btn_confirmar_cliente.clicked.connect(self.ConfirmarCliente)
+
     # Pequenas Funções
     def Voltar(self):
         global window
@@ -433,6 +437,33 @@ class FrmAdmin(QMainWindow):
             if produto[1] == produto_inserido.text():
                 self.ui.line_codigo_vendas.setText(produto[0])
                 break
+
+    def ConfirmarCliente(self):
+        global search_clientes
+
+        cliente = self.ui.line_cliente
+
+        if cliente.text() in search_clientes:
+            cliente.setStyleSheet(
+                '''
+                background-color: rgba(0, 0 , 0, 0);
+                border: 2px solid rgba(0,0,0,0);
+                border-bottom-color: rgb(15, 168, 103);
+                color: rgb(0,0,0);
+                padding-bottom: 8px;
+                border-radius: 0px;
+                font: 10pt "Montserrat";'''
+            )
+        else:
+            cliente.setStyleSheet('''
+                                background-color: rgba(0, 0 , 0, 0);
+                                border: 2px solid rgba(0,0,0,0);
+                                border-bottom-color: rgb(255, 17, 49);
+                                color: rgb(0,0,0);
+                                padding-bottom: 8px;
+                                border-radius: 0px;
+                                font: 10pt "Montserrat";''')
+
 
     # Função para formartar o número de contato inserido
     def FormataNumeroContato(self, pg):
