@@ -104,7 +104,7 @@ class FrmAdmin(QMainWindow):
 
         # Nome do User
         self.ui.lbl_seja_bem_vindo.setText(f'Seja Bem-Vindo(a) - {UserLogado}')
-        self.ui.lbl_titulo_vendas.setText(f'Vendedor - {UserLogado}')
+        self.ui.lbl_titulo_vendas.setText(f'Vendedor(a) - {UserLogado}')
         self.ui.lbl_seja_bem_vindo.setFixedWidth(500)
 
         ## Configurando páginas e os botões do menu
@@ -264,6 +264,7 @@ class FrmAdmin(QMainWindow):
         self.AtualizaTabelasClientes()
         self.AtualizaTabelasFornecedores()
         self.AtualizaTabelasProdutos()
+        self.AtualizaTabelaVendas()
 
         # iniciando Hora e Data do Sistema
         tempo = QTimer(self)
@@ -341,6 +342,10 @@ class FrmAdmin(QMainWindow):
         # Confirmando cliente informado na pg Vendas
         self.ui.line_cliente.returnPressed.connect(self.ConfirmarCliente)
         self.ui.btn_confirmar_cliente.clicked.connect(self.ConfirmarCliente)
+
+        # Vendas
+        self.ui.btn_adicionar_compra.clicked.connect(self.CadastrandoVendas)
+        self.ui.btn_excluir_item.clicked.connect(self.ExcluirVenda)
 
     # Pequenas Funções
     def Voltar(self):
@@ -463,7 +468,6 @@ class FrmAdmin(QMainWindow):
                                 padding-bottom: 8px;
                                 border-radius: 0px;
                                 font: 10pt "Montserrat";''')
-
 
     # Função para formartar o número de contato inserido
     def FormataNumeroContato(self, pg):
@@ -887,6 +891,54 @@ class FrmAdmin(QMainWindow):
                 self.AtualizaTabelasProdutos()
                 self.AtualizaCompleterSearchProdutos()
 
+    def CadastrandoVendas(self):
+
+        global search_produtos, StyleError, StyleNormal
+
+        cursor.execute("SELECT * FROM produtos")
+        banco_produtos = cursor.fetchall()
+
+        produtoInserido = self.ui.line_codigo_vendas
+        qtde = self.ui.line_quantidade_vendas
+        desconto = self.ui.line_desconto_vendas
+        NomeProduto = ''
+
+        ProdutoNoBanco = False
+        QuantidadeMenorQueEstoque = False
+        DescontoOk = False
+        ValorUnitario = 0
+
+        for pos, produto in enumerate(banco_produtos):
+
+            if produtoInserido.text() == produto[0]:
+                ProdutoNoBanco = True
+                produtoInserido.setStyleSheet(StyleNormal)
+                if qtde.text().isnumeric() == True:
+                    if produto[3] > qtde.text() and int(qtde.text()) > 0:
+                        QuantidadeMenorQueEstoque = True
+                        qtde.setStyleSheet(StyleNormal)
+
+                        ValorUnitario = produto[2]
+                        NomeProduto = produto[1]
+                    else:
+                        qtde.setStyleSheet(StyleError)
+                else:
+                    qtde.setStyleSheet(StyleError)
+
+                break
+            else:
+                produtoInserido.setStyleSheet(StyleError)
+
+        if desconto.text().isnumeric():
+            DescontoOk = True
+
+        if ProdutoNoBanco == True and QuantidadeMenorQueEstoque == True and DescontoOk == True:
+            comando_SQL = 'INSERT INTO vendas VALUES (%s,%s,%s,%s, %s)'
+            dados = f'{produtoInserido.text()}', f'{NomeProduto}', f'{ValorUnitario}', f'{qtde.text()}', f'{int(ValorUnitario) * int(qtde.text())}'
+            cursor.execute(comando_SQL, dados)
+
+            self.AtualizaTabelaVendas()
+
     # Funções de Alterar
     def AlterarColaboradores(self):
         global id_tabela_alterar
@@ -1144,6 +1196,20 @@ class FrmAdmin(QMainWindow):
 
                 self.AtualizaTabelasProdutos()
                 self.AtualizaCompleterSearchProdutos()
+
+    def ExcluirVenda(self):
+        id = self.ui.tabela_vendas.currentRow()
+
+        cursor.execute('SELECT * FROM vendas')
+        banco_vendas = cursor.fetchall()
+
+        for pos, venda in enumerate(banco_vendas):
+            if pos == id:
+                cursor.execute(f'DELETE FROM vendas WHERE cód = "{venda[0]}"')
+                banco.commit()
+
+                self.AtualizaTabelaVendas()
+                break
 
     # Funções de setar Texto
     def setTextAlterarColaboradores(self):
@@ -1423,6 +1489,32 @@ class FrmAdmin(QMainWindow):
             self.ui.tabela_cadastro.setItem(row, 5, QTableWidgetItem(produto[4]))
             row += 1
 
+    def AtualizaTabelaVendas(self):
+        cursor.execute('SELECT * FROM vendas')
+        banco_vendas = cursor.fetchall()
+
+        self.ui.tabela_vendas.clear()
+
+        row = 0
+
+        self.ui.tabela_vendas.setRowCount(len(banco_vendas))
+
+        colunas = ['Item', 'Cód', 'Produto', 'Valor Unitário', 'Qtde', 'Total']
+        self.ui.tabela_vendas.setHorizontalHeaderLabels(colunas)
+
+        for pos, venda in enumerate(banco_vendas):
+
+            valor_unitario = lang.toString(int(venda[2]) * 0.01, 'f', 2)
+            total = lang.toString(int(venda[4]) * 0.01, 'f', 2)
+
+            self.ui.tabela_vendas.setItem(row, 0, QTableWidgetItem(f'{pos + 1}'))
+            self.ui.tabela_vendas.setItem(row, 1, QTableWidgetItem(venda[0]))
+            self.ui.tabela_vendas.setItem(row, 2, QTableWidgetItem(venda[1]))
+            self.ui.tabela_vendas.setItem(row, 3, QTableWidgetItem('R$ ' + valor_unitario))
+            self.ui.tabela_vendas.setItem(row, 4, QTableWidgetItem(venda[3]))
+            self.ui.tabela_vendas.setItem(row, 5, QTableWidgetItem('R$ ' + total))
+
+            row += 1
 
 class FrmColaborador(QMainWindow):
 
@@ -1512,6 +1604,24 @@ if __name__ == '__main__':
 
     # Var para pegar o nome de quem logou
     UserLogado = None
+
+    StyleError = '''
+               background-color: rgba(0, 0 , 0, 0);
+               border: 2px solid rgba(0,0,0,0);
+               border-bottom-color: rgb(255, 17, 49);;
+               color: rgb(0,0,0);
+               padding-bottom: 8px;
+               border-radius: 0px;
+               font: 10pt "Montserrat";'''
+
+    StyleNormal = '''
+                   background-color: rgba(0, 0 , 0, 0);
+                   border: 2px solid rgba(0,0,0,0);
+                   border-bottom-color: rgb(159,63,250);;
+                   color: rgb(0,0,0);
+                   padding-bottom: 8px;
+                   border-radius: 0px;
+                   font: 10pt "Montserrat";'''
 
     # Configurando Aplicação
     app = QApplication(sys.argv)
