@@ -354,6 +354,9 @@ class FrmAdmin(QMainWindow):
         self.ui.lbl_devolver_troco.move(680, 130)
         self.ui.lbl_troco.move(830, 130)
 
+        self.ui.line_troco.returnPressed.connect(self.Troco)
+        self.ui.btn_confirmar_troco.clicked.connect(self.Troco)
+
     # Pequenas Funções
     def Voltar(self):
         global window
@@ -983,6 +986,7 @@ class FrmAdmin(QMainWindow):
             row += 1
 
     def AtualizaTotal(self):
+
         cursor.execute('SELECT * FROM vendas')
         banco_vendas = cursor.fetchall()
 
@@ -993,6 +997,7 @@ class FrmAdmin(QMainWindow):
 
         total = lang.toString(sum(vendas) * 0.01, 'f', 2)
         self.ui.lbl_total_valor.setText(f'{total}')
+        self.Troco()
 
     def ExcluirVenda(self):
         id = self.ui.tabela_vendas.currentRow()
@@ -1019,6 +1024,21 @@ class FrmAdmin(QMainWindow):
 
         self.AtualizaTabelaVendas()
         self.AtualizaTotal()
+
+    def Troco(self):
+        cursor.execute('SELECT * FROM vendas')
+        banco_vendas = cursor.fetchall()
+
+        vendas = list()
+        vendas.clear()
+
+        for venda in banco_vendas:
+            vendas.append(int(venda[4]))
+
+        troco_desejado = self.ui.line_troco.text()
+        troco = int(troco_desejado) - sum(vendas)
+        self.ui.lbl_troco.setText(f'{lang.toString(int(troco) * 0.01, "f", 2)}')
+
 
     # Funções de Alterar
     def AlterarColaboradores(self):
@@ -1277,9 +1297,6 @@ class FrmAdmin(QMainWindow):
 
                 self.AtualizaTabelasProdutos()
                 self.AtualizaCompleterSearchProdutos()
-
-
-
 
     # Funções de setar Texto
     def setTextAlterarColaboradores(self):
@@ -1560,7 +1577,6 @@ class FrmAdmin(QMainWindow):
             row += 1
 
 
-
 class FrmColaborador(QMainWindow):
 
     def __init__(self):
@@ -1643,6 +1659,8 @@ if __name__ == '__main__':
     search_clientes = list()
     search_monitoramento = list()
     search_vendas = list()
+
+    vendas = list()
 
     loc = QLocale.system().name()
     lang = QLocale(loc)
