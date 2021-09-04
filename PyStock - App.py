@@ -347,6 +347,13 @@ class FrmAdmin(QMainWindow):
         self.ui.btn_adicionar_compra.clicked.connect(self.CadastrandoVendas)
         self.ui.btn_excluir_item.clicked.connect(self.ExcluirVenda)
 
+        self.ui.lbl_total_venda.move(670, 20)
+        self.ui.lbl_total_valor.move(910, 20)
+        self.ui.line_troco.move(680, 80)
+        self.ui.btn_confirmar_troco.move(860, 80)
+        self.ui.lbl_devolver_troco.move(680, 130)
+        self.ui.lbl_troco.move(830, 130)
+
     # Pequenas Funções
     def Voltar(self):
         global window
@@ -933,11 +940,85 @@ class FrmAdmin(QMainWindow):
             DescontoOk = True
 
         if ProdutoNoBanco == True and QuantidadeMenorQueEstoque == True and DescontoOk == True:
-            comando_SQL = 'INSERT INTO vendas VALUES (%s,%s,%s,%s, %s)'
-            dados = f'{produtoInserido.text()}', f'{NomeProduto}', f'{ValorUnitario}', f'{qtde.text()}', f'{int(ValorUnitario) * int(qtde.text())}'
+            cursor.execute('SELECT MAX(id) FROM vendas')
+            ultimo_id = cursor.fetchone()
+
+            for id_antigo in ultimo_id:
+                if id_antigo == None:
+                    id = 0
+                else:
+                    id = int(id_antigo) + 1
+
+            comando_SQL = 'INSERT INTO vendas VALUES (%s,%s,%s,%s,%s,%s)'
+            dados = f'{produtoInserido.text()}', f'{NomeProduto}', f'{ValorUnitario}', f'{qtde.text()}', f'{int(ValorUnitario) * int(qtde.text())}', f'{id}'
             cursor.execute(comando_SQL, dados)
 
             self.AtualizaTabelaVendas()
+            self.AtualizaTotal()
+
+    def AtualizaTabelaVendas(self):
+        cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
+        banco_vendas = cursor.fetchall()
+
+        row = 0
+
+        self.ui.tabela_vendas.setRowCount(len(banco_vendas))
+        self.ui.tabela_vendas.clear()
+
+        colunas = ['Item', 'Cód', 'Produto', 'Valor Unitário', 'Qtde', 'Total']
+        self.ui.tabela_vendas.setHorizontalHeaderLabels(colunas)
+
+        for venda in banco_vendas:
+
+            valor_unitario = lang.toString(int(venda[2]) * 0.01, 'f', 2)
+            total = lang.toString(int(venda[4]) * 0.01, 'f', 2)
+
+            self.ui.tabela_vendas.setItem(row, 0, QTableWidgetItem(f'{venda[5]}'))
+            self.ui.tabela_vendas.setItem(row, 1, QTableWidgetItem(venda[0]))
+            self.ui.tabela_vendas.setItem(row, 2, QTableWidgetItem(venda[1]))
+            self.ui.tabela_vendas.setItem(row, 3, QTableWidgetItem('R$ ' + valor_unitario))
+            self.ui.tabela_vendas.setItem(row, 4, QTableWidgetItem(venda[3]))
+            self.ui.tabela_vendas.setItem(row, 5, QTableWidgetItem('R$ ' + total))
+
+            row += 1
+
+    def AtualizaTotal(self):
+        cursor.execute('SELECT * FROM vendas')
+        banco_vendas = cursor.fetchall()
+
+        vendas = list()
+
+        for pos, venda in enumerate(banco_vendas):
+            vendas.append(int(venda[4]))
+
+        total = lang.toString(sum(vendas) * 0.01, 'f', 2)
+        self.ui.lbl_total_valor.setText(f'{total}')
+
+    def ExcluirVenda(self):
+        id = self.ui.tabela_vendas.currentRow()
+        print(id)
+
+        cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
+        banco_vendas = cursor.fetchall()
+        id_deletado = 0
+
+        for venda in banco_vendas:
+            if venda[5] == id:
+                id_deletado = venda[5]
+                cursor.execute(f'DELETE FROM vendas WHERE id = {id}')
+                banco.commit()
+                break
+
+        cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
+        banco_vendas = cursor.fetchall()
+
+        for venda in banco_vendas:
+            if venda[5] > id_deletado:
+                cursor.execute(f'UPDATE vendas set id = {venda[5] - 1} WHERE id = "{venda[5]}"')
+                banco.commit()
+
+        self.AtualizaTabelaVendas()
+        self.AtualizaTotal()
 
     # Funções de Alterar
     def AlterarColaboradores(self):
@@ -1197,19 +1278,8 @@ class FrmAdmin(QMainWindow):
                 self.AtualizaTabelasProdutos()
                 self.AtualizaCompleterSearchProdutos()
 
-    def ExcluirVenda(self):
-        id = self.ui.tabela_vendas.currentRow()
 
-        cursor.execute('SELECT * FROM vendas')
-        banco_vendas = cursor.fetchall()
 
-        for pos, venda in enumerate(banco_vendas):
-            if pos == id:
-                cursor.execute(f'DELETE FROM vendas WHERE cód = "{venda[0]}"')
-                banco.commit()
-
-                self.AtualizaTabelaVendas()
-                break
 
     # Funções de setar Texto
     def setTextAlterarColaboradores(self):
@@ -1489,32 +1559,7 @@ class FrmAdmin(QMainWindow):
             self.ui.tabela_cadastro.setItem(row, 5, QTableWidgetItem(produto[4]))
             row += 1
 
-    def AtualizaTabelaVendas(self):
-        cursor.execute('SELECT * FROM vendas')
-        banco_vendas = cursor.fetchall()
 
-        self.ui.tabela_vendas.clear()
-
-        row = 0
-
-        self.ui.tabela_vendas.setRowCount(len(banco_vendas))
-
-        colunas = ['Item', 'Cód', 'Produto', 'Valor Unitário', 'Qtde', 'Total']
-        self.ui.tabela_vendas.setHorizontalHeaderLabels(colunas)
-
-        for pos, venda in enumerate(banco_vendas):
-
-            valor_unitario = lang.toString(int(venda[2]) * 0.01, 'f', 2)
-            total = lang.toString(int(venda[4]) * 0.01, 'f', 2)
-
-            self.ui.tabela_vendas.setItem(row, 0, QTableWidgetItem(f'{pos + 1}'))
-            self.ui.tabela_vendas.setItem(row, 1, QTableWidgetItem(venda[0]))
-            self.ui.tabela_vendas.setItem(row, 2, QTableWidgetItem(venda[1]))
-            self.ui.tabela_vendas.setItem(row, 3, QTableWidgetItem('R$ ' + valor_unitario))
-            self.ui.tabela_vendas.setItem(row, 4, QTableWidgetItem(venda[3]))
-            self.ui.tabela_vendas.setItem(row, 5, QTableWidgetItem('R$ ' + total))
-
-            row += 1
 
 class FrmColaborador(QMainWindow):
 
