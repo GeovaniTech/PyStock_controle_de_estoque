@@ -360,6 +360,7 @@ class FrmAdmin(QMainWindow):
 
         self.ui.btn_finalizar_compra.clicked.connect(self.FinalizarVendas)
         self.AtualizaTabelaMonitoramentoVendas()
+        self.ui.btn_limpar_tabela.clicked.connect(self.LimparTabelaMonitoramento)
 
     # Pequenas Funções
     def Voltar(self):
@@ -1012,6 +1013,9 @@ class FrmAdmin(QMainWindow):
         self.ui.line_desconto_vendas.clear()
         self.ui.lbl_troco.setText('0,00')
 
+    def LimparTabelaMonitoramento(self):
+        cursor.execute('DELETE FROM monitoramento_vendas')
+        self.AtualizaTabelaMonitoramentoVendas()
 
     def AtualizaTabelaMonitoramentoVendas(self):
         cursor.execute('SELECT * FROM monitoramento_vendas')
