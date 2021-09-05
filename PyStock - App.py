@@ -356,6 +356,7 @@ class FrmAdmin(QMainWindow):
 
         self.ui.line_troco.returnPressed.connect(self.Troco)
         self.ui.btn_confirmar_troco.clicked.connect(self.Troco)
+        self.AtualizaTotal()
 
     # Pequenas Funções
     def Voltar(self):
@@ -690,6 +691,7 @@ class FrmAdmin(QMainWindow):
         self.ui.line_search_Bar_alterar_clientes.setCompleter(self.completer)
         self.ui.line_search_Bar_cadastrar_clientes.setCompleter(self.completer)
         self.ui.line_cliente.setCompleter(self.completer)
+
 
     # Funções de Cadastro
     def CadastroColaboradores(self):
@@ -1029,16 +1031,16 @@ class FrmAdmin(QMainWindow):
         cursor.execute('SELECT * FROM vendas')
         banco_vendas = cursor.fetchall()
 
-        vendas = list()
-        vendas.clear()
-
-        for venda in banco_vendas:
-            vendas.append(int(venda[4]))
-
         troco_desejado = self.ui.line_troco.text()
-        troco = int(troco_desejado) - sum(vendas)
-        self.ui.lbl_troco.setText(f'{lang.toString(int(troco) * 0.01, "f", 2)}')
+        if troco_desejado.isnumeric() == True:
+            vendas = list()
+            vendas.clear()
 
+            for venda in banco_vendas:
+                vendas.append(int(venda[4]))
+
+            troco = int(troco_desejado) - sum(vendas)
+            self.ui.lbl_troco.setText(f'{lang.toString(int(troco) * 0.01, "f", 2)}')
 
     # Funções de Alterar
     def AlterarColaboradores(self):
