@@ -926,12 +926,15 @@ class FrmAdmin(QMainWindow):
                 ProdutoNoBanco = True
                 produtoInserido.setStyleSheet(StyleNormal)
                 if qtde.text().isnumeric() == True:
-                    if produto[3] > qtde.text() and int(qtde.text()) > 0:
+                    if int(produto[3]) >= int(qtde.text()) and int(qtde.text()) > 0:
                         QuantidadeMenorQueEstoque = True
                         qtde.setStyleSheet(StyleNormal)
 
                         ValorUnitario = produto[2]
                         NomeProduto = produto[1]
+                        TotalQtde = int(produto[3]) - int(qtde.text())
+                        cursor.execute(f"UPDATE produtos SET qtde_estoque = '{TotalQtde}' WHERE cód_produto = '{produto[0]}'")
+
                     else:
                         qtde.setStyleSheet(StyleError)
                 else:
@@ -954,12 +957,16 @@ class FrmAdmin(QMainWindow):
                 else:
                     id = int(id_antigo) + 1
 
+            valor = f'0.{desconto.text()}'
+            valorTotal = int(ValorUnitario) * int(qtde.text())
+            descontoTotal = int(valorTotal) * float(valor)
             comando_SQL = 'INSERT INTO vendas VALUES (%s,%s,%s,%s,%s,%s)'
-            dados = f'{produtoInserido.text()}', f'{NomeProduto}', f'{ValorUnitario}', f'{qtde.text()}', f'{int(ValorUnitario) * int(qtde.text())}', f'{id}'
+            dados = f'{produtoInserido.text()}', f'{NomeProduto}', f'{ValorUnitario}', f'{qtde.text()}', f'{int(valorTotal) - int(descontoTotal)}', f'{id}'
             cursor.execute(comando_SQL, dados)
 
-            self.AtualizaTabelaVendas()
             self.AtualizaTotal()
+            self.AtualizaTabelasProdutos()
+            self.AtualizaTabelaVendas()
 
     def AtualizaTabelaVendas(self):
         cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
@@ -1004,28 +1011,39 @@ class FrmAdmin(QMainWindow):
     def ExcluirVenda(self):
         id = self.ui.tabela_vendas.currentRow()
         print(id)
+        if id != - 1:
+            cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
+            banco_vendas = cursor.fetchall()
+            cursor.execute('SELECT * FROM produtos')
+            banco_produtos = cursor.fetchall()
 
-        cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
-        banco_vendas = cursor.fetchall()
-        id_deletado = 0
+            id_deletado = 0
 
-        for venda in banco_vendas:
-            if venda[5] == id:
-                id_deletado = venda[5]
-                cursor.execute(f'DELETE FROM vendas WHERE id = {id}')
-                banco.commit()
-                break
+            for venda in banco_vendas:
+                if venda[5] == id:
+                    id_deletado = venda[5]
 
-        cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
-        banco_vendas = cursor.fetchall()
+                    for produto in banco_produtos:
+                        if venda[0] == produto[0]:
+                            TotalEstoque = int(venda[3]) + int(produto[3])
+                            cursor.execute(f'UPDATE produtos SET qtde_estoque = "{TotalEstoque}" WHERE cód_produto = "{produto[0]}"')
+                            break
 
-        for venda in banco_vendas:
-            if venda[5] > id_deletado:
-                cursor.execute(f'UPDATE vendas set id = {venda[5] - 1} WHERE id = "{venda[5]}"')
-                banco.commit()
+                    cursor.execute(f'DELETE FROM vendas WHERE id = {id}')
+                    banco.commit()
+                    break
+
+            cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
+            banco_vendas = cursor.fetchall()
+
+            for venda in banco_vendas:
+                if venda[5] > id_deletado:
+                    cursor.execute(f'UPDATE vendas set id = {venda[5] - 1} WHERE id = "{venda[5]}"')
+                    banco.commit()
 
         self.AtualizaTabelaVendas()
         self.AtualizaTotal()
+        self.AtualizaTabelasProdutos()
 
     def Troco(self):
         cursor.execute('SELECT * FROM vendas')
@@ -1215,7 +1233,7 @@ class FrmAdmin(QMainWindow):
 
         if FornecedorNoSearch == True and ProdutoJaCadastrado == False:
             cursor.execute(
-                f'UPDATE produtos set cód_produto = "{cod_produto.text()}", descrição = "{descricao.text()}", valor_unitário = "{valor_unitario.text()}", qtde_estoque = "{valor_unitario.text()}", fornecedor = "{fornecedor.text()}"'
+                f'UPDATE produtos set cód_produto = "{cod_produto.text()}", descrição = "{descricao.text()}", valor_unitário = "{valor_unitario.text()}", qtde_estoque = "{qtde_estoque.text()}", fornecedor = "{fornecedor.text()}"'
                 f'WHERE cód_produto = "{AlterarProduto}"')
 
             cod_produto.clear()
@@ -1226,6 +1244,7 @@ class FrmAdmin(QMainWindow):
 
             self.AtualizaTabelasProdutos()
             self.AtualizaCompleterSearchProdutos()
+            self.AtualizaTabelaVendas()
 
     # Funções de Excluir
     def ExcluirColaboradores(self):
