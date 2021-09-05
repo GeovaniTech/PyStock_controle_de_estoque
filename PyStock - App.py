@@ -358,6 +358,9 @@ class FrmAdmin(QMainWindow):
         self.ui.btn_confirmar_troco.clicked.connect(self.Troco)
         self.AtualizaTotal()
 
+        self.ui.btn_finalizar_compra.clicked.connect(self.FinalizarVendas)
+        self.AtualizaTabelaMonitoramentoVendas()
+
     # Pequenas Funções
     def Voltar(self):
         global window
@@ -967,6 +970,71 @@ class FrmAdmin(QMainWindow):
             self.AtualizaTotal()
             self.AtualizaTabelasProdutos()
             self.AtualizaTabelaVendas()
+
+    def FinalizarVendas(self):
+        cursor.execute('SELECT * FROM vendas')
+        banco_vendas = cursor.fetchall()
+
+        if len(banco_vendas) > 0:
+            tempoAtual = QTime.currentTime()
+            tempoTexto = tempoAtual.toString('hh:mm:ss')
+            data_atual = datetime.date.today()
+            dataTexto = data_atual.strftime('%d/%m/%Y')
+
+            qtde_vendido = list()
+            totalVenda = list()
+            vendedor = UserLogado
+            clienteInserido = self.ui.line_cliente
+            cliente = ''
+            data_hora = f'{tempoTexto} / {dataTexto}'
+
+            if clienteInserido.text() in search_clientes:
+                cliente = clienteInserido.text()
+            else:
+                cliente = 'Não Informado'
+
+            for venda in banco_vendas:
+                qtde_vendido.append(int(venda[3]))
+                totalVenda.append(int(venda[4]))
+
+            comando_SQL = 'INSERT INTO monitoramento_vendas VALUES (%s,%s,%s,%s,%s)'
+            dados = f'{vendedor}', f'{cliente}', f'{sum(qtde_vendido)}', f'{sum(totalVenda)}', f'{data_hora}'
+            cursor.execute(comando_SQL, dados)
+
+        cursor.execute('DELETE FROM vendas')
+        self.AtualizaTabelaVendas()
+        self.AtualizaTotal()
+        self.AtualizaTabelaMonitoramentoVendas()
+
+        self.ui.line_codigo_vendas.clear()
+        self.ui.line_cliente.clear()
+        self.ui.line_quantidade_vendas.clear()
+        self.ui.line_desconto_vendas.clear()
+        self.ui.lbl_troco.setText('0,00')
+
+
+    def AtualizaTabelaMonitoramentoVendas(self):
+        cursor.execute('SELECT * FROM monitoramento_vendas')
+        banco_monitoramento = cursor.fetchall()
+
+        self.ui.tabela_monitoramento.clear()
+
+        row = 0
+
+        self.ui.tabela_monitoramento.setRowCount(len(banco_monitoramento))
+
+        colunas = ['Vendedor', 'Cliente', 'Qtde Vendido', 'Total Venda', 'Data/horário']
+        self.ui.tabela_monitoramento.setHorizontalHeaderLabels(colunas)
+
+        for venda in banco_monitoramento:
+            total_venda = lang.toString(int(venda[3]) * 0.01, 'f', 2)
+
+            self.ui.tabela_monitoramento.setItem(row, 0, QTableWidgetItem(venda[0]))
+            self.ui.tabela_monitoramento.setItem(row, 1, QTableWidgetItem(venda[1]))
+            self.ui.tabela_monitoramento.setItem(row, 2, QTableWidgetItem(venda[2]))
+            self.ui.tabela_monitoramento.setItem(row, 3, QTableWidgetItem('R$ ' + total_venda))
+            self.ui.tabela_monitoramento.setItem(row, 4, QTableWidgetItem(venda[4]))
+            row += 1
 
     def AtualizaTabelaVendas(self):
         cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
