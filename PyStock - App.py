@@ -363,6 +363,8 @@ class FrmAdmin(QMainWindow):
         self.AtualizaTabelaMonitoramentoVendas()
         self.ui.btn_limpar_tabela.clicked.connect(self.LimparTabelaMonitoramento)
 
+        self.ui.line_search_bar_monitoramentoto.returnPressed.connect(self.SearchMonitoramentoVendas)
+        self.ui.btn_filtrar_monitoramento.clicked.connect(self.SearchMonitoramentoVendas)
     # Pequenas Funções
     def Voltar(self):
         global window
@@ -619,6 +621,15 @@ class FrmAdmin(QMainWindow):
             item = items[0]
             tabela.setCurrentItem(item)
 
+    def SearchMonitoramentoVendas(self):
+        tabela = self.ui.tabela_monitoramento
+        vendas = self.ui.line_search_bar_monitoramentoto
+
+        items = tabela.findItems(vendas.text(), Qt.MatchContains)
+        if items:
+            item = items[0]
+            tabela.setCurrentItem(item)
+
     # Funções para Atualiazar as previções das barras de pesquisa
     def AtualizaCompleterSearchFornecedores(self):
         global search_fornecedores
@@ -656,6 +667,7 @@ class FrmAdmin(QMainWindow):
             if venda[1] not in search_monitoramento:
                 if venda[1] != 'Não Informado':
                     search_monitoramento.append(venda[1])
+            search_monitoramento.append(venda[4])
 
         self.completer = QCompleter(search_monitoramento)
         self.completer.setCaseSensitivity(Qt.CaseInsensitive)
@@ -1008,7 +1020,7 @@ class FrmAdmin(QMainWindow):
             vendedor = UserLogado
             clienteInserido = self.ui.line_cliente
             cliente = ''
-            data_hora = f'{tempoTexto} / {dataTexto}'
+            data_hora = f'{dataTexto} / {tempoTexto}'
 
             if clienteInserido.text() in search_clientes:
                 cliente = clienteInserido.text()
@@ -1044,7 +1056,7 @@ class FrmAdmin(QMainWindow):
     def LimparTabelaMonitoramento(self):
         cursor.execute('DELETE FROM monitoramento_vendas')
         self.AtualizaTabelaMonitoramentoVendas()
-        self.AtualizaCompleterSearchProdutos()
+        self.AtualizaCompleterSearchVendas()
 
     def AtualizaTabelaMonitoramentoVendas(self):
         cursor.execute('SELECT * FROM monitoramento_vendas')
