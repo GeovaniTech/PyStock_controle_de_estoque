@@ -2671,7 +2671,7 @@ class Ui_FrmAdmin(object):
         self.line_nome_cadastrar_clientes.setPlaceholderText(_translate("FrmAdmin", "Nome"))
         self.line_cpf_cadastrar_clientes.setPlaceholderText(_translate("FrmAdmin", "CPF"))
         self.line_endereco_cadastrar_clientes.setPlaceholderText(_translate("FrmAdmin", "Endereço"))
-        self.line_search_Bar_cadastrar_clientes.setPlaceholderText(_translate("FrmAdmin", "Filtrar Fornecedores"))
+        self.line_search_Bar_cadastrar_clientes.setPlaceholderText(_translate("FrmAdmin", "Pesquisar Clientes"))
         self.lbl_titulo_cadastrar_clientes.setText(_translate("FrmAdmin", "Cadastrar Clientes"))
         self.line_contato_cadastrar_clientes.setPlaceholderText(_translate("FrmAdmin", "Contato"))
         self.lbl_hora_data_cadastrar_clientes.setText(_translate("FrmAdmin", "00:00 00/00/0000"))

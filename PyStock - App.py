@@ -276,6 +276,7 @@ class FrmAdmin(QMainWindow):
         self.AtualizaCompleterSearchProdutos()
         self.AtualizaCompleterSearchColaboradores()
         self.AtualizaCompleterSearchClientes()
+        self.AtualizaCompleterSearchVendas()
 
         # Conectando com a função fazer a pesquisa dos dados inseridos
 
@@ -640,6 +641,27 @@ class FrmAdmin(QMainWindow):
         self.ui.line_fornecedor_cadastrar.setCompleter(self.completer)
         self.ui.line_fornecedor_alterar_produto.setCompleter(self.completer)
 
+    def AtualizaCompleterSearchVendas(self):
+        global search_monitoramento
+
+        cursor.execute('SELECT * FROM monitoramento_vendas')
+        banco_monitoramento = cursor.fetchall()
+
+        search_monitoramento.clear()
+
+        for venda in banco_monitoramento:
+            if venda[0] not in search_monitoramento:
+                search_monitoramento.append(venda[0])
+
+            if venda[1] not in search_monitoramento:
+                if venda[1] != 'Não Informado':
+                    search_monitoramento.append(venda[1])
+
+        self.completer = QCompleter(search_monitoramento)
+        self.completer.setCaseSensitivity(Qt.CaseInsensitive)
+
+        self.ui.line_search_bar_monitoramentoto.setCompleter(self.completer)
+
     def AtualizaCompleterSearchProdutos(self):
         global search_produtos
 
@@ -695,7 +717,6 @@ class FrmAdmin(QMainWindow):
         self.ui.line_search_Bar_alterar_clientes.setCompleter(self.completer)
         self.ui.line_search_Bar_cadastrar_clientes.setCompleter(self.completer)
         self.ui.line_cliente.setCompleter(self.completer)
-
 
     # Funções de Cadastro
     def CadastroColaboradores(self):
@@ -1006,16 +1027,24 @@ class FrmAdmin(QMainWindow):
         self.AtualizaTabelaVendas()
         self.AtualizaTotal()
         self.AtualizaTabelaMonitoramentoVendas()
+        self.AtualizaCompleterSearchVendas()
 
         self.ui.line_codigo_vendas.clear()
         self.ui.line_cliente.clear()
         self.ui.line_quantidade_vendas.clear()
         self.ui.line_desconto_vendas.clear()
         self.ui.lbl_troco.setText('0,00')
+        self.ui.line_cliente.setStyleSheet(StyleNormal)
+        self.ui.line_search_bar_vendas.clear()
+        self.ui.line_troco.clear()
+        self.ui.line_desconto_vendas.setStyleSheet(StyleNormal)
+        self.ui.line_codigo_vendas.setStyleSheet(StyleNormal)
+        self.ui.line_quantidade_vendas.setStyleSheet(StyleNormal)
 
     def LimparTabelaMonitoramento(self):
         cursor.execute('DELETE FROM monitoramento_vendas')
         self.AtualizaTabelaMonitoramentoVendas()
+        self.AtualizaCompleterSearchProdutos()
 
     def AtualizaTabelaMonitoramentoVendas(self):
         cursor.execute('SELECT * FROM monitoramento_vendas')
