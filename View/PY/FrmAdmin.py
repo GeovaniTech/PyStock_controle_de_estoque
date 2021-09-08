@@ -1743,9 +1743,9 @@ class Ui_FrmAdmin(object):
 "}\n"
 "")
         self.btn_limpar_tabela.setObjectName("btn_limpar_tabela")
-        self.btn_gerar_pdf = QtWidgets.QPushButton(self.monitoramento)
-        self.btn_gerar_pdf.setGeometry(QtCore.QRect(820, 330, 191, 41))
-        self.btn_gerar_pdf.setStyleSheet("QPushButton {\n"
+        self.btn_gerar_xls = QtWidgets.QPushButton(self.monitoramento)
+        self.btn_gerar_xls.setGeometry(QtCore.QRect(820, 330, 191, 41))
+        self.btn_gerar_xls.setStyleSheet("QPushButton {\n"
 "border: 2px;\n"
 "background-color: rgb(159, 63, 250);\n"
 "color: white;\n"
@@ -1758,7 +1758,7 @@ class Ui_FrmAdmin(object):
 "    background-color: rgb(197, 62, 255);\n"
 "}\n"
 "")
-        self.btn_gerar_pdf.setObjectName("btn_gerar_pdf")
+        self.btn_gerar_xls.setObjectName("btn_gerar_xls")
         self.Telas_do_menu.addWidget(self.monitoramento)
         self.pg_vendas = QtWidgets.QWidget()
         self.pg_vendas.setObjectName("pg_vendas")
@@ -2724,7 +2724,7 @@ class Ui_FrmAdmin(object):
         item.setText(_translate("FrmAdmin", "Horário da Venda"))
         self.lbl_hora_data_monitoramento.setText(_translate("FrmAdmin", "00:00 00/00/0000"))
         self.btn_limpar_tabela.setText(_translate("FrmAdmin", "Limpar Tabela"))
-        self.btn_gerar_pdf.setText(_translate("FrmAdmin", "Gerar PDF"))
+        self.btn_gerar_xls.setText(_translate("FrmAdmin", "Gerar XLS"))
         self.lbl_titulo_vendas.setText(_translate("FrmAdmin", "Vendedor - Usuário"))
         self.line_cliente.setPlaceholderText(_translate("FrmAdmin", "Cliente"))
         self.tabela_vendas.setSortingEnabled(True)

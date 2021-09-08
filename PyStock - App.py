@@ -365,6 +365,9 @@ class FrmAdmin(QMainWindow):
 
         self.ui.line_search_bar_monitoramentoto.returnPressed.connect(self.SearchMonitoramentoVendas)
         self.ui.btn_filtrar_monitoramento.clicked.connect(self.SearchMonitoramentoVendas)
+
+        self.ui.btn_gerar_xls.clicked.connect(self.GerarXls)
+
     # Pequenas Funções
     def Voltar(self):
         global window
@@ -486,6 +489,33 @@ class FrmAdmin(QMainWindow):
                                 padding-bottom: 8px;
                                 border-radius: 0px;
                                 font: 10pt "Montserrat";''')
+
+    def GerarXls(self):
+        cursor.execute('SELECT * FROM monitoramento_vendas')
+        banco_monitoramento = cursor.fetchall()
+
+        total_vendido = list()
+        total_faturado = list()
+        colaboradores = list()
+
+        teste = dict()
+        t = list()
+        for vendas in banco_monitoramento:
+            if vendas[0] not in colaboradores:
+                colaboradores.append(vendas[0])
+        print(colaboradores)
+
+
+
+
+
+
+
+
+
+
+
+
 
     # Função para formartar o número de contato inserido
     def FormataNumeroContato(self, pg):
