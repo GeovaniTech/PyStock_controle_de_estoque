@@ -2,8 +2,10 @@ import os
 import sys
 import mysql.connector
 import datetime
-
 import openpyxl.drawing.image
+
+from tkinter.filedialog import askdirectory
+from tkinter import Tk
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -12,6 +14,7 @@ from View.PY.FrmLogin import Ui_login
 from View.PY.FrmAdmin import Ui_FrmAdmin
 from View.PY.FrmColaborador import Ui_FrmColaborador
 from openpyxl import *
+
 
 # Configurando Banco
 banco = mysql.connector.connect(
@@ -382,6 +385,38 @@ class FrmAdmin(QMainWindow):
         msg.setWindowTitle("Erro - Cadastro de Colaboradores")
         msg.setText('Selecione um Nível de Usuário!')
 
+        icon = QIcon()
+        icon.addPixmap(QPixmap("View/Imagens/Logo Ico.ico"), QIcon.Normal, QIcon.Off)
+        msg.setWindowIcon(icon)
+        x = msg.exec_()
+    def PopupXlsDiretorio(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Erro - Gerar Excel")
+        msg.setText('Selecione um diretório válido!')
+
+        icon = QIcon()
+        icon.addPixmap(QPixmap("View/Imagens/Logo Ico.ico"), QIcon.Normal, QIcon.Off)
+        msg.setWindowIcon(icon)
+        x = msg.exec_()
+
+    def PopupXls(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Erro - Gerar Excel")
+        msg.setText('Verifique se não há um ARQUIVO com o mesmo nome aberto!')
+
+        icon = QIcon()
+        icon.addPixmap(QPixmap("View/Imagens/Logo Ico.ico"), QIcon.Normal, QIcon.Off)
+        msg.setWindowIcon(icon)
+        x = msg.exec_()
+
+    def PoupXlsBancoVazio(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Erro - Gerar Excel")
+        msg.setText('Nenhuma venda informada!')
+
+        icon = QIcon()
+        icon.addPixmap(QPixmap("View/Imagens/Logo Ico.ico"), QIcon.Normal, QIcon.Off)
+        msg.setWindowIcon(icon)
         x = msg.exec_()
 
     def HoraData(self):
@@ -491,55 +526,81 @@ class FrmAdmin(QMainWindow):
                                 border-radius: 0px;
                                 font: 10pt "Montserrat";''')
 
+    def ResetaPlanilha(self):
+        global wb
+        wb.close()
+        wb = load_workbook(filename='Base xls.xlsx')
+
     def GerarXls(self):
+        global wb
         cursor.execute('SELECT * FROM monitoramento_vendas')
         banco_monitoramento = cursor.fetchall()
 
-        cursor.execute('SELECT * FROM quem_vendeu_mais')
-        banco_quem_vendeu_mais = cursor.fetchall()
+        if len(banco_monitoramento) > 0:
+            Tk().withdraw()
+            diretorio = askdirectory()
 
-        total_vendido = 0
-        total_faturado = 0
-        total_clientes_cadastrados = 0
-        total_clientes_não_cadastrados = 0
-        quem_vendeu_mais = list()
-        colaborador = ''
+            if diretorio != '':
+                try:
+                    wb.save(filename=r'{}\base.xlsx'.format(diretorio))
+                except:
+                    self.PopupXls()
+                else:
 
-        wb = load_workbook('Base xls.xlsx')
-        planilha = wb['Relatório']
+                    cursor.execute('SELECT * FROM quem_vendeu_mais')
+                    banco_quem_vendeu_mais = cursor.fetchall()
 
-        c = 18
-        for vendas in banco_monitoramento:
-            total_vendido += int(vendas[2])
-            total_faturado += int(vendas[3])
-            if vendas[1] == 'Não Informado':
-                total_clientes_não_cadastrados += 1
+                    total_vendido = 0
+                    total_faturado = 0
+                    total_clientes_cadastrados = 0
+                    total_clientes_não_cadastrados = 0
+                    quem_vendeu_mais = list()
+                    colaborador = ''
+
+                    planilha = wb['Relatório']
+
+                    c = 18
+                    for vendas in banco_monitoramento:
+                        total_vendido += int(vendas[2])
+                        total_faturado += int(vendas[3])
+                        if vendas[1] == 'Não Informado':
+                            total_clientes_não_cadastrados += 1
+                        else:
+                            total_clientes_cadastrados += 1
+                        c += 1
+                        conv = lang.toString(int(vendas[3]) * 0.01, "f", 2)
+                        planilha[f'A{c}'] = vendas[0]
+                        planilha[f'E{c}'] = vendas[1]
+                        planilha[f'I{c}'] = int(vendas[2])
+                        planilha[f'M{c}'] = 'RS ' + conv
+                        planilha[f'R{c}'] = vendas[4]
+
+                    for colaboradores in banco_quem_vendeu_mais:
+                        quem_vendeu_mais.append(colaboradores[1])
+
+                    for colaboradores in banco_quem_vendeu_mais:
+                        if colaboradores[1] == max(quem_vendeu_mais, key=int):
+                            colaborador = colaboradores[0]
+                    conv = lang.toString(int(total_faturado) * 0.01, "f", 2)
+
+                    planilha['F12'] = total_vendido
+                    planilha['F13'] = 'RS ' + conv
+                    planilha['F14'] = colaborador
+                    planilha['F15'] = total_clientes_cadastrados
+                    planilha['F16'] = total_clientes_não_cadastrados
+
+                    wb.save(filename=r'{}\base.xlsx'.format(diretorio))
+
+                    for c in range(19, 19 + len(banco_monitoramento)):
+                        planilha[f'A{c}'] = None
+                        planilha[f'E{c}'] = None
+                        planilha[f'I{c}'] = None
+                        planilha[f'M{c}'] = None
+                        planilha[f'R{c}'] = None
             else:
-                total_clientes_cadastrados += 1
-            c += 1
-            conv = lang.toString(int(vendas[3]) * 0.01, "f", 2)
-            planilha[f'A{c}'] = vendas[0]
-            planilha[f'E{c}'] = vendas[1]
-            planilha[f'I{c}'] = int(vendas[2])
-            planilha[f'M{c}'] = 'RS ' + conv
-            planilha[f'R{c}'] = vendas[4]
-
-
-
-        for colaboradores in banco_quem_vendeu_mais:
-            quem_vendeu_mais.append(colaboradores[1])
-
-        for colaboradores in banco_quem_vendeu_mais:
-            if colaboradores[1] == max(quem_vendeu_mais, key=int):
-                colaborador = colaboradores[0]
-        conv = lang.toString(int(total_faturado) * 0.01, "f", 2)
-
-        planilha['F12'] = total_vendido
-        planilha['F13'] = 'RS ' + conv
-        planilha['F14'] = colaborador
-        planilha['F15'] = total_clientes_cadastrados
-        planilha['F16'] = total_clientes_não_cadastrados
-        wb.save(filename=r'C:\Users\Geovani Debastiani\Desktop\base.xlsx')
+                self.PopupXlsDiretorio()
+        else:
+            self.PoupXlsBancoVazio()
 
     # Função para formartar o número de contato inserido
     def FormataNumeroContato(self, pg):
@@ -1848,6 +1909,8 @@ class FrmColaborador(QMainWindow):
 
 
 if __name__ == '__main__':
+    wb = load_workbook('Base xls.xlsx')
+
     # Variáveis Globais
     click_cadastro_colaboradores = 0
     click_alterar_colaboradores = 0
