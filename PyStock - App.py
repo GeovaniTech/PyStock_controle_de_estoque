@@ -3,7 +3,7 @@ import sys
 import mysql.connector
 import datetime
 
-
+import openpyxl.drawing.image
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -11,6 +11,7 @@ from PyQt5.QtWidgets import QMessageBox
 from View.PY.FrmLogin import Ui_login
 from View.PY.FrmAdmin import Ui_FrmAdmin
 from View.PY.FrmColaborador import Ui_FrmColaborador
+from openpyxl import *
 
 # Configurando Banco
 banco = mysql.connector.connect(
@@ -494,28 +495,40 @@ class FrmAdmin(QMainWindow):
         cursor.execute('SELECT * FROM monitoramento_vendas')
         banco_monitoramento = cursor.fetchall()
 
-        total_vendido = list()
-        total_faturado = list()
-        colaboradores = list()
+        cursor.execute('SELECT * FROM quem_vendeu_mais')
+        banco_quem_vendeu_mais = cursor.fetchall()
 
-        teste = dict()
-        t = list()
+        total_vendido = 0
+        total_faturado = 0
+        total_clientes_cadastrados = 0
+        total_clientes_não_cadastrados = 0
+        quem_vendeu_mais = list()
+        colaborador = ''
+
         for vendas in banco_monitoramento:
-            if vendas[0] not in colaboradores:
-                colaboradores.append(vendas[0])
-        print(colaboradores)
+            total_vendido += int(vendas[2])
+            total_faturado += int(vendas[3])
+            if vendas[1] == 'Não Informado':
+                total_clientes_não_cadastrados += 1
+            else:
+                total_clientes_cadastrados += 1
 
+        for colaboradores in banco_quem_vendeu_mais:
+            quem_vendeu_mais.append(colaboradores[1])
 
+        for colaboradores in banco_quem_vendeu_mais:
+            if colaboradores[1] == max(quem_vendeu_mais):
+                colaborador = colaboradores[0]
+        conv = lang.toString(int(total_faturado) * 0.01, "f", 2)
+        wb = load_workbook('Base xls.xlsx')
 
-
-
-
-
-
-
-
-
-
+        planilha = wb['Relatório']
+        planilha['F12'] = total_vendido
+        planilha['F13'] = 'RS ' + conv
+        planilha['F14'] = colaborador
+        planilha['F15'] = total_clientes_cadastrados
+        planilha['F16'] = total_clientes_não_cadastrados
+        wb.save(filename=r'C:\Users\Geovani Debastiani\Desktop\base.xlsx')
 
     # Função para formartar o número de contato inserido
     def FormataNumeroContato(self, pg):
@@ -1039,6 +1052,9 @@ class FrmAdmin(QMainWindow):
         cursor.execute('SELECT * FROM vendas')
         banco_vendas = cursor.fetchall()
 
+        cursor.execute('SELECT * FROM quem_vendeu_mais')
+        banco_quem_mais_vendeu = cursor.fetchall()
+
         if len(banco_vendas) > 0:
             tempoAtual = QTime.currentTime()
             tempoTexto = tempoAtual.toString('hh:mm:ss')
@@ -1064,6 +1080,20 @@ class FrmAdmin(QMainWindow):
             comando_SQL = 'INSERT INTO monitoramento_vendas VALUES (%s,%s,%s,%s,%s)'
             dados = f'{vendedor}', f'{cliente}', f'{sum(qtde_vendido)}', f'{sum(totalVenda)}', f'{data_hora}'
             cursor.execute(comando_SQL, dados)
+
+            colaboradores = list()
+            for colaborador in banco_quem_mais_vendeu:
+                colaboradores.append(colaborador[0])
+
+                if colaborador[0] == vendedor:
+                    cursor.execute(f'UPDATE quem_vendeu_mais set total_qtde = {int(colaborador[1]) + int(sum(qtde_vendido))} WHERE nome = "{vendedor}"')
+
+            if vendedor not in colaboradores:
+                comando_SQL = 'INSERT INTO quem_vendeu_mais VALUES (%s,%s)'
+                dados = f'{vendedor}', f'{sum(qtde_vendido)}'
+                cursor.execute(comando_SQL, dados)
+
+
 
         cursor.execute('DELETE FROM vendas')
         self.AtualizaTabelaVendas()
