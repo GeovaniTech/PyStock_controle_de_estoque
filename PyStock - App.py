@@ -505,6 +505,10 @@ class FrmAdmin(QMainWindow):
         quem_vendeu_mais = list()
         colaborador = ''
 
+        wb = load_workbook('Base xls.xlsx')
+        planilha = wb['Relatório']
+
+        c = 18
         for vendas in banco_monitoramento:
             total_vendido += int(vendas[2])
             total_faturado += int(vendas[3])
@@ -512,17 +516,24 @@ class FrmAdmin(QMainWindow):
                 total_clientes_não_cadastrados += 1
             else:
                 total_clientes_cadastrados += 1
+            c += 1
+            conv = lang.toString(int(vendas[3]) * 0.01, "f", 2)
+            planilha[f'A{c}'] = vendas[0]
+            planilha[f'E{c}'] = vendas[1]
+            planilha[f'I{c}'] = int(vendas[2])
+            planilha[f'M{c}'] = 'RS ' + conv
+            planilha[f'R{c}'] = vendas[4]
+
+
 
         for colaboradores in banco_quem_vendeu_mais:
             quem_vendeu_mais.append(colaboradores[1])
 
         for colaboradores in banco_quem_vendeu_mais:
-            if colaboradores[1] == max(quem_vendeu_mais):
+            if colaboradores[1] == max(quem_vendeu_mais, key=int):
                 colaborador = colaboradores[0]
         conv = lang.toString(int(total_faturado) * 0.01, "f", 2)
-        wb = load_workbook('Base xls.xlsx')
 
-        planilha = wb['Relatório']
         planilha['F12'] = total_vendido
         planilha['F13'] = 'RS ' + conv
         planilha['F14'] = colaborador
@@ -1115,6 +1126,7 @@ class FrmAdmin(QMainWindow):
 
     def LimparTabelaMonitoramento(self):
         cursor.execute('DELETE FROM monitoramento_vendas')
+        cursor.execute('DELETE FROM quem_vendeu_mais')
         self.AtualizaTabelaMonitoramentoVendas()
         self.AtualizaCompleterSearchVendas()
 
