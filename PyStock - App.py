@@ -1,11 +1,15 @@
 import os
+import signal
 import sys
+import time
 import mysql.connector
 import datetime
 import openpyxl.drawing.image
 
 from tkinter.filedialog import askdirectory
 from tkinter import Tk
+
+import pygame.time
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -1969,7 +1973,13 @@ class FrmColaborador(QMainWindow):
         # iniciando Hora e Data do Sistema
         tempo = QTimer(self)
         tempo.timeout.connect(self.HoraData)
+        tempo.timeout.connect(self.Sair)
         tempo.start(1000)
+
+        self.ui.btn_salvar.clicked.connect(self.Sair)
+        self.ui.btn_salvar.clicked.connect(self.Futuro)
+
+
 
     def Voltar(self):
         global window
@@ -2675,11 +2685,27 @@ class FrmColaborador(QMainWindow):
             self.ui.tabela_monitoramento.setItem(row, 4, QTableWidgetItem(venda[4]))
             row += 1
 
+    def Futuro(self):
+        global futuroTexto
+        atual = datetime.datetime.now()
+
+        futuro = atual + datetime.timedelta(minutes=1)
+        futuroTexto = futuro.time().strftime('%H:%M:%S')
+
+    def Sair(self):
+        global futuroTexto
+        tempoAtual = QTime.currentTime()
+        tempoTexto = tempoAtual.toString('hh:mm:ss')
+
+        if self.ui.checkBox_finalizar_app.isChecked() == True:
+            if tempoTexto == futuroTexto:
+                sys.exit()
 
 if __name__ == '__main__':
     wb = load_workbook('Base xls.xlsx')
-
     # Variáveis Globais
+    futuroTexto = ''
+
     click_cadastro_colaboradores = 0
     click_alterar_colaboradores = 0
 
@@ -2728,3 +2754,4 @@ if __name__ == '__main__':
     window = FrmLogin()
     window.show()
     sys.exit(app.exec_())
+
