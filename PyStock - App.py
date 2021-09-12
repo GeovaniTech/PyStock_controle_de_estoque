@@ -46,18 +46,15 @@ class FrmLogin(QMainWindow):
 
     def logar(self):
 
-        global window
-        global UserLogado
+        global window, UserLogado
 
         # Pegando os colaboradores cadastrados no banco
         cursor.execute("SELECT * FROM login")
         logins = cursor.fetchall()
 
+        # Pegando as informações inseridas
         usuario = self.ui.lineEdit.text()
         senha = self.ui.lineEdit_2.text()
-
-        print(f"Usuario inserido: {usuario}\n"
-              f"Senha inserida: {senha}")
 
         # Verificando cada Usuário
         for login in logins:
@@ -101,21 +98,19 @@ class FrmLogin(QMainWindow):
 class FrmAdmin(QMainWindow):
 
     def __init__(self):
-        global filtro
-        global search_fornecedores
-        global window
+        global filtro, search_fornecedores, window
 
         QMainWindow.__init__(self)
 
         self.ui = Ui_FrmAdmin()
         self.ui.setupUi(self)
 
-        # Nome do User
+        # Nome do Usuário
         self.ui.lbl_seja_bem_vindo.setText(f'Seja Bem-Vindo(a) - {UserLogado}')
         self.ui.lbl_titulo_vendas.setText(f'Vendedor(a) - {UserLogado}')
         self.ui.lbl_seja_bem_vindo.setFixedWidth(500)
 
-        ## Configurando páginas e os botões do menu
+        # Configurando páginas e os botões do menu
 
         # Home
         self.ui.btn_home.clicked.connect(lambda: self.ui.Telas_do_menu.setCurrentWidget(self.ui.pg_home))
@@ -277,6 +272,7 @@ class FrmAdmin(QMainWindow):
         # iniciando Hora e Data do Sistema
         tempo = QTimer(self)
         tempo.timeout.connect(self.HoraData)
+        tempo.timeout.connect(self.Sair)
         tempo.start(1000)
 
         # Atuliza previsão de texto das barras de pesquisa
@@ -356,6 +352,7 @@ class FrmAdmin(QMainWindow):
         self.ui.btn_adicionar_compra.clicked.connect(self.CadastrandoVendas)
         self.ui.btn_excluir_item.clicked.connect(self.ExcluirVenda)
 
+        # Ajustando posição do Troco e do Total Vendas
         self.ui.lbl_total_venda.move(670, 20)
         self.ui.lbl_total_valor.move(910, 20)
         self.ui.line_troco.move(680, 80)
@@ -363,18 +360,30 @@ class FrmAdmin(QMainWindow):
         self.ui.lbl_devolver_troco.move(680, 130)
         self.ui.lbl_troco.move(830, 130)
 
+        # Conectando com a função Troco
         self.ui.line_troco.returnPressed.connect(self.Troco)
         self.ui.btn_confirmar_troco.clicked.connect(self.Troco)
+
+        # Atualizando Total
         self.AtualizaTotal()
 
+        # Conectando com função de Finalizar a venda
         self.ui.btn_finalizar_compra.clicked.connect(self.FinalizarVendas)
         self.AtualizaTabelaMonitoramentoVendas()
+
+        # Conectando com a função de Limpar a tabela do monitamento
         self.ui.btn_limpar_tabela.clicked.connect(self.LimparTabelaMonitoramento)
 
+        # Conectando com a barra de pesquisa do monitoramento
         self.ui.line_search_bar_monitoramentoto.returnPressed.connect(self.SearchMonitoramentoVendas)
         self.ui.btn_filtrar_monitoramento.clicked.connect(self.SearchMonitoramentoVendas)
 
+        # Conectando com a função de gerar o arquivo xlsx
         self.ui.btn_gerar_xls.clicked.connect(self.GerarXls)
+
+        # Função para encerrar o programa após 20m
+        self.ui.btn_salvar.clicked.connect(self.Futuro)
+        self.ui.btn_salvar.clicked.connect(self.Sair)
 
     # Pequenas Funções
     def Voltar(self):
@@ -390,7 +399,7 @@ class FrmAdmin(QMainWindow):
         data_atual = datetime.date.today()
         dataTexto = data_atual.strftime('%d/%m/%Y')
 
-        # Colaradores
+        # Colaboradores
         self.ui.lbl_hora_data_colaboradores.setText(f'{dataTexto} {tempoTexto}')
         self.ui.lbl_hora_data_alterar_colaboradores.setText(f'{dataTexto} {tempoTexto}')
 
@@ -435,24 +444,10 @@ class FrmAdmin(QMainWindow):
             item = items[0]
             tabela.setCurrentItem(item)
 
-            cod_inserido.setStyleSheet('''
-                        background-color: rgba(0, 0 , 0, 0);
-                        border: 2px solid rgba(0,0,0,0);
-                        border-bottom-color: rgb(159, 63, 250);
-                        color: rgb(0,0,0);
-                        padding-bottom: 8px;
-                        border-radius: 0px;
-                        font: 10pt "Montserrat";''')
+            cod_inserido.setStyleSheet(StyleNormal)
 
         else:
-            cod_inserido.setStyleSheet('''
-                        background-color: rgba(0, 0 , 0, 0);
-                        border: 2px solid rgba(0,0,0,0);
-                        border-bottom-color: rgb(255, 17, 49);;
-                        color: rgb(0,0,0);
-                        padding-bottom: 8px;
-                        border-radius: 0px;
-                        font: 10pt "Montserrat";''')
+            cod_inserido.setStyleSheet(StyleError)
 
     def CodProdutoVendas(self):
         cursor.execute('SELECT * FROM produtos')
@@ -471,30 +466,130 @@ class FrmAdmin(QMainWindow):
         cliente = self.ui.line_cliente
 
         if cliente.text() in search_clientes:
-            cliente.setStyleSheet(
-                '''
+            cliente.setStyleSheet('''
                 background-color: rgba(0, 0 , 0, 0);
                 border: 2px solid rgba(0,0,0,0);
                 border-bottom-color: rgb(15, 168, 103);
                 color: rgb(0,0,0);
                 padding-bottom: 8px;
                 border-radius: 0px;
-                font: 10pt "Montserrat";'''
-            )
+                font: 10pt "Montserrat";''')
         else:
-            cliente.setStyleSheet('''
-                                background-color: rgba(0, 0 , 0, 0);
-                                border: 2px solid rgba(0,0,0,0);
-                                border-bottom-color: rgb(255, 17, 49);
-                                color: rgb(0,0,0);
-                                padding-bottom: 8px;
-                                border-radius: 0px;
-                                font: 10pt "Montserrat";''')
+            cliente.setStyleSheet(StyleError)
 
-    def ResetaPlanilha(self):
-        global wb
-        wb.close()
-        wb = load_workbook(filename='Base xls.xlsx')
+    def FinalizarVendas(self):
+        cursor.execute('SELECT * FROM vendas')
+        banco_vendas = cursor.fetchall()
+
+        cursor.execute('SELECT * FROM quem_vendeu_mais')
+        banco_quem_mais_vendeu = cursor.fetchall()
+
+        if len(banco_vendas) > 0:
+            tempoAtual = QTime.currentTime()
+            tempoTexto = tempoAtual.toString('hh:mm:ss')
+            data_atual = datetime.date.today()
+            dataTexto = data_atual.strftime('%d/%m/%Y')
+
+            qtde_vendido = list()
+            totalVenda = list()
+            vendedor = UserLogado
+            clienteInserido = self.ui.line_cliente
+            cliente = ''
+            data_hora = f'{dataTexto} / {tempoTexto}'
+
+            if clienteInserido.text() in search_clientes:
+                cliente = clienteInserido.text()
+            else:
+                cliente = 'Não Informado'
+
+            for venda in banco_vendas:
+                qtde_vendido.append(int(venda[3]))
+                totalVenda.append(int(venda[4]))
+
+            comando_SQL = 'INSERT INTO monitoramento_vendas VALUES (%s,%s,%s,%s,%s)'
+            dados = f'{vendedor}', f'{cliente}', f'{sum(qtde_vendido)}', f'{sum(totalVenda)}', f'{data_hora}'
+            cursor.execute(comando_SQL, dados)
+
+            colaboradores = list()
+            for colaborador in banco_quem_mais_vendeu:
+                colaboradores.append(colaborador[0])
+
+                if colaborador[0] == vendedor:
+                    cursor.execute(f'UPDATE quem_vendeu_mais set total_qtde = {int(colaborador[1]) + int(sum(qtde_vendido))} WHERE nome = "{vendedor}"')
+
+            if vendedor not in colaboradores:
+                comando_SQL = 'INSERT INTO quem_vendeu_mais VALUES (%s,%s)'
+                dados = f'{vendedor}', f'{sum(qtde_vendido)}'
+                cursor.execute(comando_SQL, dados)
+
+        cursor.execute('DELETE FROM vendas')
+        self.AtualizaTabelaVendas()
+        self.AtualizaTotal()
+        self.AtualizaTabelaMonitoramentoVendas()
+        self.AtualizaCompleterSearchVendas()
+
+        self.ui.line_codigo_vendas.clear()
+        self.ui.line_cliente.clear()
+        self.ui.line_quantidade_vendas.clear()
+        self.ui.line_desconto_vendas.clear()
+        self.ui.lbl_troco.setText('0,00')
+        self.ui.line_cliente.setStyleSheet(StyleNormal)
+        self.ui.line_search_bar_vendas.clear()
+        self.ui.line_troco.clear()
+        self.ui.line_desconto_vendas.setStyleSheet(StyleNormal)
+        self.ui.line_codigo_vendas.setStyleSheet(StyleNormal)
+        self.ui.line_quantidade_vendas.setStyleSheet(StyleNormal)
+
+    def Troco(self):
+        cursor.execute('SELECT * FROM vendas')
+        banco_vendas = cursor.fetchall()
+
+        troco_desejado = self.ui.line_troco.text()
+        if troco_desejado.isnumeric() == True:
+            vendas = list()
+            vendas.clear()
+
+            for venda in banco_vendas:
+                vendas.append(int(venda[4]))
+
+            troco = int(troco_desejado) - sum(vendas)
+            self.ui.lbl_troco.setText(f'{lang.toString(int(troco) * 0.01, "f", 2)}')
+
+    def AtualizaTotal(self):
+
+        cursor.execute('SELECT * FROM vendas')
+        banco_vendas = cursor.fetchall()
+
+        vendas = list()
+
+        for pos, venda in enumerate(banco_vendas):
+            vendas.append(int(venda[4]))
+
+        total = lang.toString(sum(vendas) * 0.01, 'f', 2)
+        self.ui.lbl_total_valor.setText(f'{total}')
+        self.Troco()
+
+    def Futuro(self):
+        global futuroTexto
+        atual = datetime.datetime.now()
+
+        futuro = atual + datetime.timedelta(minutes=1)
+        futuroTexto = futuro.time().strftime('%H:%M:%S')
+
+    def Sair(self):
+        global futuroTexto
+        tempoAtual = QTime.currentTime()
+        tempoTexto = tempoAtual.toString('hh:mm:ss')
+
+        if self.ui.checkBox_finalizar_app.isChecked() == True:
+            if tempoTexto == futuroTexto:
+                sys.exit()
+
+    def LimparTabelaMonitoramento(self):
+        cursor.execute('DELETE FROM monitoramento_vendas')
+        cursor.execute('DELETE FROM quem_vendeu_mais')
+        self.AtualizaTabelaMonitoramentoVendas()
+        self.AtualizaCompleterSearchVendas()
 
     # Popups
     def Popup(self):
@@ -540,6 +635,7 @@ class FrmAdmin(QMainWindow):
     # Função que gera um arquivo xlsx para melhor monitoramento das vendas
     def GerarXls(self):
         global wb
+
         cursor.execute('SELECT * FROM monitoramento_vendas')
         banco_monitoramento = cursor.fetchall()
 
@@ -612,11 +708,11 @@ class FrmAdmin(QMainWindow):
     # Função para formartar o número de contato inserido
     def FormataNumeroContato(self, pg):
         global numero
+
         if pg == 'CadastrarFornecedores':
             numero = self.ui.line_cadastrar_contato_fornecedores
         if pg == 'AlterarFornecedores':
             numero = self.ui.line_alterar_contato_fornecedor
-
         if pg == 'CadastrarClientes':
             numero = self.ui.line_contato_cadastrar_clientes
         if pg == 'AlterarClientes':
@@ -718,7 +814,6 @@ class FrmAdmin(QMainWindow):
 
         if items:
             item = items[0]
-
             tabela.setCurrentItem(item)
 
     def SearchClientes(self, pg):
@@ -760,7 +855,6 @@ class FrmAdmin(QMainWindow):
         banco_fornecedores = cursor.fetchall()
 
         search_fornecedores.clear()
-
         search_fornecedores = []
 
         for fornecedor in banco_fornecedores:
@@ -793,7 +887,6 @@ class FrmAdmin(QMainWindow):
 
         self.completer = QCompleter(search_monitoramento)
         self.completer.setCaseSensitivity(Qt.CaseInsensitive)
-
         self.ui.line_search_bar_monitoramentoto.setCompleter(self.completer)
 
     def AtualizaCompleterSearchProdutos(self):
@@ -894,25 +987,10 @@ class FrmAdmin(QMainWindow):
                     senha.clear()
                     nome.clear()
 
-                    self.ui.line_login.setStyleSheet('''
-                            background-color: rgba(0, 0 , 0, 0);
-                            border: 2px solid rgba(0,0,0,0);
-                            border-bottom-color: rgb(159, 63, 250);
-                            color: rgb(0,0,0);
-                            padding-bottom: 8px;
-                            border-radius: 0px;
-                            font: 10pt "Montserrat";''')
-
+                    self.ui.line_login.setStyleSheet(StyleNormal)
 
                 elif LoginNoBanco == True:
-                    self.ui.line_login.setStyleSheet('''
-                            background-color: rgba(0, 0 , 0, 0);
-                            border: 2px solid rgba(0,0,0,0);
-                            border-bottom-color: rgb(255, 17, 49);;
-                            color: rgb(0,0,0);
-                            padding-bottom: 8px;
-                            border-radius: 0px;
-                            font: 10pt "Montserrat";''')
+                    self.ui.line_login.setStyleSheet(StyleError)
 
             self.AtualizaTabelasLogin()
             self.AtualizaCompleterSearchColaboradores()
@@ -962,29 +1040,12 @@ class FrmAdmin(QMainWindow):
                 endereco.clear()
                 contato.clear()
 
-                nome.setStyleSheet('''
-                                background-color: rgba(0, 0 , 0, 0);
-                                border: 2px solid rgba(0,0,0,0);
-                                border-bottom-color: rgb(159, 63, 250);
-                                color: rgb(0,0,0);
-                                padding-bottom: 8px;
-                                border-radius: 0px;
-                                font: 10pt "Montserrat";''')
+                nome.setStyleSheet(StyleNormal)
 
                 self.AtualizaTabelasFornecedores()
                 self.AtualizaCompleterSearchFornecedores()
-
             else:
-                nome.setStyleSheet(
-                    '''
-                        background-color: rgba(0, 0 , 0, 0);
-                        border: 2px solid rgba(0,0,0,0);
-                        border-bottom-color: rgb(255, 17, 49);;
-                        color: rgb(0,0,0);
-                        padding-bottom: 8px;
-                        border-radius: 0px;
-                        font: 10pt "Montserrat";'''
-                )
+                nome.setStyleSheet(StyleError)
 
     def CadastrarProdutos(self):
 
@@ -1005,48 +1066,20 @@ class FrmAdmin(QMainWindow):
         if cod_produto.text() != '' and descricao.text() != '' and valor_unitario.text() != '' and qtde_estoque.text() != '' and fornecedor.text() != '':
             for produto in banco_produtos:
                 if produto[0] == cod_produto.text():
-                    cod_produto.setStyleSheet('''
-                            background-color: rgba(0, 0 , 0, 0);
-                            border: 2px solid rgba(0,0,0,0);
-                            border-bottom-color: rgb(255, 17, 49);;
-                            color: rgb(0,0,0);
-                            padding-bottom: 8px;
-                            border-radius: 0px;
-                            font: 10pt "Montserrat";''')
+                    cod_produto.setStyleSheet(StyleError)
 
                     ProdutoJaCadastrado = True
 
                 else:
-                    cod_produto.setStyleSheet('''
-                                            background-color: rgba(0, 0 , 0, 0);
-                                            border: 2px solid rgba(0,0,0,0);
-                                            border-bottom-color: rgb(159, 63, 250);
-                                            color: rgb(0,0,0);
-                                            padding-bottom: 8px;
-                                            border-radius: 0px;
-                                            font: 10pt "Montserrat";''')
+                    cod_produto.setStyleSheet(StyleNormal)
 
             if fornecedor.text() in search_fornecedores:
                 FornecedorNoSearch = True
 
-                fornecedor.setStyleSheet('''
-                                            background-color: rgba(0, 0 , 0, 0);
-                                            border: 2px solid rgba(0,0,0,0);
-                                            border-bottom-color: rgb(159, 63, 250);
-                                            color: rgb(0,0,0);
-                                            padding-bottom: 8px;
-                                            border-radius: 0px;
-                                            font: 10pt "Montserrat";''')
+                fornecedor.setStyleSheet(StyleNormal)
 
             else:
-                fornecedor.setStyleSheet('''
-                            background-color: rgba(0, 0 , 0, 0);
-                            border: 2px solid rgba(0,0,0,0);
-                            border-bottom-color: rgb(255, 17, 49);;
-                            color: rgb(0,0,0);
-                            padding-bottom: 8px;
-                            border-radius: 0px;
-                            font: 10pt "Montserrat";''')
+                fornecedor.setStyleSheet(StyleError)
 
             if ProdutoJaCadastrado == False and FornecedorNoSearch == True:
                 comando_SQL = 'INSERT INTO produtos VALUES (%s,%s,%s,%s,%s)'
@@ -1127,192 +1160,6 @@ class FrmAdmin(QMainWindow):
             self.AtualizaTabelasProdutos()
             self.AtualizaTabelaVendas()
 
-    def FinalizarVendas(self):
-        cursor.execute('SELECT * FROM vendas')
-        banco_vendas = cursor.fetchall()
-
-        cursor.execute('SELECT * FROM quem_vendeu_mais')
-        banco_quem_mais_vendeu = cursor.fetchall()
-
-        if len(banco_vendas) > 0:
-            tempoAtual = QTime.currentTime()
-            tempoTexto = tempoAtual.toString('hh:mm:ss')
-            data_atual = datetime.date.today()
-            dataTexto = data_atual.strftime('%d/%m/%Y')
-
-            qtde_vendido = list()
-            totalVenda = list()
-            vendedor = UserLogado
-            clienteInserido = self.ui.line_cliente
-            cliente = ''
-            data_hora = f'{dataTexto} / {tempoTexto}'
-
-            if clienteInserido.text() in search_clientes:
-                cliente = clienteInserido.text()
-            else:
-                cliente = 'Não Informado'
-
-            for venda in banco_vendas:
-                qtde_vendido.append(int(venda[3]))
-                totalVenda.append(int(venda[4]))
-
-            comando_SQL = 'INSERT INTO monitoramento_vendas VALUES (%s,%s,%s,%s,%s)'
-            dados = f'{vendedor}', f'{cliente}', f'{sum(qtde_vendido)}', f'{sum(totalVenda)}', f'{data_hora}'
-            cursor.execute(comando_SQL, dados)
-
-            colaboradores = list()
-            for colaborador in banco_quem_mais_vendeu:
-                colaboradores.append(colaborador[0])
-
-                if colaborador[0] == vendedor:
-                    cursor.execute(f'UPDATE quem_vendeu_mais set total_qtde = {int(colaborador[1]) + int(sum(qtde_vendido))} WHERE nome = "{vendedor}"')
-
-            if vendedor not in colaboradores:
-                comando_SQL = 'INSERT INTO quem_vendeu_mais VALUES (%s,%s)'
-                dados = f'{vendedor}', f'{sum(qtde_vendido)}'
-                cursor.execute(comando_SQL, dados)
-
-
-
-        cursor.execute('DELETE FROM vendas')
-        self.AtualizaTabelaVendas()
-        self.AtualizaTotal()
-        self.AtualizaTabelaMonitoramentoVendas()
-        self.AtualizaCompleterSearchVendas()
-
-        self.ui.line_codigo_vendas.clear()
-        self.ui.line_cliente.clear()
-        self.ui.line_quantidade_vendas.clear()
-        self.ui.line_desconto_vendas.clear()
-        self.ui.lbl_troco.setText('0,00')
-        self.ui.line_cliente.setStyleSheet(StyleNormal)
-        self.ui.line_search_bar_vendas.clear()
-        self.ui.line_troco.clear()
-        self.ui.line_desconto_vendas.setStyleSheet(StyleNormal)
-        self.ui.line_codigo_vendas.setStyleSheet(StyleNormal)
-        self.ui.line_quantidade_vendas.setStyleSheet(StyleNormal)
-
-    def LimparTabelaMonitoramento(self):
-        cursor.execute('DELETE FROM monitoramento_vendas')
-        cursor.execute('DELETE FROM quem_vendeu_mais')
-        self.AtualizaTabelaMonitoramentoVendas()
-        self.AtualizaCompleterSearchVendas()
-
-    def AtualizaTabelaMonitoramentoVendas(self):
-        cursor.execute('SELECT * FROM monitoramento_vendas')
-        banco_monitoramento = cursor.fetchall()
-
-        self.ui.tabela_monitoramento.clear()
-
-        row = 0
-
-        self.ui.tabela_monitoramento.setRowCount(len(banco_monitoramento))
-
-        colunas = ['Vendedor', 'Cliente', 'Qtde Vendido', 'Total Venda', 'Data/horário']
-        self.ui.tabela_monitoramento.setHorizontalHeaderLabels(colunas)
-
-        for venda in banco_monitoramento:
-            total_venda = lang.toString(int(venda[3]) * 0.01, 'f', 2)
-
-            self.ui.tabela_monitoramento.setItem(row, 0, QTableWidgetItem(venda[0]))
-            self.ui.tabela_monitoramento.setItem(row, 1, QTableWidgetItem(venda[1]))
-            self.ui.tabela_monitoramento.setItem(row, 2, QTableWidgetItem(venda[2]))
-            self.ui.tabela_monitoramento.setItem(row, 3, QTableWidgetItem('R$ ' + total_venda))
-            self.ui.tabela_monitoramento.setItem(row, 4, QTableWidgetItem(venda[4]))
-            row += 1
-
-    def AtualizaTabelaVendas(self):
-        cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
-        banco_vendas = cursor.fetchall()
-
-        row = 0
-
-        self.ui.tabela_vendas.setRowCount(len(banco_vendas))
-        self.ui.tabela_vendas.clear()
-
-        colunas = ['Item', 'Cód', 'Produto', 'Valor Unitário', 'Qtde', 'Total']
-        self.ui.tabela_vendas.setHorizontalHeaderLabels(colunas)
-
-        for venda in banco_vendas:
-
-            valor_unitario = lang.toString(int(venda[2]) * 0.01, 'f', 2)
-            total = lang.toString(int(venda[4]) * 0.01, 'f', 2)
-
-            self.ui.tabela_vendas.setItem(row, 0, QTableWidgetItem(f'{venda[5]}'))
-            self.ui.tabela_vendas.setItem(row, 1, QTableWidgetItem(venda[0]))
-            self.ui.tabela_vendas.setItem(row, 2, QTableWidgetItem(venda[1]))
-            self.ui.tabela_vendas.setItem(row, 3, QTableWidgetItem('R$ ' + valor_unitario))
-            self.ui.tabela_vendas.setItem(row, 4, QTableWidgetItem(venda[3]))
-            self.ui.tabela_vendas.setItem(row, 5, QTableWidgetItem('R$ ' + total))
-
-            row += 1
-
-    def AtualizaTotal(self):
-
-        cursor.execute('SELECT * FROM vendas')
-        banco_vendas = cursor.fetchall()
-
-        vendas = list()
-
-        for pos, venda in enumerate(banco_vendas):
-            vendas.append(int(venda[4]))
-
-        total = lang.toString(sum(vendas) * 0.01, 'f', 2)
-        self.ui.lbl_total_valor.setText(f'{total}')
-        self.Troco()
-
-    def ExcluirVenda(self):
-        id = self.ui.tabela_vendas.currentRow()
-        print(id)
-        if id != - 1:
-            cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
-            banco_vendas = cursor.fetchall()
-            cursor.execute('SELECT * FROM produtos')
-            banco_produtos = cursor.fetchall()
-
-            id_deletado = 0
-
-            for venda in banco_vendas:
-                if venda[5] == id:
-                    id_deletado = venda[5]
-
-                    for produto in banco_produtos:
-                        if venda[0] == produto[0]:
-                            TotalEstoque = int(venda[3]) + int(produto[3])
-                            cursor.execute(f'UPDATE produtos SET qtde_estoque = "{TotalEstoque}" WHERE cód_produto = "{produto[0]}"')
-                            break
-
-                    cursor.execute(f'DELETE FROM vendas WHERE id = {id}')
-                    banco.commit()
-                    break
-
-            cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
-            banco_vendas = cursor.fetchall()
-
-            for venda in banco_vendas:
-                if venda[5] > id_deletado:
-                    cursor.execute(f'UPDATE vendas set id = {venda[5] - 1} WHERE id = "{venda[5]}"')
-                    banco.commit()
-
-        self.AtualizaTabelaVendas()
-        self.AtualizaTotal()
-        self.AtualizaTabelasProdutos()
-
-    def Troco(self):
-        cursor.execute('SELECT * FROM vendas')
-        banco_vendas = cursor.fetchall()
-
-        troco_desejado = self.ui.line_troco.text()
-        if troco_desejado.isnumeric() == True:
-            vendas = list()
-            vendas.clear()
-
-            for venda in banco_vendas:
-                vendas.append(int(venda[4]))
-
-            troco = int(troco_desejado) - sum(vendas)
-            self.ui.lbl_troco.setText(f'{lang.toString(int(troco) * 0.01, "f", 2)}')
-
     # Funções de Alterar
     def AlterarColaboradores(self):
         global id_tabela_alterar
@@ -1347,24 +1194,10 @@ class FrmAdmin(QMainWindow):
                         self.AtualizaTabelasLogin()
                         self.AtualizaCompleterSearchColaboradores()
 
-                        self.ui.line_login_alterar_colaboradores.setStyleSheet('''
-                                   background-color: rgba(0, 0 , 0, 0);
-                                   border: 2px solid rgba(0,0,0,0);
-                                   border-bottom-color: rgb(159, 63, 250);
-                                   color: rgb(0,0,0);
-                                   padding-bottom: 8px;
-                                   border-radius: 0px;
-                                   font: 10pt "Montserrat";''')
+                        self.ui.line_login_alterar_colaboradores.setStyleSheet(StyleNormal)
                         break
                     else:
-                        self.ui.line_login_alterar_colaboradores.setStyleSheet('''
-                                   background-color: rgba(0, 0 , 0, 0);
-                                   border: 2px solid rgba(0,0,0,0);
-                                   border-bottom-color: rgb(255, 17, 49);;
-                                   color: rgb(0,0,0);
-                                   padding-bottom: 8px;
-                                   border-radius: 0px;
-                                   font: 10pt "Montserrat";''')
+                        self.ui.line_login_alterar_colaboradores.setStyleSheet(StyleError)
 
     def AlterarClientes(self):
         global id_alterar_Clientes
@@ -1439,47 +1272,19 @@ class FrmAdmin(QMainWindow):
             if fornecedor.text() in search_fornecedores:
                 FornecedorNoSearch = True
 
-                fornecedor.setStyleSheet('''
-                                           background-color: rgba(0, 0 , 0, 0);
-                                           border: 2px solid rgba(0,0,0,0);
-                                           border-bottom-color: rgb(159, 63, 250);
-                                           color: rgb(0,0,0);
-                                           padding-bottom: 8px;
-                                           border-radius: 0px;
-                                           font: 10pt "Montserrat";''')
+                fornecedor.setStyleSheet(StyleNormal)
 
             else:
-                fornecedor.setStyleSheet('''
-                                                   background-color: rgba(0, 0 , 0, 0);
-                                                   border: 2px solid rgba(0,0,0,0);
-                                                   border-bottom-color: rgb(255, 17, 49);;
-                                                   color: rgb(0,0,0);
-                                                   padding-bottom: 8px;
-                                                   border-radius: 0px;
-                                                   font: 10pt "Montserrat";''')
+                fornecedor.setStyleSheet(StyleError)
 
             for pos, produto in enumerate(banco_produtos):
                 if cod_produto.text() == produto[0] and pos != id_alterar_produtos:
                     ProdutoJaCadastrado = True
 
-                    cod_produto.setStyleSheet('''
-                            background-color: rgba(0, 0 , 0, 0);
-                            border: 2px solid rgba(0,0,0,0);
-                            border-bottom-color: rgb(255, 17, 49);;
-                            color: rgb(0,0,0);
-                            padding-bottom: 8px;
-                            border-radius: 0px;
-                            font: 10pt "Montserrat";''')
+                    cod_produto.setStyleSheet(StyleError)
 
                 else:
-                    cod_produto.setStyleSheet('''
-                                   background-color: rgba(0, 0 , 0, 0);
-                                   border: 2px solid rgba(0,0,0,0);
-                                   border-bottom-color: rgb(159, 63, 250);
-                                   color: rgb(0,0,0);
-                                   padding-bottom: 8px;
-                                   border-radius: 0px;
-                                   font: 10pt "Montserrat";''')
+                    cod_produto.setStyleSheet(StyleNormal)
 
                 if pos == id_alterar_produtos:
                     AlterarProduto = produto[0]
@@ -1571,6 +1376,43 @@ class FrmAdmin(QMainWindow):
 
                 self.AtualizaTabelasProdutos()
                 self.AtualizaCompleterSearchProdutos()
+
+    def ExcluirVenda(self):
+        id = self.ui.tabela_vendas.currentRow()
+        print(id)
+        if id != - 1:
+            cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
+            banco_vendas = cursor.fetchall()
+            cursor.execute('SELECT * FROM produtos')
+            banco_produtos = cursor.fetchall()
+
+            id_deletado = 0
+
+            for venda in banco_vendas:
+                if venda[5] == id:
+                    id_deletado = venda[5]
+
+                    for produto in banco_produtos:
+                        if venda[0] == produto[0]:
+                            TotalEstoque = int(venda[3]) + int(produto[3])
+                            cursor.execute(f'UPDATE produtos SET qtde_estoque = "{TotalEstoque}" WHERE cód_produto = "{produto[0]}"')
+                            break
+
+                    cursor.execute(f'DELETE FROM vendas WHERE id = {id}')
+                    banco.commit()
+                    break
+
+            cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
+            banco_vendas = cursor.fetchall()
+
+            for venda in banco_vendas:
+                if venda[5] > id_deletado:
+                    cursor.execute(f'UPDATE vendas set id = {venda[5] - 1} WHERE id = "{venda[5]}"')
+                    banco.commit()
+
+        self.AtualizaTabelaVendas()
+        self.AtualizaTotal()
+        self.AtualizaTabelasProdutos()
 
     # Funções de setar Texto
     def setTextAlterarColaboradores(self):
@@ -1850,6 +1692,55 @@ class FrmAdmin(QMainWindow):
             self.ui.tabela_cadastro.setItem(row, 5, QTableWidgetItem(produto[4]))
             row += 1
 
+    def AtualizaTabelaMonitoramentoVendas(self):
+        cursor.execute('SELECT * FROM monitoramento_vendas')
+        banco_monitoramento = cursor.fetchall()
+
+        self.ui.tabela_monitoramento.clear()
+
+        row = 0
+
+        self.ui.tabela_monitoramento.setRowCount(len(banco_monitoramento))
+
+        colunas = ['Vendedor', 'Cliente', 'Qtde Vendido', 'Total Venda', 'Data/horário']
+        self.ui.tabela_monitoramento.setHorizontalHeaderLabels(colunas)
+
+        for venda in banco_monitoramento:
+            total_venda = lang.toString(int(venda[3]) * 0.01, 'f', 2)
+
+            self.ui.tabela_monitoramento.setItem(row, 0, QTableWidgetItem(venda[0]))
+            self.ui.tabela_monitoramento.setItem(row, 1, QTableWidgetItem(venda[1]))
+            self.ui.tabela_monitoramento.setItem(row, 2, QTableWidgetItem(venda[2]))
+            self.ui.tabela_monitoramento.setItem(row, 3, QTableWidgetItem('R$ ' + total_venda))
+            self.ui.tabela_monitoramento.setItem(row, 4, QTableWidgetItem(venda[4]))
+            row += 1
+
+    def AtualizaTabelaVendas(self):
+        cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
+        banco_vendas = cursor.fetchall()
+
+        row = 0
+
+        self.ui.tabela_vendas.setRowCount(len(banco_vendas))
+        self.ui.tabela_vendas.clear()
+
+        colunas = ['Item', 'Cód', 'Produto', 'Valor Unitário', 'Qtde', 'Total']
+        self.ui.tabela_vendas.setHorizontalHeaderLabels(colunas)
+
+        for venda in banco_vendas:
+
+            valor_unitario = lang.toString(int(venda[2]) * 0.01, 'f', 2)
+            total = lang.toString(int(venda[4]) * 0.01, 'f', 2)
+
+            self.ui.tabela_vendas.setItem(row, 0, QTableWidgetItem(f'{venda[5]}'))
+            self.ui.tabela_vendas.setItem(row, 1, QTableWidgetItem(venda[0]))
+            self.ui.tabela_vendas.setItem(row, 2, QTableWidgetItem(venda[1]))
+            self.ui.tabela_vendas.setItem(row, 3, QTableWidgetItem('R$ ' + valor_unitario))
+            self.ui.tabela_vendas.setItem(row, 4, QTableWidgetItem(venda[3]))
+            self.ui.tabela_vendas.setItem(row, 5, QTableWidgetItem('R$ ' + total))
+
+            row += 1
+
 
 class FrmColaborador(QMainWindow):
 
@@ -1949,19 +1840,29 @@ class FrmColaborador(QMainWindow):
 
         # Clique dos botões da pg Vendas
         self.ui.line_cliente.textChanged.connect(lambda: self.FormataCPFClientes(pg='Vendas'))
+
+        # Conectando com função confirmar cliente
         self.ui.line_cliente.returnPressed.connect(self.ConfirmarCliente)
         self.ui.btn_confirmar_cliente.clicked.connect(self.ConfirmarCliente)
 
+        # Conectando com a barra de pesquisa da pg Vendas
         self.ui.line_search_bar_vendas.returnPressed.connect(self.CodProdutoVendas)
         self.ui.btn_pesquisar.clicked.connect(self.CodProdutoVendas)
 
+        # Conectando com a função adicionar venda
         self.ui.btn_adicionar_compra.clicked.connect(self.CadastrandoVendas)
+
+        # Conectando com a função de excluir venda
         self.ui.btn_excluir_item.clicked.connect(self.ExcluirVenda)
+
+        # Conectando com a função troco
         self.ui.btn_confirmar_troco.clicked.connect(self.Troco)
         self.ui.line_troco.returnPressed.connect(self.Troco)
 
+        # Conectando com a função Finalizar Vendas
         self.ui.btn_finalizar_compra.clicked.connect(self.FinalizarVendas)
 
+        # Atualizando Total
         self.AtualizaTotal()
 
         # Atualiza Completer
@@ -1976,33 +1877,265 @@ class FrmColaborador(QMainWindow):
         tempo.timeout.connect(self.Sair)
         tempo.start(1000)
 
+        # Conectando com a função de encerrar o sistema após 20m
         self.ui.btn_salvar.clicked.connect(self.Sair)
         self.ui.btn_salvar.clicked.connect(self.Futuro)
 
-
-
+    # Pequenas Funções
     def Voltar(self):
         global window
-
         window.close()
         window = FrmLogin()
         window.show()
 
-    def ExcluirProdutos(self):
+    def Futuro(self):
+        global futuroTexto
+        atual = datetime.datetime.now()
 
-        id = self.ui.tabela_produto.currentRow()
+        futuro = atual + datetime.timedelta(minutes=1)
+        futuroTexto = futuro.time().strftime('%H:%M:%S')
+
+    def Sair(self):
+        global futuroTexto
+        tempoAtual = QTime.currentTime()
+        tempoTexto = tempoAtual.toString('hh:mm:ss')
+
+        if self.ui.checkBox_finalizar_app.isChecked() == True:
+            if tempoTexto == futuroTexto:
+                sys.exit()
+
+    def HoraData(self):
+        tempoAtual = QTime.currentTime()
+        tempoTexto = tempoAtual.toString('hh:mm:ss')
+        data_atual = datetime.date.today()
+        dataTexto = data_atual.strftime('%d/%m/%Y')
+
+        # Vendas
+        self.ui.lbl_hora_data.setText(f'{dataTexto} {tempoTexto}')
+
+        # Produtos
+        self.ui.lbl_hora_data_produtos.setText(f'{dataTexto} {tempoTexto}')
+        self.ui.lbl_hora_data_alterar_produto.setText(f'{dataTexto} {tempoTexto}')
+        self.ui.lbl_hora_data_cadastrar_produto.setText(f'{dataTexto} {tempoTexto}')
+
+    def CodProdutoVendas(self):
+        cursor.execute('SELECT * FROM produtos')
+        banco_produtos = cursor.fetchall()
+
+        produto_inserido = self.ui.line_search_bar_vendas
+
+        for pos, produto in enumerate(banco_produtos):
+            if produto[1] == produto_inserido.text():
+                self.ui.line_codigo_vendas.setText(produto[0])
+                break
+
+    def PesquisandoProdutoPeloCodigo(self):
+        produtos = list()
+
+        cod_inserido = self.ui.line_codigo_produto
+
+        cursor.execute('SELECT * FROM produtos')
+        banco_produtos = cursor.fetchall()
+
+        produtos.clear()
+        tabela = self.ui.tabela_produto
+
+        for produto in banco_produtos:
+            produtos.append(produto[0])
+
+        items = tabela.findItems(cod_inserido.text(), Qt.MatchExactly)
+
+        if items:
+            item = items[0]
+            tabela.setCurrentItem(item)
+
+            cod_inserido.setStyleSheet('''
+                        background-color: rgba(0, 0 , 0, 0);
+                        border: 2px solid rgba(0,0,0,0);
+                        border-bottom-color: rgb(159, 63, 250);
+                        color: rgb(0,0,0);
+                        padding-bottom: 8px;
+                        border-radius: 0px;
+                        font: 10pt "Montserrat";''')
+
+        else:
+            cod_inserido.setStyleSheet('''
+                        background-color: rgba(0, 0 , 0, 0);
+                        border: 2px solid rgba(0,0,0,0);
+                        border-bottom-color: rgb(255, 17, 49);;
+                        color: rgb(0,0,0);
+                        padding-bottom: 8px;
+                        border-radius: 0px;
+                        font: 10pt "Montserrat";''')
+
+    def Troco(self):
+        cursor.execute('SELECT * FROM vendas')
+        banco_vendas = cursor.fetchall()
+
+        troco_desejado = self.ui.line_troco.text()
+        if troco_desejado.isnumeric() == True:
+            vendas = list()
+            vendas.clear()
+
+            for venda in banco_vendas:
+                vendas.append(int(venda[4]))
+
+            troco = int(troco_desejado) - sum(vendas)
+            self.ui.lbl_troco.setText(f'{lang.toString(int(troco) * 0.01, "f", 2)}')
+
+    def ConfirmarCliente(self):
+        global search_clientes
+
+        cliente = self.ui.line_cliente
+
+        if cliente.text() in search_clientes:
+            cliente.setStyleSheet(
+                '''
+                background-color: rgba(0, 0 , 0, 0);
+                border: 2px solid rgba(0,0,0,0);
+                border-bottom-color: rgb(15, 168, 103);
+                color: rgb(0,0,0);
+                padding-bottom: 8px;
+                border-radius: 0px;
+                font: 10pt "Montserrat";'''
+            )
+        else:
+            cliente.setStyleSheet('''
+                                background-color: rgba(0, 0 , 0, 0);
+                                border: 2px solid rgba(0,0,0,0);
+                                border-bottom-color: rgb(255, 17, 49);
+                                color: rgb(0,0,0);
+                                padding-bottom: 8px;
+                                border-radius: 0px;
+                                font: 10pt "Montserrat";''')
+
+    def FormataCPFClientes(self, pg):
+
+        if pg == 'Cadastrar':
+            CPF = self.ui.line_cpf_cadastrar_clientes
+        if pg == 'Alterar':
+            CPF = self.ui.line_alterar_cpf_cliente
+        if pg == 'Vendas':
+            CPF = self.ui.line_cliente
+
+        TextoInserido = CPF.text()
+        TamanhoDoTexto = len(CPF.text())
+
+        if TamanhoDoTexto == 3 and TextoInserido.isnumeric() == True:
+            CPF.setText(f'{TextoInserido}.')
+        if TamanhoDoTexto == 7 and TextoInserido[4:].isnumeric() == True:
+            CPF.setText(f'{TextoInserido}.')
+        if TamanhoDoTexto == 11 and TextoInserido[8:].isnumeric() == True:
+            CPF.setText(f'{TextoInserido}-')
+
+    def FinalizarVendas(self):
+        cursor.execute('SELECT * FROM vendas')
+        banco_vendas = cursor.fetchall()
+
+        cursor.execute('SELECT * FROM quem_vendeu_mais')
+        banco_quem_mais_vendeu = cursor.fetchall()
+
+        if len(banco_vendas) > 0:
+            tempoAtual = QTime.currentTime()
+            tempoTexto = tempoAtual.toString('hh:mm:ss')
+            data_atual = datetime.date.today()
+            dataTexto = data_atual.strftime('%d/%m/%Y')
+
+            qtde_vendido = list()
+            totalVenda = list()
+            vendedor = UserLogado
+            clienteInserido = self.ui.line_cliente
+            cliente = ''
+            data_hora = f'{dataTexto} / {tempoTexto}'
+
+            if clienteInserido.text() in search_clientes:
+                cliente = clienteInserido.text()
+            else:
+                cliente = 'Não Informado'
+
+            for venda in banco_vendas:
+                qtde_vendido.append(int(venda[3]))
+                totalVenda.append(int(venda[4]))
+
+            comando_SQL = 'INSERT INTO monitoramento_vendas VALUES (%s,%s,%s,%s,%s)'
+            dados = f'{vendedor}', f'{cliente}', f'{sum(qtde_vendido)}', f'{sum(totalVenda)}', f'{data_hora}'
+            cursor.execute(comando_SQL, dados)
+
+            colaboradores = list()
+            for colaborador in banco_quem_mais_vendeu:
+                colaboradores.append(colaborador[0])
+
+                if colaborador[0] == vendedor:
+                    cursor.execute(f'UPDATE quem_vendeu_mais set total_qtde = {int(colaborador[1]) + int(sum(qtde_vendido))} WHERE nome = "{vendedor}"')
+
+            if vendedor not in colaboradores:
+                comando_SQL = 'INSERT INTO quem_vendeu_mais VALUES (%s,%s)'
+                dados = f'{vendedor}', f'{sum(qtde_vendido)}'
+                cursor.execute(comando_SQL, dados)
+
+        cursor.execute('DELETE FROM vendas')
+        self.AtualizaTabelaVendas()
+        self.AtualizaTotal()
+        self.AtualizaTabelaMonitoramentoVendas()
+        self.AtualizaCompleterSearchVendas()
+
+        self.ui.line_codigo_vendas.clear()
+        self.ui.line_cliente.clear()
+        self.ui.line_quantidade_vendas.clear()
+        self.ui.line_desconto_vendas.clear()
+        self.ui.lbl_troco.setText('0,00')
+        self.ui.line_cliente.setStyleSheet(StyleNormal)
+        self.ui.line_search_bar_vendas.clear()
+        self.ui.line_troco.clear()
+        self.ui.line_desconto_vendas.setStyleSheet(StyleNormal)
+        self.ui.line_codigo_vendas.setStyleSheet(StyleNormal)
+        self.ui.line_quantidade_vendas.setStyleSheet(StyleNormal)
+
+    def setTextAlterarProdutos(self):
+        global id_alterar_produtos
+
+        cod_produto = self.ui.line_codigo_alterar_produto
+        descricao = self.ui.line_decricao_alterar_produto
+        valor_unitario = self.ui.line_valor_alterar_produto
+        qtde_estoque = self.ui.line_qtde_alterar_produto
+        fornecedor = self.ui.line_fornecedor_alterar_produto
+
+        id_alterar_produtos = self.ui.tabela_alterar_produto.currentRow()
 
         cursor.execute('SELECT * FROM produtos')
         banco_produtos = cursor.fetchall()
 
         for pos, produto in enumerate(banco_produtos):
-            if pos == id:
-                cursor.execute(f'DELETE FROM produtos WHERE cód_produto = "{produto[0]}"')
-                banco.commit()
+            if pos == id_alterar_produtos:
+                cod_produto.setText(produto[0])
+                descricao.setText(produto[1])
+                valor_unitario.setText(produto[2])
+                qtde_estoque.setText(produto[3])
+                fornecedor.setText(produto[4])
 
-                self.AtualizaTabelasProdutos()
-                self.AtualizaCompleterSearchProdutos()
+    def SearchProdutos(self, pg):
+        tabela = self
+        produto = self
 
+        if pg == 'Produtos':
+            tabela = self.ui.tabela_produto
+            produto = self.ui.line_search_Bar_produtos
+
+        if pg == 'Alterar':
+            tabela = self.ui.tabela_alterar_produto
+            produto = self.ui.line_search_Bar_alterar_produto
+
+        if pg == 'Cadastrar':
+            tabela = self.ui.tabela_cadastro
+            produto = self.ui.line_search_Bar_cadastrar_produto
+
+        items = tabela.findItems(produto.text(), Qt.MatchContains)
+
+        if items:
+            item = items[0]
+            tabela.setCurrentItem(item)
+
+    # Cadastrar Produtos e Vendas
     def CadastrarProdutos(self):
 
         global search_fornecedores
@@ -2079,20 +2212,72 @@ class FrmColaborador(QMainWindow):
                 self.AtualizaTabelasProdutos()
                 self.AtualizaCompleterSearchProdutos()
 
-    def HoraData(self):
-        tempoAtual = QTime.currentTime()
-        tempoTexto = tempoAtual.toString('hh:mm:ss')
-        data_atual = datetime.date.today()
-        dataTexto = data_atual.strftime('%d/%m/%Y')
+    def CadastrandoVendas(self):
 
-        # Vendas
-        self.ui.lbl_hora_data.setText(f'{dataTexto} {tempoTexto}')
+        global search_produtos, StyleError, StyleNormal
 
-        # Produtos
-        self.ui.lbl_hora_data_produtos.setText(f'{dataTexto} {tempoTexto}')
-        self.ui.lbl_hora_data_alterar_produto.setText(f'{dataTexto} {tempoTexto}')
-        self.ui.lbl_hora_data_cadastrar_produto.setText(f'{dataTexto} {tempoTexto}')
+        cursor.execute("SELECT * FROM produtos")
+        banco_produtos = cursor.fetchall()
 
+        produtoInserido = self.ui.line_codigo_vendas
+        qtde = self.ui.line_quantidade_vendas
+        desconto = self.ui.line_desconto_vendas
+        NomeProduto = ''
+
+        ProdutoNoBanco = False
+        QuantidadeMenorQueEstoque = False
+        DescontoOk = False
+        ValorUnitario = 0
+
+        for pos, produto in enumerate(banco_produtos):
+
+            if produtoInserido.text() == produto[0]:
+                ProdutoNoBanco = True
+                produtoInserido.setStyleSheet(StyleNormal)
+                if qtde.text().isnumeric() == True:
+                    if int(produto[3]) >= int(qtde.text()) and int(qtde.text()) > 0:
+                        QuantidadeMenorQueEstoque = True
+                        qtde.setStyleSheet(StyleNormal)
+
+                        ValorUnitario = produto[2]
+                        NomeProduto = produto[1]
+                        TotalQtde = int(produto[3]) - int(qtde.text())
+                        cursor.execute(f"UPDATE produtos SET qtde_estoque = '{TotalQtde}' WHERE cód_produto = '{produto[0]}'")
+
+                    else:
+                        qtde.setStyleSheet(StyleError)
+                else:
+                    qtde.setStyleSheet(StyleError)
+
+                break
+            else:
+                produtoInserido.setStyleSheet(StyleError)
+
+        if desconto.text().isnumeric():
+            DescontoOk = True
+
+        if ProdutoNoBanco == True and QuantidadeMenorQueEstoque == True and DescontoOk == True:
+            cursor.execute('SELECT MAX(id) FROM vendas')
+            ultimo_id = cursor.fetchone()
+
+            for id_antigo in ultimo_id:
+                if id_antigo == None:
+                    id = 0
+                else:
+                    id = int(id_antigo) + 1
+
+            valor = f'0.{desconto.text()}'
+            valorTotal = int(ValorUnitario) * int(qtde.text())
+            descontoTotal = int(valorTotal) * float(valor)
+            comando_SQL = 'INSERT INTO vendas VALUES (%s,%s,%s,%s,%s,%s)'
+            dados = f'{produtoInserido.text()}', f'{NomeProduto}', f'{ValorUnitario}', f'{qtde.text()}', f'{int(valorTotal) - int(descontoTotal)}', f'{id}'
+            cursor.execute(comando_SQL, dados)
+
+            self.AtualizaTotal()
+            self.AtualizaTabelasProdutos()
+            self.AtualizaTabelaVendas()
+
+    # Alterar Produtos
     def AlterarProdutos(self):
         global id_alterar_produtos
         global search_fornecedores
@@ -2174,6 +2359,139 @@ class FrmColaborador(QMainWindow):
             self.AtualizaCompleterSearchProdutos()
             self.AtualizaTabelaVendas()
 
+    # Atualiza Completers
+    def AtualizaCompleterSearchProdutos(self):
+        global search_produtos
+
+        cursor.execute('SELECT * FROM produtos')
+        banco_produtos = cursor.fetchall()
+
+        search_produtos.clear()
+
+        for produto in banco_produtos:
+            search_produtos.append(produto[1])
+
+        self.completer = QCompleter(search_produtos)
+        self.completer.setCaseSensitivity(Qt.CaseInsensitive)
+
+        self.ui.line_search_Bar_produtos.setCompleter(self.completer)
+        self.ui.line_search_Bar_alterar_produto.setCompleter(self.completer)
+        self.ui.line_search_Bar_cadastrar_produto.setCompleter(self.completer)
+        self.ui.line_search_bar_vendas.setCompleter(self.completer)
+
+    def AtualizaCompleterSearchFornecedores(self):
+        global search_fornecedores
+
+        cursor.execute('SELECT * FROM fornecedores')
+        banco_fornecedores = cursor.fetchall()
+
+        search_fornecedores.clear()
+
+        search_fornecedores = []
+
+        for fornecedor in banco_fornecedores:
+            search_fornecedores.append(fornecedor[0])
+
+        self.completer = QCompleter(search_fornecedores)
+        self.completer.setCaseSensitivity(Qt.CaseInsensitive)
+        self.ui.line_search_Bar_fornecedores.setCompleter(self.completer)
+        self.ui.line_search_Bar_altarar_fornecedor.setCompleter(self.completer)
+        self.ui.line_search_Bar_cadastrar_fornecedores.setCompleter(self.completer)
+        self.ui.line_fornecedor_cadastrar.setCompleter(self.completer)
+        self.ui.line_fornecedor_alterar_produto.setCompleter(self.completer)
+
+    def AtualizaCompleterSearchVendas(self):
+        global search_monitoramento
+
+        cursor.execute('SELECT * FROM monitoramento_vendas')
+        banco_monitoramento = cursor.fetchall()
+
+        search_monitoramento.clear()
+
+        for venda in banco_monitoramento:
+            if venda[0] not in search_monitoramento:
+                search_monitoramento.append(venda[0])
+
+            if venda[1] not in search_monitoramento:
+                if venda[1] != 'Não Informado':
+                    search_monitoramento.append(venda[1])
+            search_monitoramento.append(venda[4])
+
+        self.completer = QCompleter(search_monitoramento)
+        self.completer.setCaseSensitivity(Qt.CaseInsensitive)
+
+        self.ui.line_search_bar_monitoramentoto.setCompleter(self.completer)
+
+    def AtualizaCompleterSearchClientes(self):
+        global search_clientes
+
+        cursor.execute('SELECT * FROM clientes')
+        banco_clientes = cursor.fetchall()
+
+        search_clientes.clear()
+
+        for clientes in banco_clientes:
+            search_clientes.append(clientes[0])
+            search_clientes.append(clientes[1])
+
+        self.completer = QCompleter(search_clientes)
+        self.completer.setCaseSensitivity(Qt.CaseInsensitive)
+
+        self.ui.line_search_Bar_clientes.setCompleter(self.completer)
+        self.ui.line_search_Bar_alterar_clientes.setCompleter(self.completer)
+        self.ui.line_search_Bar_cadastrar_clientes.setCompleter(self.completer)
+        self.ui.line_cliente.setCompleter(self.completer)
+
+    # Atualiza Tabelas
+    def AtualizaTabelaVendas(self):
+        cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
+        banco_vendas = cursor.fetchall()
+
+        row = 0
+
+        self.ui.tabela_vendas.setRowCount(len(banco_vendas))
+        self.ui.tabela_vendas.clear()
+
+        colunas = ['Item', 'Cód', 'Produto', 'Valor Unitário', 'Qtde', 'Total']
+        self.ui.tabela_vendas.setHorizontalHeaderLabels(colunas)
+
+        for venda in banco_vendas:
+
+            valor_unitario = lang.toString(int(venda[2]) * 0.01, 'f', 2)
+            total = lang.toString(int(venda[4]) * 0.01, 'f', 2)
+
+            self.ui.tabela_vendas.setItem(row, 0, QTableWidgetItem(f'{venda[5]}'))
+            self.ui.tabela_vendas.setItem(row, 1, QTableWidgetItem(venda[0]))
+            self.ui.tabela_vendas.setItem(row, 2, QTableWidgetItem(venda[1]))
+            self.ui.tabela_vendas.setItem(row, 3, QTableWidgetItem('R$ ' + valor_unitario))
+            self.ui.tabela_vendas.setItem(row, 4, QTableWidgetItem(venda[3]))
+            self.ui.tabela_vendas.setItem(row, 5, QTableWidgetItem('R$ ' + total))
+
+            row += 1
+
+    def AtualizaTabelaMonitoramentoVendas(self):
+        cursor.execute('SELECT * FROM monitoramento_vendas')
+        banco_monitoramento = cursor.fetchall()
+
+        self.ui.tabela_monitoramento.clear()
+
+        row = 0
+
+        self.ui.tabela_monitoramento.setRowCount(len(banco_monitoramento))
+
+        colunas = ['Vendedor', 'Cliente', 'Qtde Vendido', 'Total Venda', 'Data/horário']
+        self.ui.tabela_monitoramento.setHorizontalHeaderLabels(colunas)
+
+        for venda in banco_monitoramento:
+            total_venda = lang.toString(int(venda[3]) * 0.01, 'f', 2)
+
+            self.ui.tabela_monitoramento.setItem(row, 0, QTableWidgetItem(venda[0]))
+            self.ui.tabela_monitoramento.setItem(row, 1, QTableWidgetItem(venda[1]))
+            self.ui.tabela_monitoramento.setItem(row, 2, QTableWidgetItem(venda[2]))
+            self.ui.tabela_monitoramento.setItem(row, 3, QTableWidgetItem('R$ ' + total_venda))
+            self.ui.tabela_monitoramento.setItem(row, 4, QTableWidgetItem(venda[4]))
+            row += 1
+
     def AtualizaTabelasProdutos(self):
         cursor.execute('SELECT * FROM produtos')
         banco_produtos = cursor.fetchall()
@@ -2221,166 +2539,7 @@ class FrmColaborador(QMainWindow):
             self.ui.tabela_cadastro.setItem(row, 5, QTableWidgetItem(produto[4]))
             row += 1
 
-    def setTextAlterarProdutos(self):
-        global id_alterar_produtos
-
-        cod_produto = self.ui.line_codigo_alterar_produto
-        descricao = self.ui.line_decricao_alterar_produto
-        valor_unitario = self.ui.line_valor_alterar_produto
-        qtde_estoque = self.ui.line_qtde_alterar_produto
-        fornecedor = self.ui.line_fornecedor_alterar_produto
-
-        id_alterar_produtos = self.ui.tabela_alterar_produto.currentRow()
-
-        cursor.execute('SELECT * FROM produtos')
-        banco_produtos = cursor.fetchall()
-
-        for pos, produto in enumerate(banco_produtos):
-            if pos == id_alterar_produtos:
-                cod_produto.setText(produto[0])
-                descricao.setText(produto[1])
-                valor_unitario.setText(produto[2])
-                qtde_estoque.setText(produto[3])
-                fornecedor.setText(produto[4])
-
-    def SearchProdutos(self, pg):
-        tabela = self
-        produto = self
-
-        if pg == 'Produtos':
-            tabela = self.ui.tabela_produto
-            produto = self.ui.line_search_Bar_produtos
-
-        if pg == 'Alterar':
-            tabela = self.ui.tabela_alterar_produto
-            produto = self.ui.line_search_Bar_alterar_produto
-
-        if pg == 'Cadastrar':
-            tabela = self.ui.tabela_cadastro
-            produto = self.ui.line_search_Bar_cadastrar_produto
-
-        items = tabela.findItems(produto.text(), Qt.MatchContains)
-
-        if items:
-            item = items[0]
-            tabela.setCurrentItem(item)
-
-    def AtualizaCompleterSearchProdutos(self):
-        global search_produtos
-
-        cursor.execute('SELECT * FROM produtos')
-        banco_produtos = cursor.fetchall()
-
-        search_produtos.clear()
-
-        for produto in banco_produtos:
-            search_produtos.append(produto[1])
-
-        self.completer = QCompleter(search_produtos)
-        self.completer.setCaseSensitivity(Qt.CaseInsensitive)
-
-        self.ui.line_search_Bar_produtos.setCompleter(self.completer)
-        self.ui.line_search_Bar_alterar_produto.setCompleter(self.completer)
-        self.ui.line_search_Bar_cadastrar_produto.setCompleter(self.completer)
-        self.ui.line_search_bar_vendas.setCompleter(self.completer)
-
-    def AtualizaCompleterSearchFornecedores(self):
-        global search_fornecedores
-
-        cursor.execute('SELECT * FROM fornecedores')
-        banco_fornecedores = cursor.fetchall()
-
-        search_fornecedores.clear()
-
-        search_fornecedores = []
-
-        for fornecedor in banco_fornecedores:
-            search_fornecedores.append(fornecedor[0])
-
-        self.completer = QCompleter(search_fornecedores)
-        self.completer.setCaseSensitivity(Qt.CaseInsensitive)
-        self.ui.line_search_Bar_fornecedores.setCompleter(self.completer)
-        self.ui.line_search_Bar_altarar_fornecedor.setCompleter(self.completer)
-        self.ui.line_search_Bar_cadastrar_fornecedores.setCompleter(self.completer)
-        self.ui.line_fornecedor_cadastrar.setCompleter(self.completer)
-        self.ui.line_fornecedor_alterar_produto.setCompleter(self.completer)
-
-    def CodProdutoVendas(self):
-        cursor.execute('SELECT * FROM produtos')
-        banco_produtos = cursor.fetchall()
-
-        produto_inserido = self.ui.line_search_bar_vendas
-
-        for pos, produto in enumerate(banco_produtos):
-            if produto[1] == produto_inserido.text():
-                self.ui.line_codigo_vendas.setText(produto[0])
-                break
-
-    def PesquisandoProdutoPeloCodigo(self):
-        produtos = list()
-
-        cod_inserido = self.ui.line_codigo_produto
-
-        cursor.execute('SELECT * FROM produtos')
-        banco_produtos = cursor.fetchall()
-
-        produtos.clear()
-        tabela = self.ui.tabela_produto
-
-        for produto in banco_produtos:
-            produtos.append(produto[0])
-
-        items = tabela.findItems(cod_inserido.text(), Qt.MatchExactly)
-
-        if items:
-            item = items[0]
-            tabela.setCurrentItem(item)
-
-            cod_inserido.setStyleSheet('''
-                        background-color: rgba(0, 0 , 0, 0);
-                        border: 2px solid rgba(0,0,0,0);
-                        border-bottom-color: rgb(159, 63, 250);
-                        color: rgb(0,0,0);
-                        padding-bottom: 8px;
-                        border-radius: 0px;
-                        font: 10pt "Montserrat";''')
-
-        else:
-            cod_inserido.setStyleSheet('''
-                        background-color: rgba(0, 0 , 0, 0);
-                        border: 2px solid rgba(0,0,0,0);
-                        border-bottom-color: rgb(255, 17, 49);;
-                        color: rgb(0,0,0);
-                        padding-bottom: 8px;
-                        border-radius: 0px;
-                        font: 10pt "Montserrat";''')
-
-    def AtualizaTabelaVendas(self):
-        cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
-        banco_vendas = cursor.fetchall()
-
-        row = 0
-
-        self.ui.tabela_vendas.setRowCount(len(banco_vendas))
-        self.ui.tabela_vendas.clear()
-
-        colunas = ['Item', 'Cód', 'Produto', 'Valor Unitário', 'Qtde', 'Total']
-        self.ui.tabela_vendas.setHorizontalHeaderLabels(colunas)
-
-        for venda in banco_vendas:
-
-            valor_unitario = lang.toString(int(venda[2]) * 0.01, 'f', 2)
-            total = lang.toString(int(venda[4]) * 0.01, 'f', 2)
-
-            self.ui.tabela_vendas.setItem(row, 0, QTableWidgetItem(f'{venda[5]}'))
-            self.ui.tabela_vendas.setItem(row, 1, QTableWidgetItem(venda[0]))
-            self.ui.tabela_vendas.setItem(row, 2, QTableWidgetItem(venda[1]))
-            self.ui.tabela_vendas.setItem(row, 3, QTableWidgetItem('R$ ' + valor_unitario))
-            self.ui.tabela_vendas.setItem(row, 4, QTableWidgetItem(venda[3]))
-            self.ui.tabela_vendas.setItem(row, 5, QTableWidgetItem('R$ ' + total))
-
-            row += 1
-
+    # Atualiza Total
     def AtualizaTotal(self):
 
         cursor.execute('SELECT * FROM vendas')
@@ -2395,6 +2554,7 @@ class FrmColaborador(QMainWindow):
         self.ui.lbl_total_valor.setText(f'{total}')
         self.Troco()
 
+    # Excluir Vendas e Produtos
     def ExcluirVenda(self):
         id = self.ui.tabela_vendas.currentRow()
         print(id)
@@ -2432,280 +2592,30 @@ class FrmColaborador(QMainWindow):
         self.AtualizaTotal()
         self.AtualizaTabelasProdutos()
 
-    def Troco(self):
-        cursor.execute('SELECT * FROM vendas')
-        banco_vendas = cursor.fetchall()
+    def ExcluirProdutos(self):
 
-        troco_desejado = self.ui.line_troco.text()
-        if troco_desejado.isnumeric() == True:
-            vendas = list()
-            vendas.clear()
+        id = self.ui.tabela_produto.currentRow()
 
-            for venda in banco_vendas:
-                vendas.append(int(venda[4]))
-
-            troco = int(troco_desejado) - sum(vendas)
-            self.ui.lbl_troco.setText(f'{lang.toString(int(troco) * 0.01, "f", 2)}')
-
-    def AtualizaCompleterSearchVendas(self):
-        global search_monitoramento
-
-        cursor.execute('SELECT * FROM monitoramento_vendas')
-        banco_monitoramento = cursor.fetchall()
-
-        search_monitoramento.clear()
-
-        for venda in banco_monitoramento:
-            if venda[0] not in search_monitoramento:
-                search_monitoramento.append(venda[0])
-
-            if venda[1] not in search_monitoramento:
-                if venda[1] != 'Não Informado':
-                    search_monitoramento.append(venda[1])
-            search_monitoramento.append(venda[4])
-
-        self.completer = QCompleter(search_monitoramento)
-        self.completer.setCaseSensitivity(Qt.CaseInsensitive)
-
-        self.ui.line_search_bar_monitoramentoto.setCompleter(self.completer)
-
-    def CadastrandoVendas(self):
-
-        global search_produtos, StyleError, StyleNormal
-
-        cursor.execute("SELECT * FROM produtos")
+        cursor.execute('SELECT * FROM produtos')
         banco_produtos = cursor.fetchall()
 
-        produtoInserido = self.ui.line_codigo_vendas
-        qtde = self.ui.line_quantidade_vendas
-        desconto = self.ui.line_desconto_vendas
-        NomeProduto = ''
-
-        ProdutoNoBanco = False
-        QuantidadeMenorQueEstoque = False
-        DescontoOk = False
-        ValorUnitario = 0
-
         for pos, produto in enumerate(banco_produtos):
+            if pos == id:
+                cursor.execute(f'DELETE FROM produtos WHERE cód_produto = "{produto[0]}"')
+                banco.commit()
 
-            if produtoInserido.text() == produto[0]:
-                ProdutoNoBanco = True
-                produtoInserido.setStyleSheet(StyleNormal)
-                if qtde.text().isnumeric() == True:
-                    if int(produto[3]) >= int(qtde.text()) and int(qtde.text()) > 0:
-                        QuantidadeMenorQueEstoque = True
-                        qtde.setStyleSheet(StyleNormal)
+                self.AtualizaTabelasProdutos()
+                self.AtualizaCompleterSearchProdutos()
 
-                        ValorUnitario = produto[2]
-                        NomeProduto = produto[1]
-                        TotalQtde = int(produto[3]) - int(qtde.text())
-                        cursor.execute(f"UPDATE produtos SET qtde_estoque = '{TotalQtde}' WHERE cód_produto = '{produto[0]}'")
-
-                    else:
-                        qtde.setStyleSheet(StyleError)
-                else:
-                    qtde.setStyleSheet(StyleError)
-
-                break
-            else:
-                produtoInserido.setStyleSheet(StyleError)
-
-        if desconto.text().isnumeric():
-            DescontoOk = True
-
-        if ProdutoNoBanco == True and QuantidadeMenorQueEstoque == True and DescontoOk == True:
-            cursor.execute('SELECT MAX(id) FROM vendas')
-            ultimo_id = cursor.fetchone()
-
-            for id_antigo in ultimo_id:
-                if id_antigo == None:
-                    id = 0
-                else:
-                    id = int(id_antigo) + 1
-
-            valor = f'0.{desconto.text()}'
-            valorTotal = int(ValorUnitario) * int(qtde.text())
-            descontoTotal = int(valorTotal) * float(valor)
-            comando_SQL = 'INSERT INTO vendas VALUES (%s,%s,%s,%s,%s,%s)'
-            dados = f'{produtoInserido.text()}', f'{NomeProduto}', f'{ValorUnitario}', f'{qtde.text()}', f'{int(valorTotal) - int(descontoTotal)}', f'{id}'
-            cursor.execute(comando_SQL, dados)
-
-            self.AtualizaTotal()
-            self.AtualizaTabelasProdutos()
-            self.AtualizaTabelaVendas()
-
-    def FinalizarVendas(self):
-        cursor.execute('SELECT * FROM vendas')
-        banco_vendas = cursor.fetchall()
-
-        cursor.execute('SELECT * FROM quem_vendeu_mais')
-        banco_quem_mais_vendeu = cursor.fetchall()
-
-        if len(banco_vendas) > 0:
-            tempoAtual = QTime.currentTime()
-            tempoTexto = tempoAtual.toString('hh:mm:ss')
-            data_atual = datetime.date.today()
-            dataTexto = data_atual.strftime('%d/%m/%Y')
-
-            qtde_vendido = list()
-            totalVenda = list()
-            vendedor = UserLogado
-            clienteInserido = self.ui.line_cliente
-            cliente = ''
-            data_hora = f'{dataTexto} / {tempoTexto}'
-
-            if clienteInserido.text() in search_clientes:
-                cliente = clienteInserido.text()
-            else:
-                cliente = 'Não Informado'
-
-            for venda in banco_vendas:
-                qtde_vendido.append(int(venda[3]))
-                totalVenda.append(int(venda[4]))
-
-            comando_SQL = 'INSERT INTO monitoramento_vendas VALUES (%s,%s,%s,%s,%s)'
-            dados = f'{vendedor}', f'{cliente}', f'{sum(qtde_vendido)}', f'{sum(totalVenda)}', f'{data_hora}'
-            cursor.execute(comando_SQL, dados)
-
-            colaboradores = list()
-            for colaborador in banco_quem_mais_vendeu:
-                colaboradores.append(colaborador[0])
-
-                if colaborador[0] == vendedor:
-                    cursor.execute(f'UPDATE quem_vendeu_mais set total_qtde = {int(colaborador[1]) + int(sum(qtde_vendido))} WHERE nome = "{vendedor}"')
-
-            if vendedor not in colaboradores:
-                comando_SQL = 'INSERT INTO quem_vendeu_mais VALUES (%s,%s)'
-                dados = f'{vendedor}', f'{sum(qtde_vendido)}'
-                cursor.execute(comando_SQL, dados)
-
-        cursor.execute('DELETE FROM vendas')
-        self.AtualizaTabelaVendas()
-        self.AtualizaTotal()
-        self.AtualizaTabelaMonitoramentoVendas()
-        self.AtualizaCompleterSearchVendas()
-
-        self.ui.line_codigo_vendas.clear()
-        self.ui.line_cliente.clear()
-        self.ui.line_quantidade_vendas.clear()
-        self.ui.line_desconto_vendas.clear()
-        self.ui.lbl_troco.setText('0,00')
-        self.ui.line_cliente.setStyleSheet(StyleNormal)
-        self.ui.line_search_bar_vendas.clear()
-        self.ui.line_troco.clear()
-        self.ui.line_desconto_vendas.setStyleSheet(StyleNormal)
-        self.ui.line_codigo_vendas.setStyleSheet(StyleNormal)
-        self.ui.line_quantidade_vendas.setStyleSheet(StyleNormal)
-
-    def ConfirmarCliente(self):
-        global search_clientes
-
-        cliente = self.ui.line_cliente
-
-        if cliente.text() in search_clientes:
-            cliente.setStyleSheet(
-                '''
-                background-color: rgba(0, 0 , 0, 0);
-                border: 2px solid rgba(0,0,0,0);
-                border-bottom-color: rgb(15, 168, 103);
-                color: rgb(0,0,0);
-                padding-bottom: 8px;
-                border-radius: 0px;
-                font: 10pt "Montserrat";'''
-            )
-        else:
-            cliente.setStyleSheet('''
-                                background-color: rgba(0, 0 , 0, 0);
-                                border: 2px solid rgba(0,0,0,0);
-                                border-bottom-color: rgb(255, 17, 49);
-                                color: rgb(0,0,0);
-                                padding-bottom: 8px;
-                                border-radius: 0px;
-                                font: 10pt "Montserrat";''')
-
-    def FormataCPFClientes(self, pg):
-
-        if pg == 'Cadastrar':
-            CPF = self.ui.line_cpf_cadastrar_clientes
-        if pg == 'Alterar':
-            CPF = self.ui.line_alterar_cpf_cliente
-        if pg == 'Vendas':
-            CPF = self.ui.line_cliente
-
-        TextoInserido = CPF.text()
-        TamanhoDoTexto = len(CPF.text())
-
-        if TamanhoDoTexto == 3 and TextoInserido.isnumeric() == True:
-            CPF.setText(f'{TextoInserido}.')
-        if TamanhoDoTexto == 7 and TextoInserido[4:].isnumeric() == True:
-            CPF.setText(f'{TextoInserido}.')
-        if TamanhoDoTexto == 11 and TextoInserido[8:].isnumeric() == True:
-            CPF.setText(f'{TextoInserido}-')
-
-    def AtualizaCompleterSearchClientes(self):
-        global search_clientes
-
-        cursor.execute('SELECT * FROM clientes')
-        banco_clientes = cursor.fetchall()
-
-        search_clientes.clear()
-
-        for clientes in banco_clientes:
-            search_clientes.append(clientes[0])
-            search_clientes.append(clientes[1])
-
-        self.completer = QCompleter(search_clientes)
-        self.completer.setCaseSensitivity(Qt.CaseInsensitive)
-
-        self.ui.line_search_Bar_clientes.setCompleter(self.completer)
-        self.ui.line_search_Bar_alterar_clientes.setCompleter(self.completer)
-        self.ui.line_search_Bar_cadastrar_clientes.setCompleter(self.completer)
-        self.ui.line_cliente.setCompleter(self.completer)
-
-    def AtualizaTabelaMonitoramentoVendas(self):
-        cursor.execute('SELECT * FROM monitoramento_vendas')
-        banco_monitoramento = cursor.fetchall()
-
-        self.ui.tabela_monitoramento.clear()
-
-        row = 0
-
-        self.ui.tabela_monitoramento.setRowCount(len(banco_monitoramento))
-
-        colunas = ['Vendedor', 'Cliente', 'Qtde Vendido', 'Total Venda', 'Data/horário']
-        self.ui.tabela_monitoramento.setHorizontalHeaderLabels(colunas)
-
-        for venda in banco_monitoramento:
-            total_venda = lang.toString(int(venda[3]) * 0.01, 'f', 2)
-
-            self.ui.tabela_monitoramento.setItem(row, 0, QTableWidgetItem(venda[0]))
-            self.ui.tabela_monitoramento.setItem(row, 1, QTableWidgetItem(venda[1]))
-            self.ui.tabela_monitoramento.setItem(row, 2, QTableWidgetItem(venda[2]))
-            self.ui.tabela_monitoramento.setItem(row, 3, QTableWidgetItem('R$ ' + total_venda))
-            self.ui.tabela_monitoramento.setItem(row, 4, QTableWidgetItem(venda[4]))
-            row += 1
-
-    def Futuro(self):
-        global futuroTexto
-        atual = datetime.datetime.now()
-
-        futuro = atual + datetime.timedelta(minutes=1)
-        futuroTexto = futuro.time().strftime('%H:%M:%S')
-
-    def Sair(self):
-        global futuroTexto
-        tempoAtual = QTime.currentTime()
-        tempoTexto = tempoAtual.toString('hh:mm:ss')
-
-        if self.ui.checkBox_finalizar_app.isChecked() == True:
-            if tempoTexto == futuroTexto:
-                sys.exit()
 
 if __name__ == '__main__':
+    # Carregando Planilha
     wb = load_workbook('Base xls.xlsx')
+
     # Variáveis Globais
     futuroTexto = ''
 
+    # Clique dos botões de ver senha
     click_cadastro_colaboradores = 0
     click_alterar_colaboradores = 0
 
@@ -2723,14 +2633,17 @@ if __name__ == '__main__':
     search_monitoramento = list()
     search_vendas = list()
 
+    # Lista das Vendas
     vendas = list()
 
+    # Conversção para moeda real (R$)
     loc = QLocale.system().name()
     lang = QLocale(loc)
 
     # Var para pegar o nome de quem logou
     UserLogado = None
 
+    # Estilo de Erro e Padrão
     StyleError = '''
                background-color: rgba(0, 0 , 0, 0);
                border: 2px solid rgba(0,0,0,0);
