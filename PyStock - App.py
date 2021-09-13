@@ -1,5 +1,4 @@
 import os
-import signal
 import sys
 import time
 import mysql.connector
@@ -9,7 +8,6 @@ import openpyxl.drawing.image
 from tkinter.filedialog import askdirectory
 from tkinter import Tk
 
-import pygame.time
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -82,8 +80,6 @@ class FrmLogin(QMainWindow):
                                                  'border-bottom-color: rgb(159, 63, 250);color: rgb(0,0,0);padding-bottom: 8px;'
                                                  'border-radius: 0px;font: 10pt "Montserrat";')
                 if login[2] == 'admin':
-                    print('Seu nivel de Login é: Admin')
-
                     window.close()
                     window = FrmAdmin()
                     window.show()
@@ -573,7 +569,7 @@ class FrmAdmin(QMainWindow):
         global futuroTexto
         atual = datetime.datetime.now()
 
-        futuro = atual + datetime.timedelta(minutes=1)
+        futuro = atual + datetime.timedelta(minutes=20)
         futuroTexto = futuro.time().strftime('%H:%M:%S')
 
     def Sair(self):
@@ -1318,8 +1314,6 @@ class FrmAdmin(QMainWindow):
             if id == pos:
                 deletar_user = user[0]
 
-        print(deletar_user)
-
         cursor.execute(f'DELETE FROM login WHERE usuario = "{deletar_user}"')
         banco.commit()
 
@@ -1379,7 +1373,7 @@ class FrmAdmin(QMainWindow):
 
     def ExcluirVenda(self):
         id = self.ui.tabela_vendas.currentRow()
-        print(id)
+
         if id != - 1:
             cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
             banco_vendas = cursor.fetchall()
@@ -1892,7 +1886,7 @@ class FrmColaborador(QMainWindow):
         global futuroTexto
         atual = datetime.datetime.now()
 
-        futuro = atual + datetime.timedelta(minutes=1)
+        futuro = atual + datetime.timedelta(minutes=20)
         futuroTexto = futuro.time().strftime('%H:%M:%S')
 
     def Sair(self):
@@ -2557,7 +2551,7 @@ class FrmColaborador(QMainWindow):
     # Excluir Vendas e Produtos
     def ExcluirVenda(self):
         id = self.ui.tabela_vendas.currentRow()
-        print(id)
+
         if id != - 1:
             cursor.execute('SELECT * FROM vendas ORDER BY id ASC')
             banco_vendas = cursor.fetchall()
