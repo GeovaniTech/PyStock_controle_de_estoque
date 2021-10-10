@@ -1,6 +1,6 @@
 # PyStock - O melhor gerenciador de Estoque
 
-> Status: Em desenvolvimento ⚠️
+> Status: Finalizado✔️
 
 ### O PyStock é um software com o intuito de fazer controle de estoques.
 
