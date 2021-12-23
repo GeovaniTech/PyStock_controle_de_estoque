@@ -10,6 +10,9 @@
 + MySql
 + Qt Designer
 
+## Aprensentação do Projeto
+Link: https://bit.ly/PyStockVideo
+
 ## Telas:
 
 ### Login
