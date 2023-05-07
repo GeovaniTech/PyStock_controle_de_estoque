@@ -21,6 +21,7 @@
 ![image](https://user-images.githubusercontent.com/84943777/236705282-cd02f5d4-0ee8-4a11-8ae1-e40861f7eeb6.png)
 
 4# Configurar porta que está rodando o banco de dados do WampServer (Geralmente 3306/3307)
+
 ![image](https://user-images.githubusercontent.com/84943777/236705354-46c358f9-2224-4c9a-baf4-ecb39e522c0c.png)
 
 5# Importar todas as dependências
